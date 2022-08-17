@@ -17,15 +17,19 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->tinyInteger('type')->default(0);
             /* Users: 0=>User, 1=>Admin, 2=>Manager */
             $table->string('password');
+            // $table->unsignedBigInteger('branch_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            // $table->foreign('branch_id')->references('id')->on('branches');
+
         });
     }
-
     /**
      * Reverse the migrations.
      *

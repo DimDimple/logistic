@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('login')
 
 @section('content')
     <section class='images/bg-title-01.jpg'>
@@ -39,12 +39,10 @@
                                     @enderror
                                 </div>
 
-                               
                                 <!-- Password input -->
                                 <div class="form-outline mb-3">
                                     <input id="password" type="password" placeholder="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                       
+                                        class="form-control @error('password') is-invalid @enderror" name="password"    
                                         required autocomplete="current-password">
                                   
                                     <label class="form-label" for="form3Example4">{{ __('') }}</label>

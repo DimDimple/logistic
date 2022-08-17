@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
         'type'
     ];
 
@@ -49,4 +50,11 @@ class User extends Authenticatable
             get: fn ($value) =>  ["user", "admin", "manager"][$value],
         );
     }
+
+    public function branches()
+    {
+        return $this->hasMany(Branch::class);
+    }
+
+
 }

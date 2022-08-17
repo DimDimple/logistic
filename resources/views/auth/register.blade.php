@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('login')
 
 @section('content')
     <section class="vh-100" style="background-color: #FFEACF;">

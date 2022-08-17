@@ -12,9 +12,11 @@ class Package extends Model
         'sender_phone',
         'receiver_phone',
         'package_value',
-        'quantity',
+        'quantity', 
+        'departure',
+        'destination',
         'package_type',
         'addi_infor',
-        'shipping'
+        'shipping',
     ];
 }

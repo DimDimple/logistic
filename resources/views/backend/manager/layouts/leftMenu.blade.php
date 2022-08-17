@@ -54,7 +54,7 @@
                         <span>Forms</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="/manager/fillUser">Information User</a></li>
+                        <li><a href="/manager/packages">Fill User</a></li>
                         <li><a href="/manager/print">Print</a></li>
                     </ul>
                 </li>
@@ -74,9 +74,9 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="/manager/manageParcels" class="waves-effect">
+                    <a href="/manager/managePackage" class="waves-effect">
                         <i class='bx bx-package'></i>
-                        <span>Manage Parcels</span>
+                        <span>Manage Packages</span>
                     </a>
                 </li>
                 <li>

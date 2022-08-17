@@ -1422,9 +1422,8 @@ body[data-sidebar=colored] .menu-title {
     color: #d6dae5;
     background: 0 0
 }
-
 .topnav .navbar-nav .nav-item .nav-link.active {
-    color: #d6dae5
+    color: #d6dae5;
 }
 
 .topnav .navbar-nav .dropdown.active>a {

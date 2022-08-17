@@ -15,7 +15,10 @@ class PackageController extends Controller
      */
     public function index()
     {
-        //
+        $packages = Package::latest()->paginate(5);
+
+        return view('backend.manager.page.packages.index', compact('packages'))
+        ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -25,7 +28,7 @@ class PackageController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.manager.page.packages.create');
     }
 
     /**
@@ -36,7 +39,20 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'sender_phone' => 'required',
+            'receiver_phone' => 'required',
+            'package_value' => 'required',
+            'quantity' => 'required',
+            'departure' => 'required',
+            'destination' => 'required',
+            'package_type' => 'required',
+            'shipping' => 'required',
+        ]);
+        Package::create($request->all());
+
+        return redirect()->route('packages.index')
+        ->with('success', 'Package created successfully.');
     }
 
     /**
@@ -58,7 +74,7 @@ class PackageController extends Controller
      */
     public function edit(Package $package)
     {
-        //
+        return view('backend.manager.page.packages.edit',compact('package'));
     }
 
     /**
@@ -70,7 +86,19 @@ class PackageController extends Controller
      */
     public function update(Request $request, Package $package)
     {
-        //
+        $request->validate([
+            'sender_phone' => 'required',
+            'receiver_phone' => 'required',
+            'package_value' => 'required',
+            'quantity' => 'required',
+            'destination' => 'required',
+            'package_type' => 'required',
+            'shipping' => 'required',
+        ]);
+        $package->update($request->all());
+
+        return redirect()->route('packages.index')
+        ->with('success', 'Package updated successfully.');
     }
 
     /**
@@ -81,6 +109,9 @@ class PackageController extends Controller
      */
     public function destroy(Package $package)
     {
-        //
+        $package->delete();
+
+        return redirect()->route('packages.index')
+        ->with('success','Package deleted successfully');
     }
 }

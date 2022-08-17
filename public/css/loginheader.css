@@ -1,0 +1,6 @@
+.navbar-nav .nav.item .nav-link{
+    background-color: #fa3030;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}

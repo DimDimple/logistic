@@ -16,9 +16,9 @@
     <!-- jquery.vectormap css -->
     <link href={{ asset('assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }} rel="stylesheet"
         type="text/css" />
-
+  
     <!-- Bootstrap Css -->
-    <link href={{ asset('assets/css/bootstrap.min.css') }} id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href={{ asset('assets/css/bootstrap.min.css') }} id="bootstrap-style" rel="stylesheet" type="text/css" type="text/css" />
     <!-- Icons Css -->
     <link href={{ asset('assets/css/icons.min.css') }} rel="stylesheet" type="text/css" />
     <!-- App Css-->
@@ -42,7 +42,7 @@
         <div class="main-content">
             <div class="page-content">
                 <div class="container-fluid">
-                    @yield('contents')
+                    @yield('content')
                 </div>
             </div>
         </div>
@@ -80,16 +80,6 @@
     <div class="rightbar-overlay"></div>
 
     <!-- JAVASCRIPT -->
-
-    <!--get value when we complete form user and send to summary.-->
-    <script>
-        function getInputValue() {
-            // Selecting the input element and get its value 
-            let inputVal = document.getElementsByClassName("inputId")[0].value;
-            // Displaying the value
-            alert(inputVal);
-        }
-    </script>
 
     <script src={{ asset('assets/libs/jquery/jquery.min.js') }}></script>
     <script src={{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}></script>

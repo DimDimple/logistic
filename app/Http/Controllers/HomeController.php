@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('frontend.home');
     }
 
     /**
@@ -33,7 +33,7 @@ class HomeController extends Controller
      */
     public function adminHome()
     {
-        return view('adminHome');
+        return view('backend.admin.adminDashboard');
     }
    
     /**

@@ -1,13 +1,10 @@
 @extends('backend.manager.layouts.dashboard')
-@section('contents')
+@section('content')
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
-
-
-
 
     <!-- start page title -->
     <div class="row">
