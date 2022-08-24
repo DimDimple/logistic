@@ -1,91 +1,94 @@
 @extends('backend.manager.layouts.dashboard')
 
 @section('content')
-    <div class="row justify-content-center" style="margin: 2% 4%">
+    <div class="row">
         <div class="col-12">
-            <h2 class="mb-0">Fill User</h2>
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0">Package</h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <a href="http://dmgo.express/manager/packages/create">Create</a>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <h1 class="card-title">List Package</h1>
                     @if ($message = Session::get('success'))
                         <div class="alert bg-light text-dark" style="height:45px">
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-
-                    <div class="text-right" style="padding: 20px font-size: 2em">
-                        <a type="button" class="btn btn-primary float-end" href="/manager/packages/create">
-                            Create New Package</a>
+                    <div class="form-outline" style="width:20%; display:flex">
+                        <input type="search" class="form-control" id="datatable-search-input" style=" margin-top:3%"
+                            placeholder="Search">
                     </div>
 
-
-                    <table id="selection-datatable" class="table dt-responsive nowrap w-100">
-                        <thead class="table-light">
-                            <tr>
-                                <th class="text-center">No</th>
-                                <th class="text-center">Sender Phone Number</th>
-                                <th class="text-center">Receiver Phone Number</th>
-                                <th class="text-center">Package Value</th>
-                                <th class="text-center">Quantity</th>
-                                <th class="text-center">Shipping</th>
-                                <th class="text-center">Actions</th>
-
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap"
+                        style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Reference Number</th>
+                                <th>Sender Phone Number</th>
+                                <th>Receiver Phone Number</th>
+                              
+                                <th>Status</th>
+                                <th>Payment Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
 
 
                         <tbody>
-                            @foreach ($packages as $package)
-                                <tr>
-                                    <td class="text-center">{{ ++$i }}</td>
-                                    <td class="text-center">{{ $package->sender_phone }}</td>
-                                    <td class="text-center">{{ $package->receiver_phone }}</td>
-                                    <td class="text-center">{{ $package->package_value }} $ </td>
-                                    <td class="text-center">{{ $package->quantity }}</td>
-                                    <td class="text-center">{{ $package->shipping }} $ </td>
-                                    <td class="text-center">
-                                        <form action="{{ route('packages.destroy', $package->id) }}" method="POST">
+                            @foreach ($packages as $key => $package)
+                                <tr class="text-center">
+                                    <td>{{ ++$key }}</td>
+                                    <td>{{ $package->sender_phone }}</td>
+                                    <td>{{ $package->receiver_phone }}</td>
+                                    
+                                    <td>{{ $package->status }}</td>
+                                    {{-- @if ($package->pay_status == 'Paid')
+                                        <td>
+                                            <a href="{{ route('updatepaystatus', $package->id) }}"
+                                                class="badge rounded-pill bg-success"
+                                                style="font-size:1.1em">{{ $package->pay_status }}</a>
+                                        </td>
+                                    @else
+                                        <td>
+                                            <a href="{{ route('updatepaystatus', $package->id) }}"
+                                                class="badge rounded-pill bg-danger"
+                                                style="font-size:1.1em">{{ $package->pay_status }}</a>
+                                        </td>
+                                    @endif --}}
+                                    {{-- <td class="text-center">
+                                    <form action="{{ route('packages.destroy', $package->id) }}" method="POST">
 
-                                            <a class="btn btn-success btn-rounded waves-effect waves-light"
-                                                href="{{ route('packages.show', $package->id) }}">Detail</a>
+                                        <a class="btn btn-success btn-rounded waves-effect waves-light"
+                                            href="{{ route('packages.show', $package->id) }}">Detail</a>
 
-                                            <a class="btn btn-info btn-rounded waves-effect waves-light"
-                                                href="{{ route('packages.edit', $package->id) }}">Edit</a>
+                                        <a class="btn btn-info btn-rounded waves-effect waves-light"
+                                            href="{{ route('packages.edit', $package->id) }}">Edit</a>
 
-                                            @csrf
-                                            @method('DELETE')
+                                        @csrf
+                                        @method('DELETE')
 
-                                            <button type="submit"
-                                                class="btn btn-danger btn-rounded waves-effect waves-light">Delete</button>
-                                        </form>
-                                    </td>
+                                        <button type="submit"
+                                            class="btn btn-danger btn-rounded waves-effect waves-light">Delete</button>
+                                    </form>
+                                </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    {{-- <div class="float-end">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div> --}}
-                    {{ $packages->links() }}
-                </div> <!-- end card body-->
-            </div> <!-- end card -->
-        </div><!-- end col-->
-    </div>
+
+                </div>
+            </div>
+        </div> <!-- end col -->
+    </div> <!-- end row -->
 @endsection

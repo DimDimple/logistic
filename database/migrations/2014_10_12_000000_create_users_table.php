@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            // $table->unsignedBigInteger('branch_id')->nullable();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->unique()->nullable();
@@ -25,10 +26,10 @@ return new class extends Migration
             // $table->unsignedBigInteger('branch_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
-
             // $table->foreign('branch_id')->references('id')->on('branches');
 
         });
+
     }
     /**
      * Reverse the migrations.

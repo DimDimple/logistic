@@ -7,6 +7,7 @@ use App\Models\Branch;
 use App\Models\Location;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Auth;
 
 class BranchController extends Controller
 {
@@ -17,11 +18,13 @@ class BranchController extends Controller
      */
     public function index()
     {
-        $users = User::get();
+       
+        $Branches = Branch::get();
         $branches = Branch::paginate(5);
-        return view('backend.admin.branches.index', compact('branches', 'users'));
+        // $branch = Branch::find(3);
+        // dd($branch->user);
+        return view('backend.admin.branches.index', compact('branches'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -32,6 +35,7 @@ class BranchController extends Controller
     {
         $users = User::get();
         $locations = Location::get();
+        
         return view('backend.admin.branches.create', compact('locations'));
     }
 
@@ -43,54 +47,73 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-
-
         //user
+
+        if(Auth::user()->type == 'admin'){
+            $type=2;
+
+        } else{
+            $type=0;
+        }
+        
         $request->validate([
 
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
             'phone' => 'required',
+           
         ]);
-
-        $id = User::create([
+        $savedUser = User::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
             'phone' => $request['phone'],
+            'type' => (int)$type,
         ]);
-        // $id =  User::create($request->all());
-        $user = User::find($id->id);
-        $user->update(['type' => 2]);
+
+        if (!$savedUser) {
+            abort(503);
+        }
+
+        $saveBranch = $savedUser->branches()->create(
+            [
+                'b_name' => $request->b_name,
+                'user_id' => (int)$request->user_id,
+                'location_id' => (int)$request->location_id,
+                'status' => $request->status,
+            ]
+        );
+
+        if (!$saveBranch) {
+            abort(503);
+        }
 
 
-        Branch::create([
-            'b_name' => $request->b_name,
-            'user_id' => (int)$id->id,
-            'location_id' => (int)$request->location_id,
-            'status' => $request->status,
-        ]);
-        //all
-        // dd($request);
-        // $request->validate([
 
-        //     'name' => 'required',
-        //     'email' => 'required',
-        //     'password' => 'required',
-        //     'phone' => 'required',
-        //     'b_name' => 'required',
-        //     'location_id' => 'required',
-        //     'status' => 'required',
-
+        // $savedBranch = Branch::create([
+        //     'b_name' => $request->b_name,
+        //     // 'user_id' => (int)$request->user_id,
+        //     'location_id' => (int)$request->location_id,
+        //     'status' => $request->status,
         // ]);
-        //dd($request);
-        // Branch::create($request->all());
 
-        // User::create($request->name,
-        //                 $request->email,
-        //                 $request->phone,
-        //                 $request->password);
+        // if (! $savedBranch) {
+        //     abort(503);
+        // }
+
+        // $saveUser = $savedBranch->users()->create(
+        //     [
+        //         'name' => $request['name'],
+        //         'email' => $request['email'],
+        //         'password' => Hash::make($request['password']),
+        //         'phone' => $request['phone'],
+        //     ]
+        // );
+
+        // if (! $saveUser) {
+        //     abort(503);
+        // }
 
         return redirect()->route('branch.index')
             ->with('success', 'Branch created successfully.');
@@ -132,7 +155,7 @@ class BranchController extends Controller
 
         User::find();
         $user = $request->validate([
-            'name'=> 'required',
+            'name' => 'required',
         ]);
         $branch->update($user);
 

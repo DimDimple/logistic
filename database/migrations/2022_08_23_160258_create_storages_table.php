@@ -13,11 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('locations', function (Blueprint $table) {
+        Schema::create('storages', function (Blueprint $table) {
             $table->id();
-            $table->string('province')->unique();
-            $table->string('address');
+            $table->float('package_price', 8,2);
+            $table->integer('quantity');
+            $table->string('package_type');
+            $table->float('fee',8,2);
+            $table->string('message');
             $table->timestamps();
+          
         });
     }
 
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('storages');
     }
 };

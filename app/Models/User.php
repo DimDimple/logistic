@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function branches()
     {
-        return $this->hasMany(Branch::class);
+        return $this->hasOne(Branch::class);
     }
 
 

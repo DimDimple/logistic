@@ -11,12 +11,17 @@ class Package extends Model
     protected $fillable=[
         'sender_phone',
         'receiver_phone',
-        'package_value',
-        'quantity', 
-        'departure',
-        'destination',
-        'package_type',
-        'addi_infor',
-        'shipping',
+        'departure_id',
+        'destination_id',
+        'status',
+        'pay_status',
+       
     ];
+
+    public function goods()
+    {
+        return $this->hasMany(Goods::class);
+    }
+
+
 }

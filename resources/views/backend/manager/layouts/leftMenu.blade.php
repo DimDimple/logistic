@@ -38,7 +38,7 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="/manager/dashboard" class="waves-effect">
+                    <a href="/manager" class="waves-effect">
                         <i class="ri-home-gear-line"></i>
                         <span>Dashboard</span>
                     </a>
@@ -49,42 +49,51 @@
 
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
-                        <i class="ri-eraser-fill"></i>
+                        <i class='bx bx-package'></i>
                         <span class="badge rounded-pill bg-danger float-end">2</span>
-                        <span>Forms</span>
+                        <span>Form Package</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="/manager/packages">Fill User</a></li>
-                        <li><a href="/manager/print">Print</a></li>
+                        <li><a href= {{ route('packages.create') }}>Add Package</a></li>
+                        <li><a href="/manager/packages">Record</a></li>
                     </ul>
                 </li>
 
 
                 <li class="menu-title">Components</li>
                 <li>
-                    <a href="javascript: void(0);" class="waves-effect">
-                        <i class='bx bxs-user-account'></i>
-                        <span class="badge rounded-pill bg-danger float-end">2</span>
-                        <span>Manage User</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="/manager/user">User</a></li>
-                        <li><a href="/manager/customer">Customer</a></li>
-
-                    </ul>
-                </li>
-                <li>
-                    <a href="/manager/managePackage" class="waves-effect">
-                        <i class='bx bx-package'></i>
-                        <span>Manage Packages</span>
+                    <a href="/manager/employee" class="waves-effect">
+                        <i class='bx bxs-user-detail' ></i>         
+                        <span>Branch Employee</span>
                     </a>
                 </li>
                 <li>
                     <a href="/manager/tracking" class="waves-effect">
-                        <i class='bx bx-current-location'></i>
+                        <i class='bx bx-search-alt'></i>
                         <span>Tracking</span>
                     </a>
                 </li>
+
+               
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class='bx bxs-user-account'></i>
+                        <span class="badge rounded-pill bg-danger float-end">2</span>
+                        <span>Packages</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="/manager/packageType">Package Type</a></li>
+                        <li><a href="/manager/itermAccepted">Order Cofirmed</a></li>
+                        <li><a href="/manager/collected">Picked By Courier</a></li>
+                        <li><a href="/manager/shipped">On The Way</a></li>
+                        <li><a href="/manager/pickUp">Pick Up</a></li>
+
+                    </ul>
+                </li>
+               
+                
+               
+
 
             </ul>
         </div>

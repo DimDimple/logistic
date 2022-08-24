@@ -15,7 +15,7 @@ class LocationController extends Controller
     {
 
         $locations = Location::latest()->paginate(5);
-
+     
         return view('backend.admin.locations.index', compact('locations'));
     }
 
@@ -25,7 +25,8 @@ class LocationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    { 
+       
         return view('backend.admin.locations.index');
     }
 
@@ -39,10 +40,11 @@ class LocationController extends Controller
     {
         $request->validate([
             'province' => 'required',
+            'address' => 'required',
         ]);
 
         Location::create($request->all());
-
+        
         return redirect()->route('location.index')
             ->with('success', 'Location created successfully.');
     }

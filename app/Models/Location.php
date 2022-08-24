@@ -10,6 +10,7 @@ class Location extends Model
     use HasFactory;
     protected $fillable = [
         'province',
+        'address',
     ];
 
     public function branches(){

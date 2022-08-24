@@ -1,4 +1,4 @@
-@extends('backend.admin.layouts.index')
+@extends('backend.manager.layouts.dashboard')
 
 @section('content')
     <div class="row justify-content-center">
@@ -8,13 +8,11 @@
                 <div class="card-body">
                     <div class="row">
                         {{-- <label for="firstname" class="col-sm-2 col-form-label">Last Name</label> --}}
-                        <form action="{{ route('location.store') }}" class="d-flex" method="POST" >
+                        <form action="{{ route('packageType.store') }}" class="d-flex" method="POST" >
                             @csrf
-                                <input class="form-control" type="text" id="province" name="province"
-                                    placeholder="Enter province or city" style="">
-                                <input class="form-control" type="text" id="address" name="address"
-                                    placeholder="address" style="margin-left:5px">
-                                <button type="submit" class="btn btn-primary btn-sm-rounded" style="margin-left:5px">Add Location</button>
+                                <input class="form-control" type="text" id="package_type" name="package_type"
+                                    placeholder="Enter package type" style="">
+                                <button type="submit" class="btn btn-primary btn-sm-rounded" style="margin-left:5px">Add Package Type</button>
                         </form>
                     </div>
                 </div>
@@ -23,7 +21,7 @@
                 <div class="card-body">
 
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h3 class="mb-0">List of locations</h3>
+                        <h3 class="mb-0">List of Package Type</h3>
 
                     </div>
                     @if ($message = Session::get('success'))
@@ -35,22 +33,23 @@
                         <thead class="table-light">
                             <tr>
                                 <th>#</th>
-                                <th>Province</th>
-                                <th>address</th>
+                                <th>Package Type</th>
+                                <th>Created</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach ($locations as $key => $location)
+                            @foreach ($package_types as $key => $package_type)
                                 <tr>
                                     
                                     <th scope="row">{{ ++$key }}</th>
                                     {{-- <td>{{ $location->id }}</td> --}}
-                                    <td>{{ $location->province }}</td>
-                                    <td>{{ $location->address }}</td>
+                                    <td>{{ $package_type->package_type}}</td>
+                                    <td>{{ $package_type->created_at->toDateString() }}</td>
+                                   
                                     <td>
-                                        <form action="{{ route('location.destroy', $location->id) }}" method="POST">
+                                        <form action="{{ route('packageType.destroy', $package_type->id) }}" method="POST">
 
                                             @csrf
                                             @method('DELETE')

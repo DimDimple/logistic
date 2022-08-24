@@ -12,7 +12,7 @@
     <meta content="Themesdesign" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
-
+  
     <!-- jquery.vectormap css -->
     <link href={{ asset('assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }} rel="stylesheet"
         type="text/css" />
@@ -48,10 +48,23 @@
         </div>
     </div>
 
-
-
-
     <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <script>document.write(new Date().getFullYear())</script> ©Dmgo Express, All Rights Reserved.
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end d-none d-sm-block">
+                        We make it by <i class="mdi mdi-heart text-danger"></i> by <a href="http://dmgo.express/manager" target="_blank">DimMeyDesign</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    {{-- <footer class="footer">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
@@ -67,7 +80,7 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer> --}}
 
     </div>
     <!-- end main content-->

@@ -6,10 +6,15 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\backend\PackageController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\frontend\EditProfileController;
+use App\Http\Controllers\backend\StorageController;
+
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\ManagerController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -99,9 +104,29 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
         return view('backend.manager.manager');
     });
     Route::resource('/manager/packages', PackageController::class);
+    // Route::resource('/manager/packageType', PackageTypeController::class);
+
+    // Route::get('manager/packages/status/{id}', [PackageController::class, 'updatePayStatus', 'updateStatus'])->name('updatepaystatus', 'updatestatus');
     Route::resource('/manager/user', UserController::class);
 
+    Route::resource('/manager/storage', StorageController::class);
 
+
+    // Route::get('/manager/create',function(){
+    //         return view('backend.manager.page.packages.create');
+    // });
+
+    // Route::get('/manager/goo', function () {
+    //     return view('backend.manager.page.goods.create');
+    // });
+
+    Route::get('/manager/pacakgePT', function () {
+        return view('backend.manager.page.packages.indexPT');
+    });
+
+    Route::get('/manager/employee', function () {
+        return view('backend.manager.page.staff.index');
+    });
     Route::get('/manager/customer', function () {
         return view('backend.manager.page.customer.index');
     });

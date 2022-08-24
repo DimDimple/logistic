@@ -1,59 +1,70 @@
 @extends('backend.manager.layouts.dashboard')
-
 @section('content')
-    <!-- start page title -->
-    <div class="row justify-content-center" style="margin-left: 8%">
-        <div class="col-12">
-            <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h2 class="mb-0 py-3">List All User</h2>
-            </div>
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0">Employee</h4>
         </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-10">
+</div>
+    <div class="row">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    @if ($message = Session::get('success'))
-                        <div class="alert bg-light text-dark" style="height:45px">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
-                    <table class="table table-editable table-nowrap align-middle table-edits">
-                        <thead class="table-light">
+                    <h1 class="card-title">List Employee in Branch</h1>
+                    <div class="form-outline" style="width:20%; display:flex"> 
+                        <input type="search" class="form-control" id="datatable-search-input" style=" margin-top:3%" placeholder="Search">
+                    </div>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" style="margin-left: 90%;margin-top:-3%"">Create Employee</button>
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap"
+                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
                             <tr>
-                                <th class="text-center">Employee ID</th>
-                                <th class="text-center">Branch ID</th>
-                                <th class="text-center">Name</th>
-                                <th class="text-center">Email</th>
-                                <th class="text-center">Position</th>
-                                <th class="text-center">Created Date</th>
-                                <th class="text-center">Update Date</th>
-                                <th class="text-center">Actions</th>
-
+                                <th>No</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Gender</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
+
+
                         <tbody>
-                            @foreach ($staff as $staff)
-                                <tr data-id="1">
-                                    <td class="text-center">{{ ++$i }}</td>
-                                    <td class="text-center">{{ $staff->name }}</td>
-                                    <td class="text-center">{{ $staff->email }}</td>
-                                    <td class="text-center">{{ $staff->type }}</td>
-                                    <td class="text-center">{{ $staff->created_at }}</td>
-                                    <td class="text-center">{{ $staff->updated_at }}</td>
-                                    <td class="text-center">
-                                        <form action="{{ route('user.destroy', $staff->id) }}" method="POST">
-                                            <a class="btn btn-info btn-rounded waves-effect waves-light"
-                                                href="{{ route('user.edit', $staff->id) }}">Edit</a>                                           
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
+                           <tr class="text-center">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td >
+                                {{-- <form action="{{ route('employeeBranch.destroy', $staff->id) }}" method="POST">
+
+                                    <a class="btn btn-success btn-rounded waves-effect waves-light"
+                                        href="{{ route('employeeBranch.show', $staff->id) }}">Detail</a>
+
+                                    <a class="btn btn-info btn-rounded waves-effect waves-light"
+                                        href="{{ route('employeeBranch.edit', $staff->id) }}">Edit</a>
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit"
+                                        class="btn btn-danger btn-rounded waves-effect waves-light">Delete</button>
+                                </form> --}}
+                            </td>
+
+                           </tr>
+
                         </tbody>
                     </table>
-                    {{ $staff->links() }}
+
                 </div>
             </div>
-        </div>
-    </div>
+        </div> <!-- end col -->
+    </div> <!-- end row -->
 @endsection

@@ -13,10 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('locations', function (Blueprint $table) {
+        Schema::create('employee_branches', function (Blueprint $table) {
             $table->id();
-            $table->string('province')->unique();
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->string('gender');
+            $table->string('email')->unique();
+            $table->string('phone')->unique();
             $table->string('address');
+            $table->date('dob');
+            $table->string('pob');
             $table->timestamps();
         });
     }
@@ -28,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('employee_branches');
     }
 };

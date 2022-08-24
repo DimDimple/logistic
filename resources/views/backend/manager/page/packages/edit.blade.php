@@ -42,54 +42,61 @@
                         <div class="row mb-4">
                             <div class="col">
                                 <div class="form-outline">
-                                    <input type="text" id="form7Example1" value="{{ $package->package_value }}" class="form-control" name="package_value"/>
-                                    <label class="form-label" for="form7Example1">Package Value</label>
+                                    <input type="text" id="form7Example1" value="{{ $package->package_price }}" class="form-control" name="package_price"/>
+                                    <label class="form-label" for="form7Example1">Package Price</label>
                                 </div>
                             </div>
+                            <div class="col">
+                                <div class="form-outline">
+                                    <select class="form-select" aria-label="Disabled select example" name="package_type">
+                                        <option selected>{{ $package_type }}</option>
+                                        <option value="Paperboard boxes">Paperboard boxes</option>
+                                        <option value="Plastic boxes">Plastic boxes</option>
+                                        <option value="Poly bags">Poly bags</option>
+                                        <option value="Foil sealed bags">Foil sealed bags</option>
+                                        <option value="Rigid boxes">Rigid boxes</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Select Province-->
+                        <div class="row mb-5">
+                            <div class="col">
+                                <select class="form-select" aria-label="Disabled select example" name="departure_id" >
+                                                 
+                                    {{-- @foreach ($branches as $branch)
+                                      {{-- <option value="{{ $branch->id }}">{{ $branch->b_name}}</option> --}}
+                                    {{-- @endforeach --}}
+                                    {{-- {{ $branch}} --}} --}}
+                                     <option value="{{ $branch->id }}">{{ $branch->b_name}}</option>
+                                    
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select class="form-select" aria-label="Disabled select example" name="destination_id">
+                                    <option selected value="{{ $destination->id }}">{{ $destination->b_name}}</option>
+                                    @foreach ($branches as $branchOne)
+                                        @if($branchOne->b_name!== $branch->b_name)
+                                        <option value="{{ $branchOne->id }}">{{ $branchOne->b_name}}</option>
+                                        @endif
+                                    @endforeach
+                                    
+                                </select>
+                            </div>
+                        </div>        
+                        <!-- Message input -->
+                        <div class="row mb-4">
                             <div class="col">
                                 <div class="form-outline">
                                     <input type="text" id="form7Example2" value="{{ $package->quantity}}" class="form-control" name="quantity" />
                                     <label class="form-label" for="form7Example2">Quantity</label>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Select Province-->
-                        <div class="form-outline mb-5">
-                            <select class="form-select" aria-label="Disabled select example" name="destination">
-                                <option selected>{{ $package->destination}}</option>
-                                <option value="Pnhom Penh">Pnhom Penh</option>
-                                <option value="Prey Veng">Prey Veng</option>
-                                <option value="Tboung Khmum">Tboung Khmum</option>
-                                <option value="Koh Kong">Koh Kong </option>
-                                <option value="Mondulkiri">Mondulkiri</option>
-                            </select>
-                        </div>
-
-                        <!-- Select Package item -->
-                        <div class="form-outline mb-5">
-
-                            <select class="form-select" aria-label="Disabled select example" name="package_type">
-                                <option selected>{{ $package->package_type }}</option>
-                                <option value="Paperboard boxes">Paperboard boxes</option>
-                                <option value="Plastic boxes">Plastic boxes</option>
-                                <option value="Poly bags">Poly bags</option>
-                                <option value="Foil sealed bags">Foil sealed bags</option>
-                                <option value="Rigid boxes">Rigid boxes</option>
-                            </select>
-                        </div>
-                        <!-- Message input -->
-                        <div class="row mb-4">
-                            <div class="col">
-                                <div class="form-outline mb-4">
-                                    <textarea class="form-control" id="form7Example7" rows="1" name="addi_infor">{{ $package->addi_infor }}</textarea>
-                                    <label class="form-label" for="form7Example1">Additional Information</label>
-                                </div>
-                            </div>
                             <div class="col">
                                 <div class="form-outline">
-                                    <input type="text" id="form7Example2" value="{{ $package->shipping }}" class="form-control" name="shipping"/>
-                                    <label class="form-label" for="form7Example2">Shipping</label>
+                                    <input type="text" id="form7Example2" value="{{ $package->fee }}" class="form-control" name="fee"/>
+                                    <label class="form-label" for="form7Example2">Fee</label>
                                 </div>
                             </div>
                         </div>
