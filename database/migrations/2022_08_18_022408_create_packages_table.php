@@ -19,12 +19,12 @@ return new class extends Migration
             $table->string('receiver_phone');
             $table->unsignedBigInteger('departure_id');
             $table->unsignedBigInteger('destination_id');
-          
+            $table->float('total_fee',8,2);
+            $table->integer('total_item');
             $table->string('status');
             $table->string('pay_status');
+          
             $table->timestamps();
-
-
 
             $table->foreign('departure_id')->references('id')->on('branches');
             $table->foreign('destination_id')->references('id')->on('branches');

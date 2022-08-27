@@ -37,23 +37,23 @@
                                 <th>Reference Number</th>
                                 <th>Sender Phone Number</th>
                                 <th>Receiver Phone Number</th>
-                              
+                                <th>Total Item</th>
+                                <th>Total Fee</th>
                                 <th>Status</th>
                                 <th>Payment Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-
-
-                        <tbody>
+                        <tbody>     
                             @foreach ($packages as $key => $package)
                                 <tr class="text-center">
                                     <td>{{ ++$key }}</td>
                                     <td>{{ $package->sender_phone }}</td>
                                     <td>{{ $package->receiver_phone }}</td>
-                                    
+                                    <td>{{ $package->total_item }}</td>
+                                    <td>{{ $package->total_fee }}</td>
                                     <td>{{ $package->status }}</td>
-                                    {{-- @if ($package->pay_status == 'Paid')
+                                    @if ($package->pay_status == 'Paid')
                                         <td>
                                             <a href="{{ route('updatepaystatus', $package->id) }}"
                                                 class="badge rounded-pill bg-success"
@@ -65,23 +65,25 @@
                                                 class="badge rounded-pill bg-danger"
                                                 style="font-size:1.1em">{{ $package->pay_status }}</a>
                                         </td>
-                                    @endif --}}
-                                    {{-- <td class="text-center">
-                                    <form action="{{ route('packages.destroy', $package->id) }}" method="POST">
+                                    @endif
+                                    <td>
+                                        <form action="{{ route('packages.destroy', $package->id) }}" method="POST">
 
-                                        <a class="btn btn-success btn-rounded waves-effect waves-light"
-                                            href="{{ route('packages.show', $package->id) }}">Detail</a>
+                                            <a class="btn btn-info btn-sm-rounded btn-sm waves-effect waves-light"
+                                                href="#">Show</a>
 
-                                        <a class="btn btn-info btn-rounded waves-effect waves-light"
-                                            href="{{ route('packages.edit', $package->id) }}">Edit</a>
+                                            <a class="btn btn-warning btn-sm-rounded btn-sm waves-effect waves-light"
+                                                href="{{ route('packages.edit', $package->id) }}">Edit</a>
 
-                                        @csrf
-                                        @method('DELETE')
+                                            @csrf
+                                            @method('DELETE')
+                                            <input name="_method" type="hidden" value="DELETE">
+                                            <button type="submit"
+                                                class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"
+                                                data-toggle="tooltip" title='Delete'>Delete</button>
 
-                                        <button type="submit"
-                                            class="btn btn-danger btn-rounded waves-effect waves-light">Delete</button>
-                                    </form>
-                                </td> --}}
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

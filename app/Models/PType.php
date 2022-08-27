@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Storage extends Model
+class PType extends Model
 {
     use HasFactory;
     protected $fillable=[
-       
-        'package_price',
-        'quantity', 
         'package_type',
-        'fee',
-        'message',
-       
-        
     ];
+    public function goods()
+    {
+        return $this->hasOne(Goods::class);
+    }
+
 }

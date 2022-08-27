@@ -7,7 +7,10 @@ use App\Models\Branch;
 use App\Models\Location;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+
+
+
 
 class BranchController extends Controller
 {

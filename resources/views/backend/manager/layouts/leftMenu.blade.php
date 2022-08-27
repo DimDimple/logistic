@@ -62,7 +62,7 @@
 
                 <li class="menu-title">Components</li>
                 <li>
-                    <a href="/manager/employee" class="waves-effect">
+                    <a href="/manager/employeeBranch" class="waves-effect">
                         <i class='bx bxs-user-detail' ></i>         
                         <span>Branch Employee</span>
                     </a>
@@ -83,10 +83,10 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="/manager/packageType">Package Type</a></li>
-                        <li><a href="/manager/itermAccepted">Order Cofirmed</a></li>
-                        <li><a href="/manager/collected">Picked By Courier</a></li>
-                        <li><a href="/manager/shipped">On The Way</a></li>
-                        <li><a href="/manager/pickUp">Pick Up</a></li>
+                        <li><a href="/manager/pending">Pending</a></li>
+                        <li><a href="/manager/process">Processing</a></li>
+                        <li><a href="/manager/decline">Decline</a></li>
+                        <li><a href="/manager/completed">Completed</a></li>
 
                     </ul>
                 </li>

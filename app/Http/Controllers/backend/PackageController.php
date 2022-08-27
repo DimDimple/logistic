@@ -8,9 +8,12 @@ use App\Models\Branch;
 use App\Models\User;
 use App\Models\Location;
 use App\Models\Goods;
+use App\Models\PType;
 use App\Models\Storage;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class PackageController extends Controller
 {
@@ -22,6 +25,7 @@ class PackageController extends Controller
     public function index()
     {
         //find branch location of manager
+        //find branch id
         $user_id = Auth::user()->id;
         $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
 
@@ -30,7 +34,7 @@ class PackageController extends Controller
         // @dd($branch_id);
         $packages = Package::latest()->paginate(5);
         // @dd($packages);
-
+// if employee->branch_id==branch_id
 
         return view('backend.manager.page.packages.index', compact('packages', 'branch_id'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -57,6 +61,10 @@ class PackageController extends Controller
         $goods = [];
         // track data // 
         $num = 0;
+        $total_fee=0;
+        $total_item=0;
+        
+        $package_types = PType::get();
 
         //check manager departure
 
@@ -70,9 +78,7 @@ class PackageController extends Controller
         // Goods::create($request->all());
         // $num = $request->num;
 
-
-
-        return view('backend.manager.page.packages.create', compact('branches', 'departure_id', 'num', 'goods'));
+        return view('backend.manager.page.packages.create', compact('branches', 'departure_id', 'num', 'goods','package_types','total_fee','total_item'));
     }
 
     /**
@@ -85,16 +91,17 @@ class PackageController extends Controller
     {
 
         $lastId = Storage::get()->last()->id;
-
-
-        for ($i = 0; $i < $request->num - 2; $i++) {
+       
+        for ($i = 0; $i < $request->num; $i++) {
             $array[$i] = $lastId - $i;
+    
         }
 
         //if we have 7iterm before then we input 3 iterm more we get 3 iterms
-       
+      
         $goods = Storage::find($array);
-        //find array in goods
+        //find array in goods 
+        
 
 
         $request->validate([
@@ -104,7 +111,8 @@ class PackageController extends Controller
             'destination_id' => 'required',
             'status' => 'required',
             'pay_status' => 'required',
-
+            'total_fee' => 'required',
+            'total_item' => 'required',
 
         ]);
 
@@ -115,7 +123,8 @@ class PackageController extends Controller
             'destination_id' => (int)$request['destination_id'],
             'status' => $request['status'],
             'pay_status' => $request['pay_status'],
-
+            'total_fee' => (int)$request['total_fee'],
+            'total_item' => (int)$request['total_item'],
 
         ]);
 
@@ -129,15 +138,18 @@ class PackageController extends Controller
             $savedBranch[] = $savedPackage->goods()->create([
                 'package_price' => (int)$good->package_price,
                 'quantity' => (int)$good->quantity,
-                'package_type' => $good->package_type,
+                'ptype_id' => $good->package_type,
                 'fee' => (float)$good->fee,
                 'message' => $good->message,
                 'package_id' => $savedPackage->id,
+               
             ]);
         }
         if (!$savedBranch) {
             abort(503);
         }
+
+       
 
         //find branch location of manager
         $user_id = Auth::user()->id;
@@ -147,7 +159,7 @@ class PackageController extends Controller
         // @dd($branch);
         // @dd($branch_id);
         $packages = Package::latest()->paginate(5);
-
+        
 
 
 
@@ -205,6 +217,8 @@ class PackageController extends Controller
             'destination_id' => 'required',
             'status' => 'required',
             'pay_status' => 'required',
+            'total_fee' => 'required',
+            'total_item' => 'required',
 
         ]);
         $package->update($request->all());
@@ -221,6 +235,7 @@ class PackageController extends Controller
      */
     public function destroy(Package $package)
     {
+        //delete all goods with package ID
         $package->delete();
 
         return redirect()->route('packages.index')
@@ -242,4 +257,7 @@ class PackageController extends Controller
         }
         return redirect()->route('packages.index');
     }
+
+   
+
 }

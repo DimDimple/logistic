@@ -4,7 +4,10 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\EmployeeBranch;
+use App\Models\Branch;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeBranchController extends Controller
 {
@@ -15,8 +18,15 @@ class EmployeeBranchController extends Controller
      */
     public function index()
     {
-        $employee_branch = EmployeeBranch::latest()->paginate(5);
-        return view('backend.manager.page.staff.index', compact('employees'));
+        $user_id = Auth::user()->id;
+        $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
+
+
+
+        $employees = EmployeeBranch::where('branch_id', '=', $branch_id)->get();
+
+
+        return view('backend.manager.page.employeeBranch.index', compact('employees', 'branch_id'));
     }
 
     /**
@@ -26,10 +36,24 @@ class EmployeeBranchController extends Controller
      */
     public function create()
     {
-        return view('backend.manager.page.staff.create');
+        $branches = Branch::get();
+        $user_id = Auth::user()->id;
+        $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
+        // @dd($branch_id);
+
+        // $employees = EmployeeBranch::where('branch_id','=', $branch_id)->first();
+        // $employees = EmployeeBranch::where('branch_id', '=', $branch_id)->get();
+
+
+        // if(!$employees) {
+        //     $employees = [];
+        // }
+        // $branches->id=$employees;
+
+        return view('backend.manager.page.employeeBranch.create', compact('branches', 'branch_id'));
     }
 
-    /**
+    /**`qc
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -46,11 +70,17 @@ class EmployeeBranchController extends Controller
             'dob' => 'required',
             'pob' => 'required',
             'address' => 'required',
+            'branch_id' => 'required',
         ]);
-
+        //create employee
         EmployeeBranch::create($request->all());
+        $user_id = Auth::user()->id;
+        $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
 
-        return redirect()->route('employee.index')
+        $employees = EmployeeBranch::where('branch_id', '=', $branch_id)->get();
+        // $employees = EmployeeBranch::latest()->paginate(5);
+
+        return redirect()->route('employeeBranch.index', compact('employees'))
             ->with('success', 'Employee created successfully.');
     }
 
@@ -62,7 +92,6 @@ class EmployeeBranchController extends Controller
      */
     public function show(EmployeeBranch $employeeBranch)
     {
-        return view('backend.admin.employees.show', compact('employee'));
     }
 
     /**
@@ -73,7 +102,7 @@ class EmployeeBranchController extends Controller
      */
     public function edit(EmployeeBranch $employeeBranch)
     {
-        //
+        return view('backend.manager.page.employeeBranch.edit', compact('employeeBranch'));
     }
 
     /**
@@ -85,7 +114,20 @@ class EmployeeBranchController extends Controller
      */
     public function update(Request $request, EmployeeBranch $employeeBranch)
     {
-        //
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'gender' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'dob' => 'required',
+            'pob' => 'required',
+            'address' => 'required',
+            'branch_id' => 'required',
+        ]);
+        $employeeBranch->update($request->all());
+        return redirect()->route('employeeBranch.index')
+            ->with('succees', 'Employee updated successfully');
     }
 
     /**
@@ -97,5 +139,8 @@ class EmployeeBranchController extends Controller
     public function destroy(EmployeeBranch $employeeBranch)
     {
         //
+        $employeeBranch->delete();
+        return redirect()->route('employeeBranch.index')
+            ->with('success', 'Package deleted successfully');
     }
 }

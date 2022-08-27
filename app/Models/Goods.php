@@ -12,7 +12,7 @@ class Goods extends Model
        
         'package_price',
         'quantity', 
-        'package_type',
+        'ptype_id',
         'fee',
         'message',
         'package_id'
@@ -24,5 +24,11 @@ class Goods extends Model
     {
         return $this->belongsTo(Package::class);
     }
+
+    public function ptype()
+    {
+        return $this->belongsTo(PType::class);
+    }
+
 
 }

@@ -64,13 +64,16 @@
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-outline">
-                                                        <div class="form-outline">
-                                                            <input type="text" id="form7Example1" class="form-control"
-                                                                name="package_type" />
-                                                            <label class="form-label" for="form7Example1">Package
-                                                                Type</label>                                                                
-                                                        </div>
+                                                        <select class="form-select" name="package_type"
+                                                            aria-label=".form-select-lg example">
+                                                            <option selected>Package Type</option>
+                                                            @foreach ($package_types as $package_type)
+                                                                <option value="{{ $package_type->id }}">
+                                                                    {{ $package_type->package_type }}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
+
                                                 </div>
                                             </div>
 
@@ -99,6 +102,8 @@
 
                                             </div>
                                             <input type="hidden" name="num" value="{{ $num = $num + 1 }}">
+                                            <input type="hidden" name="total_item" value="{{ $total_item }}">
+                                            <input type="hidden" name="total_fee" value="{{ $total_fee }}">
                                             <!--hidden fields-->
                                             <button type="submit" data-bs-dismiss="modal"
                                                 class="btn btn-primary btn-rounded waves-effect waves-light"
@@ -116,8 +121,10 @@
                                 </div>
                             </div>
                         </div>
+
                         <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button"
                             style="margin-left: 36%; margin-top:-2px">Add Goods</a>
+
                     </div>
                     <div class="infor" style="display:flex">
                         <div style="width:40%; ">
@@ -163,8 +170,9 @@
                                             name="destination_id">
                                             <option selected>Destination</option>
                                             @foreach ($branches as $branchOne)
-                                                @if ($branchOne->b_name !== $branch->b_name)
-                                                    <option value="{{ $branchOne->id }}">{{ $branchOne->b_name }}</option>
+                                                @if ($branchOne->id !== $departure_id)
+                                                    <option value="{{ $branchOne->id }}">{{ $branchOne->b_name }}
+                                                    </option>
                                                 @endif
                                             @endforeach
 
@@ -173,16 +181,15 @@
                                 </div>
                                 <div class="row mb-5">
                                     <div class="col">
-                                        <select class="form-select" aria-label="Disabled select example"
-                                            name="status">
+                                        <select class="form-select" aria-label="Disabled select example" name="status">
                                             <option selected>Status</option>
-                                            <option value="Pending" >Pending</option>
-                                            <option value="Processing" >Processing</option>
-                                            <option value="Decline" >Decline</option>
-                                            <option value="Completed" >Completed</option>
-                                        
+                                            <option value="Pending">Pending</option>
+                                            <option value="Processing">Processing</option>
+                                            <option value="Decline">Decline</option>
+                                            <option value="Completed">Completed</option>
+
                                         </select>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="row mb-5">
@@ -208,26 +215,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                            
-                                    @foreach ($goods as $key => $good)  
-                                 
+
+                                    @foreach ($goods as $key => $good)
                                         <tr>
                                             <td>{{ ++$key }}</td>
                                             <td>{{ $good->quantity }}</td>
                                             <td>{{ $good->fee }} $</td>
-                                            {{-- <td>
-                                            <form action="{{ route('goods.delete', $good->id) }}" method="POST">
+                                            <td>
+                                            <form action="{{ route('storage.destroy', $good->id) }}" method="POST">
                                                 
 
                                                 @csrf
                                                 @method('DELETE')
 
+                                                <input type="hidden" name="num" value="{{ $num = $num + 1 }}">
+                                                <input type="hidden" name="total_item" value="{{ $total_item }}">
+                                                <input type="hidden" name="total_fee" value="{{ $total_fee }}">
                                                 <button type="submit"
                                                     class="btn btn-danger btn-rounded waves-effect waves-light">Remove</button>
-                                            </form></td> --}}
+                                            </form></td>
                                         </tr>
                                     @endforeach
-                                            {{-- <tr>
+                                    {{-- <tr>
                                                 <td></td>
                                                 <td></td>
                                                 <td>Total Item:</td>
@@ -244,16 +253,32 @@
                                 </tbody>
                             </table>
                         </div>
-                       
+
 
                     </div>
-                   
-                   
-                        <input type="hidden" name="num" value="{{ $num = $num + 1 }}">
-                        <button type="submit" class="btn btn-primary btn-rounded waves-effect waves-light"
-                            style="margin-left: 90%">
-                            Submit
-                        </button></a>
+
+
+                    <input type="hidden" name="num" value="{{ $num }}">
+                    <input type="hidden" name="total_item" value="{{ $total_item }}">
+                    <input type="hidden" name="total_fee" value="{{ $total_fee }}">
+
+                    <div style=" margin-left: 80%; display:flex;padding:0 10px;">
+                        <div style=" margin:0 10px;width:100px" class="text-center">
+                            <h5>Total Item</h5>
+                            {{ $total_item }}
+                        </div>
+
+                        <div style="margin-left:10%" class="text-center">
+                            <h5>Total Fee</h5>
+                            {{ $total_fee }}
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-rounded waves-effect waves-light"
+                        style="margin-left: 90%;margin-top:40px">
+                        Submit
+                    </button></a>
 
 
                     </form>

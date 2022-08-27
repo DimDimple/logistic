@@ -15,6 +15,9 @@ class Package extends Model
         'destination_id',
         'status',
         'pay_status',
+        'total_fee',
+        'total_item',
+        
        
     ];
 

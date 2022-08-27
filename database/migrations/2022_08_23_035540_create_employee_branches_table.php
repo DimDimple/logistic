@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('employee_branches', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('branch_id');
             $table->string('firstname');
             $table->string('lastname');
             $table->string('gender');
@@ -24,6 +25,8 @@ return new class extends Migration
             $table->date('dob');
             $table->string('pob');
             $table->timestamps();
+            $table->foreign('branch_id')->references('id')->on('branches');
+           
         });
     }
 
