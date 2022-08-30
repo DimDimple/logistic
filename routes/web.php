@@ -111,8 +111,8 @@ All Admin Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:manager'])->group(function () {
 
- 
-    Route::get('/manager/home', [DashboardController::class, 'managerHome'])->name('manager');
+    Route::get('/manager/home', [HomeController::class, 'managerHome'])->name('manager');
+    // Route::get('/manager/home', [DashboardController::class, 'managerHome'])->name('manager');
     Route::get('/manager', function () {
         return view('backend.manager.manager');
     });

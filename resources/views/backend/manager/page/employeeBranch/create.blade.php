@@ -12,11 +12,12 @@
                         <div class=" row mb-3">
                             <label class="col-sm-2 col-form-label">Branch</label>
                             <div class="col">
-                                <select class="form-select" aria-label="Disabled select example" name="branch_id">
+                                <select class="form-select" Disabled aria-label="Disabled select example" name="branch">
                                     @foreach ($branches as $branch)
                                         @if ($branch->id == $branch_id)
                                             <option selected value="{{ $branch->id }}">{{ $branch->b_name }}
                                             </option>
+                                            <input type="hidden" name="branch_id" value="{{ $branch->id }}">
                                         @endif
                                     @endforeach
 

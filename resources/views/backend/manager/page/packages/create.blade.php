@@ -144,6 +144,22 @@
                                 </div>
                                 <!-- price and quantity input -->
                                 <div class="row mb-5">
+                                    <div class="col">  
+                                        <select class="form-select" Disabled aria-label="Disabled select example"
+                                            name="departure">
+                                            @foreach ($branches as $branch)
+                                                @if ($branch->id == $departure_id)
+                                              
+                                                    <option selected  value="{{ $branch->id }}">{{ $branch->b_name }}
+                                                    </option> 
+                                                     <input type="hidden" name="departure_id" value="{{ $branch->id }}">
+                                                @endif
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                </div>
+                                {{-- <div class="row mb-5">
                                     <div class="col">
                                         <select class="form-select" aria-label="Disabled select example"
                                             name="departure_id">
@@ -156,7 +172,7 @@
 
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row mb-5">
                                     <div class="col">
                                         <select class="form-select" aria-label="Disabled select example"
@@ -192,8 +208,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                
-                                <div style="width:100%; margin-left:125%; margin-top:-85%" >
+
+                                <div style="width:100%; margin-left:125%; margin-top:-85%">
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap"
                                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
@@ -228,7 +244,7 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                          
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -238,11 +254,11 @@
                                 <div style=" margin-left: 200%; display:flex; padding:0 10px; margin-top:60%">
                                     <div style=" margin:0 20px;" class="text-center">
                                         <h5>Total Items</h5>
-                                       <h6> {{ $total_item }}</h6>
+                                        <h6> {{ $total_item }}</h6>
                                     </div>
                                     <div class="text-center">
                                         <h5>Total Fee</h5>
-                                       <h6> {{ $total_fee }} $</h6>
+                                        <h6> {{ $total_fee }} $</h6>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-rounded waves-effect waves-light"

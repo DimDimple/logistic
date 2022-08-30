@@ -33,7 +33,7 @@ class PackageController extends Controller
         // @dd($branch);
         // @dd($branch_id);
         $packages = Package::latest()->paginate(5);
-        // @dd($packages);
+//    @dd($packages);     
         // if employee->branch_id==branch_id
 
         return view('backend.manager.page.packages.index', compact('packages', 'branch_id'))
