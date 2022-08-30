@@ -50,22 +50,31 @@
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <i class='bx bx-package'></i>
-                        <span class="badge rounded-pill bg-danger float-end">2</span>
+                        <span class="badge rounded-pill bg-danger float-end">3</span>
                         <span>Form Package</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href= {{ route('packages.create') }}>Add Package</a></li>
                         <li><a href="/manager/packages">Record</a></li>
+                        <li><a href="/manager/goods">Edit Goods</a></li>
                     </ul>
                 </li>
 
 
                 <li class="menu-title">Components</li>
+              
                 <li>
-                    <a href="/manager/employeeBranch" class="waves-effect">
-                        <i class='bx bxs-user-detail' ></i>         
-                        <span>Branch Employee</span>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class='bx bxs-user-account'></i>
+                        <span class="badge rounded-pill bg-danger float-end">2</span>
+                        <span>Manage User</span>
                     </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="/manager/employeebranch">Branch Employee</a></li>
+                        <li><a href="/manager/position">Position</a></li>
+                       
+
+                    </ul>
                 </li>
                 <li>
                     <a href="/manager/tracking" class="waves-effect">
@@ -78,7 +87,7 @@
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <i class='bx bxs-user-account'></i>
-                        <span class="badge rounded-pill bg-danger float-end">2</span>
+                        <span class="badge rounded-pill bg-danger float-end">5</span>
                         <span>Packages</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -90,10 +99,6 @@
 
                     </ul>
                 </li>
-               
-                
-               
-
 
             </ul>
         </div>

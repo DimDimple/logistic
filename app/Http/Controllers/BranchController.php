@@ -52,13 +52,10 @@ class BranchController extends Controller
     {
         //user
 
-        if(Auth::user()->type == 'admin'){
-            $type=2;
+        //$userType = Auth::user()->type;
+        //admin create manager 
+        $type=2;
 
-        } else{
-            $type=0;
-        }
-        
         $request->validate([
 
             'name' => 'required',

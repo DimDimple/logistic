@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Dashboard;
+use App\Models\Position;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class PositionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        //
+        $types = Position::all();
+        return view('backend.manager.page.position.index', compact('types'));
     }
 
     /**
@@ -25,7 +26,7 @@ class DashboardController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.manager.page.position.index');
     }
 
     /**
@@ -36,16 +37,25 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $request->validate([
+            'type' => 'required',
+        ]);
+        
+        Position::create($request->all());
+
+        return redirect()->route('position.index')
+
+        ->with('success', 'Position created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  \App\Models\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function show(Dashboard $dashboard)
+    public function show(Position $position)
     {
         //
     }
@@ -53,10 +63,10 @@ class DashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  \App\Models\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dashboard $dashboard)
+    public function edit(Position $position)
     {
         //
     }
@@ -65,10 +75,10 @@ class DashboardController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  \App\Models\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dashboard $dashboard)
+    public function update(Request $request, Position $position)
     {
         //
     }
@@ -76,11 +86,13 @@ class DashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  \App\Models\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dashboard $dashboard)
+    public function destroy(Position $position)
     {
-        //
+        $position->delete();
+        return redirect()->route('position.index')
+                        ->with('success','Position deleted successfully');
     }
 }

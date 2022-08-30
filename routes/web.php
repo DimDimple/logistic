@@ -6,14 +6,17 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\backend\PackageController;
 // use App\Http\Controllers\backend\UserController;
+use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\EmployeeBranchController;
+use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\ProcessController;
 use App\Http\Controllers\backend\DeclineController;
 use App\Http\Controllers\backend\PendingController;
 use App\Http\Controllers\backend\CompletedController;
 use App\Http\Controllers\backend\StorageController;
 use App\Http\Controllers\backend\PTypesController;
-
+use App\Http\Controllers\backend\UserController;
+use App\Http\Controllers\backend\PositionController;
 use App\Http\Controllers\frontend\EditProfileController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LocationController;
@@ -92,6 +95,8 @@ All Admin Routes List
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::get('/admin', [HomeController::class, 'adminHome'])->name('admin');
+    Route::resource('/new/admin', AdminController::class);
+    Route::resource('/admin/user', UserController::class);
     Route::resource('/admin/employee', EmployeeController::class);
     Route::resource('/admin/location', LocationController::class);
     Route::get('admin/branch/updatestatus/{id}', [BranchController::class, 'updateStatus'])->name('updatestatus');
@@ -106,7 +111,8 @@ All Admin Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:manager'])->group(function () {
 
-    Route::get('/manager/home', [HomeController::class, 'managerHome'])->name('manager');
+ 
+    Route::get('/manager/home', [DashboardController::class, 'managerHome'])->name('manager');
     Route::get('/manager', function () {
         return view('backend.manager.manager');
     });
@@ -120,7 +126,8 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     Route::get('manager/packages/status/{id}', [PackageController::class, 'updatePayStatus', 'updateStatus'])->name('updatepaystatus', 'updatestatus');
     // Route::resource('/manager/user', UserController::class);
     Route::resource('/manager/packageType', PTypesController::class);
-    Route::resource('/manager/employeeBranch', EmployeeBranchController::class);
+    Route::resource('/manager/position', PositionController::class);
+    Route::resource('/manager/employeebranch', EmployeeBranchController::class);
     Route::resource('/manager/storage', StorageController::class);
 
     // Route::get('/manager/create',function(){

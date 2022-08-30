@@ -18,10 +18,15 @@ class EmployeeBranch extends Model
         'pob',
         'address',
         'branch_id',
+        'type_id',
     ];
     public function branch()
     {
         return $this->belongsTo(Branch::class);
+    }
+    public function type()
+    {
+        return $this->belongsTo(Position::class);
     }
 
 

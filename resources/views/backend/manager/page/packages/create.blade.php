@@ -52,7 +52,6 @@
                                     <div class="modal-body">
                                         <form action="{{ route('storage.store') }}" method="POST">
                                             @csrf
-
                                             <!-- price and quantity input -->
                                             <div class="row mb-3">
                                                 <div class="col">
@@ -76,8 +75,6 @@
 
                                                 </div>
                                             </div>
-
-
                                             <!-- Message input -->
                                             <div class="row mb-3" style="margin-top: 5px">
                                                 <div class="col">
@@ -114,17 +111,13 @@
                                             <a class="btn btn-dark btn-rounded waves-effect waves-light"
                                                 data-bs-dismiss="modal" href="{{ route('packages.create') }}">
                                                 Cancel</a>
-
                                         </form>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-
                         <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button"
                             style="margin-left: 36%; margin-top:-2px">Add Goods</a>
-
                     </div>
                     <div class="infor" style="display:flex">
                         <div style="width:40%; ">
@@ -175,7 +168,6 @@
                                                     </option>
                                                 @endif
                                             @endforeach
-
                                         </select>
                                     </div>
                                 </div>
@@ -187,9 +179,7 @@
                                             <option value="Processing">Processing</option>
                                             <option value="Decline">Decline</option>
                                             <option value="Completed">Completed</option>
-
                                         </select>
-
                                     </div>
                                 </div>
                                 <div class="row mb-5">
@@ -202,88 +192,66 @@
                                         </select>
                                     </div>
                                 </div>
-                        </div>
-                        <div style="width:50%; margin-left:8%; margin-top:2%">
-                            <table id="datatable" class="table table-bordered dt-responsive nowrap"
-                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Quantity</th>
-                                        <th>Fee</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @foreach ($goods as $key => $good)
-                                        <tr>
-                                            <td>{{ ++$key }}</td>
-                                            <td>{{ $good->quantity }}</td>
-                                            <td>{{ $good->fee }} $</td>
-                                            <td>
-                                            <form action="{{ route('storage.destroy', $good->id) }}" method="POST">
-                                                
-
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <input type="hidden" name="num" value="{{ $num = $num + 1 }}">
-                                                <input type="hidden" name="total_item" value="{{ $total_item }}">
-                                                <input type="hidden" name="total_fee" value="{{ $total_fee }}">
-                                                <button type="submit"
-                                                    class="btn btn-danger btn-rounded waves-effect waves-light">Remove</button>
-                                            </form></td>
-                                        </tr>
-                                    @endforeach
-                                    {{-- <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td>Total Item:</td>
-                                                <td></td>
-                                               
+                                
+                                <div style="width:100%; margin-left:125%; margin-top:-85%" >
+                                    <table id="datatable" class="table table-bordered dt-responsive nowrap"
+                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>ID</th>
+                                                <th>Quantity</th>
+                                                <th>Fee</th>
+                                                <th>Action</th>
                                             </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td >Total Fee:</td>
-                                                <td>$</td>
-                                             
-                                            </tr> --}}
-                                </tbody>
-                            </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($goods as $key => $good)
+                                                <tr class="text-center">
+                                                    <td>{{ ++$key }}</td>
+                                                    <td>{{ $good->quantity }}</td>
+                                                    <td>{{ $good->fee }} $</td>
+                                                    <td>
+                                                        {{-- <form action="{{ route('storage.destroy', $good->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+
+                                                            <input type="hidden" name="num"
+                                                                value="{{ $num = $num + 1 }}">
+                                                            <input type="hidden" name="total_item"
+                                                                value="{{ $total_item }}">
+                                                            <input type="hidden" name="total_fee"
+                                                                value="{{ $total_fee }}">
+                                                            <button type="submit"
+                                                                class="btn btn-danger btn-rounded waves-effect waves-light">Remove</button>
+                                                        </form> --}}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                          
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <input type="hidden" name="num" value="{{ $num }}">
+                                <input type="hidden" name="total_item" value="{{ $total_item }}">
+                                <input type="hidden" name="total_fee" value="{{ $total_fee }}">
+                                <div style=" margin-left: 200%; display:flex; padding:0 10px; margin-top:60%">
+                                    <div style=" margin:0 20px;" class="text-center">
+                                        <h5>Total Items</h5>
+                                       <h6> {{ $total_item }}</h6>
+                                    </div>
+                                    <div class="text-center">
+                                        <h5>Total Fee</h5>
+                                       <h6> {{ $total_fee }} $</h6>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-rounded waves-effect waves-light"
+                                    style="margin-left: 230%; margin-top:5%">
+                                    Submit
+                                </button></a>
+                            </form>
                         </div>
-
-
                     </div>
-
-
-                    <input type="hidden" name="num" value="{{ $num }}">
-                    <input type="hidden" name="total_item" value="{{ $total_item }}">
-                    <input type="hidden" name="total_fee" value="{{ $total_fee }}">
-
-                    <div style=" margin-left: 80%; display:flex;padding:0 10px;">
-                        <div style=" margin:0 10px;width:100px" class="text-center">
-                            <h5>Total Item</h5>
-                            {{ $total_item }}
-                        </div>
-
-                        <div style="margin-left:10%" class="text-center">
-                            <h5>Total Fee</h5>
-                            {{ $total_fee }}
-                        </div>
-
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-rounded waves-effect waves-light"
-                        style="margin-left: 90%;margin-top:40px">
-                        Submit
-                    </button></a>
-
-
-                    </form>
-
-
                 </div>
             </div>
         </div>

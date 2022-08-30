@@ -28,7 +28,7 @@
 
                                 <!-- Email input -->
                                 <div class="form-outline mb-3">
-                                    <input id="email" type="email" placeholder="Email Address"
+                                    <input id="email" type="text" placeholder="Email Address"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
                                         value="{{ old('email') }}" required autocomplete="email" autofocus>
                                     <label class="form-label" for="form3Example3">{{ __('') }}</label>

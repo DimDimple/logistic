@@ -34,7 +34,7 @@ class PackageController extends Controller
         // @dd($branch_id);
         $packages = Package::latest()->paginate(5);
         // @dd($packages);
-// if employee->branch_id==branch_id
+        // if employee->branch_id==branch_id
 
         return view('backend.manager.page.packages.index', compact('packages', 'branch_id'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -61,9 +61,9 @@ class PackageController extends Controller
         $goods = [];
         // track data // 
         $num = 0;
-        $total_fee=0;
-        $total_item=0;
-        
+        $total_fee = 0;
+        $total_item = 0;
+
         $package_types = PType::get();
 
         //check manager departure
@@ -78,7 +78,7 @@ class PackageController extends Controller
         // Goods::create($request->all());
         // $num = $request->num;
 
-        return view('backend.manager.page.packages.create', compact('branches', 'departure_id', 'num', 'goods','package_types','total_fee','total_item'));
+        return view('backend.manager.page.packages.create', compact('branches', 'departure_id', 'num', 'goods', 'package_types', 'total_fee', 'total_item'));
     }
 
     /**
@@ -89,20 +89,17 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-
+        // @dd($request);
         $lastId = Storage::get()->last()->id;
-       
+
         for ($i = 0; $i < $request->num; $i++) {
             $array[$i] = $lastId - $i;
-    
         }
 
         //if we have 7iterm before then we input 3 iterm more we get 3 iterms
-      
+
         $goods = Storage::find($array);
         //find array in goods 
-        
-
 
         $request->validate([
             'sender_phone' => 'required',
@@ -142,14 +139,14 @@ class PackageController extends Controller
                 'fee' => (float)$good->fee,
                 'message' => $good->message,
                 'package_id' => $savedPackage->id,
-               
+
             ]);
         }
         if (!$savedBranch) {
             abort(503);
         }
 
-       
+
 
         //find branch location of manager
         $user_id = Auth::user()->id;
@@ -159,9 +156,6 @@ class PackageController extends Controller
         // @dd($branch);
         // @dd($branch_id);
         $packages = Package::latest()->paginate(5);
-        
-
-
 
         return view('backend.manager.page.packages.index', compact('packages', 'branch_id'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -176,7 +170,33 @@ class PackageController extends Controller
      */
     public function show(Package $package)
     {
-        //
+        $branches = Branch::get();
+        $user_id = Auth::user()->id;
+        $branch = Branch::where('user_id', '=', $user_id)->first();
+        $departure_id = $branch->id;
+
+        // track data // 
+        $num = 0;
+        $total_fee = 0;
+        $total_item = 0;
+        foreach ($branches as $branchOne) {
+            if ($branchOne->id !== $departure_id) {
+                $branchOne->id = $branchOne->b_name;
+            }
+        }
+
+        $package_type = PType::get()->first();
+
+
+        $goods = Goods::find($package->id)->where('package_id','=',$package->id)->get();
+        //    @dd($package->branch);
+
+        // @dd($package->id);
+        // $good = Goods::where('package_id', '=', $package_id)->first()->id;
+        // $package_id = Goods::latest()->paginate(5);
+        // $good = $package_id;
+
+        return view('backend.manager.page.packages.show', compact('package', 'branch', 'goods', 'package_type', 'branchOne'));
     }
 
     /**
@@ -257,7 +277,4 @@ class PackageController extends Controller
         }
         return redirect()->route('packages.index');
     }
-
-   
-
 }

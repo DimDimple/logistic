@@ -39,12 +39,12 @@
 
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
-                        <i class='bx bxs-dashboard bx-flip-horizontal' style='color:#414040'  ></i>
+                        <i class='bx bxs-dashboard bx-flip-horizontal' style='color:#414040'></i>
                         <span class="badge rounded-pill bg-danger float-end">1</span>
                         <span>Dashboard</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="/admin">Admin</a></li>
+                        <li><a href="/new/admin">Admin</a></li>
                     </ul>
                 </li>
 
@@ -56,6 +56,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="/admin/employee">Employee</a></li>
+                        <li><a href="/admin/user">User</a></li>
                     </ul>
                 </li>
                 <li>

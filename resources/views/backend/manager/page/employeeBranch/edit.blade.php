@@ -16,7 +16,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="custom-validation" action="{{ route('employeeBranch.update', $employeeBranch->id) }}" method="POST">
+                    <form class="custom-validation" action="{{ route('employeebranch.update', $employeeBranch->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class=" row mb-3">

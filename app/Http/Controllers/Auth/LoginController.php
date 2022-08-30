@@ -44,11 +44,14 @@ class LoginController extends Controller
         $input = $request->all();
       
         $this->validate($request, [
-            'email' => 'required|email',
+           
+            'email' => 'required',
+            // 'phone' => 'required',
             'password' => 'required',
+            // || auth()->attempt(array('phone' => $input['phone'], 'password' => $input['password']))
         ]);
       
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])) )
         {
             if (auth()->user()->type == 'admin') {
                 return redirect()->route('admin');

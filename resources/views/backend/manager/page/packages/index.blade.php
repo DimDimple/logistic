@@ -37,7 +37,7 @@
                                 <th>Reference Number</th>
                                 <th>Sender Phone Number</th>
                                 <th>Receiver Phone Number</th>
-                                <th>Total Item</th>
+                                <th>Total Items</th>
                                 <th>Total Fee</th>
                                 <th>Status</th>
                                 <th>Payment Status</th>
@@ -51,7 +51,7 @@
                                     <td>{{ $package->sender_phone }}</td>
                                     <td>{{ $package->receiver_phone }}</td>
                                     <td>{{ $package->total_item }}</td>
-                                    <td>{{ $package->total_fee }}</td>
+                                    <td>{{ $package->total_fee }} $</td>
                                     <td>{{ $package->status }}</td>
                                     @if ($package->pay_status == 'Paid')
                                         <td>
@@ -70,7 +70,7 @@
                                         <form action="{{ route('packages.destroy', $package->id) }}" method="POST">
 
                                             <a class="btn btn-info btn-sm-rounded btn-sm waves-effect waves-light"
-                                                href="#">Show</a>
+                                                href="{{ route('packages.show', $package->id) }}">Show</a>
 
                                             <a class="btn btn-warning btn-sm-rounded btn-sm waves-effect waves-light"
                                                 href="{{ route('packages.edit', $package->id) }}">Edit</a>

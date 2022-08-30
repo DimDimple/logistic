@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Models\EmployeeBranch;
 use App\Models\Branch;
+use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,9 +37,11 @@ class EmployeeBranchController extends Controller
      */
     public function create()
     {
+       
         $branches = Branch::get();
         $user_id = Auth::user()->id;
         $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
+        $type = Position::get();
         // @dd($branch_id);
 
         // $employees = EmployeeBranch::where('branch_id','=', $branch_id)->first();
@@ -50,7 +53,7 @@ class EmployeeBranchController extends Controller
         // }
         // $branches->id=$employees;
 
-        return view('backend.manager.page.employeeBranch.create', compact('branches', 'branch_id'));
+        return view('backend.manager.page.employeeBranch.create', compact('branches', 'branch_id','type'));
     }
 
     /**`qc
@@ -61,6 +64,8 @@ class EmployeeBranchController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+
         $request->validate([
             'firstname' => 'required',
             'lastname' => 'required',
@@ -71,16 +76,17 @@ class EmployeeBranchController extends Controller
             'pob' => 'required',
             'address' => 'required',
             'branch_id' => 'required',
+            'type_id' => 'required',
         ]);
         //create employee
         EmployeeBranch::create($request->all());
         $user_id = Auth::user()->id;
         $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
-
+        //
         $employees = EmployeeBranch::where('branch_id', '=', $branch_id)->get();
         // $employees = EmployeeBranch::latest()->paginate(5);
 
-        return redirect()->route('employeeBranch.index', compact('employees'))
+        return redirect()->route('employeebranch.index', compact('employees'))
             ->with('success', 'Employee created successfully.');
     }
 
@@ -124,9 +130,10 @@ class EmployeeBranchController extends Controller
             'pob' => 'required',
             'address' => 'required',
             'branch_id' => 'required',
+            'type_id' => 'required',
         ]);
         $employeeBranch->update($request->all());
-        return redirect()->route('employeeBranch.index')
+        return redirect()->route('employeebranch.index')
             ->with('succees', 'Employee updated successfully');
     }
 
