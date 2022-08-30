@@ -26,9 +26,12 @@ class PackageController extends Controller
     {
         //find branch location of manager
         //find branch id
+        $branches = Branch::get();
         $user_id = Auth::user()->id;
         $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
-
+        $branch = Branch::where('user_id', '=', $user_id)->first();
+        $departure_id = $branch->id;
+        // @dd($departure_id );
         // $branch = Branch::where("")->branch;
         // @dd($branch);
         // @dd($branch_id);
@@ -36,7 +39,7 @@ class PackageController extends Controller
 //    @dd($packages);     
         // if employee->branch_id==branch_id
 
-        return view('backend.manager.page.packages.index', compact('packages', 'branch_id'))
+        return view('backend.manager.page.packages.index', compact('packages', 'branch_id','departure_id','branch'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -92,7 +95,7 @@ class PackageController extends Controller
         // @dd($request);
         $lastId = Storage::get()->last()->id;
 
-        for ($i = 0; $i < $request->num; $i++) {
+        for ($i = 0; $i < $request->num-1; $i++) {
             $array[$i] = $lastId - $i;
         }
 
@@ -157,6 +160,8 @@ class PackageController extends Controller
         // @dd($branch_id);
         $packages = Package::latest()->paginate(5);
 
+        // unset $request;
+        // @dd($request);
         return view('backend.manager.page.packages.index', compact('packages', 'branch_id'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -187,8 +192,9 @@ class PackageController extends Controller
 
         $package_type = PType::get()->first();
 
-
-        $goods = Goods::find($package->id)->where('package_id','=',$package->id)->get();
+// @dd($package);
+        $goods = Goods::where('package_id','=',$package->id)->get();
+        // @dd($goods);
         //    @dd($package->branch);
 
         // @dd($package->id);
@@ -196,7 +202,7 @@ class PackageController extends Controller
         // $package_id = Goods::latest()->paginate(5);
         // $good = $package_id;
 
-        return view('backend.manager.page.packages.show', compact('package', 'branch', 'goods', 'package_type', 'branchOne'));
+        return view('backend.manager.page.packages.show', compact('package', 'branch', 'goods', 'package_type', 'branchOne','num','total_fee','total_item'));
     }
 
     /**
@@ -255,6 +261,13 @@ class PackageController extends Controller
      */
     public function destroy(Package $package)
     {
+        //find package id in goods Pthen delete 
+        //good store package foreign key
+        $goods = Goods::where('package_id','=',$package->id)->get();
+        // $goods->delete();
+        foreach($goods as $good){
+            $good->delete();
+        }
         //delete all goods with package ID
         $package->delete();
 

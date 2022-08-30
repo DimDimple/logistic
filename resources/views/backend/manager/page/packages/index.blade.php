@@ -26,7 +26,7 @@
                         </div>
                     @endif
                     <div class="form-outline" style="width:20%; display:flex">
-                        <input type="search" class="form-control" id="datatable-search-input" style=" margin-top:3%"
+                        <input type="search" class="form-control" id="myInput" style=" margin-top:3%"
                             placeholder="Search">
                     </div>
 
@@ -44,8 +44,10 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>     
+                        <tbody id="myTable">     
                             @foreach ($packages as $key => $package)
+                            @if ($package->departure_id == $branch_id || $package->destination_id == $branch_id)
+                           
                                 <tr class="text-center">
                                     <td>{{ ++$key }}</td>
                                     <td>{{ $package->sender_phone }}</td>
@@ -85,6 +87,7 @@
                                         </form>
                                     </td>
                                 </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

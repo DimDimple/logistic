@@ -42,16 +42,16 @@ class LoginController extends Controller
     public function login(Request $request)
     {   
         $input = $request->all();
-      
+        // @dd($input);
         $this->validate($request, [
            
             'email' => 'required',
             // 'phone' => 'required',
             'password' => 'required',
-            // || auth()->attempt(array('phone' => $input['phone'], 'password' => $input['password']))
+            
         ]);
-      
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])) )
+      //$input['password'] or $input->password
+        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])) || auth()->attempt(array('phone' => $input['email'], 'password' => $input['password'])))
         {
             if (auth()->user()->type == 'admin') {
                 return redirect()->route('admin');

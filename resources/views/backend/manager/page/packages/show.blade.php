@@ -82,12 +82,14 @@
                <h6 class="text-center"> {{ $package->pay_status }}</h6>
             </div>
 
-
+    
+         
             <div style="width: 50%; margin-left:20px">
                 <h5 class="card-title p-3 mb-2 bg-primary text-white">TOTAL ITEMS</h5>
                 <h6 class="text-center">{{ $package->total_item }}</h6>
 
-            </div>
+            </div> 
+            
             <div style="width: 50%; margin-left:20px">
                 <h5 class="card-title p-3 mb-2 bg-info text-white">TOTAL FEE</h5>
                <h6 class="text-center"> {{ $package->total_fee }} $</h6>

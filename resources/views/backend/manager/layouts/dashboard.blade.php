@@ -100,7 +100,6 @@
     <script src={{ asset('assets/libs/simplebar/simplebar.min.js') }}></script>
     <script src={{ asset('assets/libs/node-waves/waves.min.js') }}></script>
 
-
     <!-- apexcharts -->
     <script src={{ asset('assets/libs/apexcharts/apexcharts.min.js') }}></script>
 
@@ -113,7 +112,17 @@
     <!-- App js -->
     <script src={{ asset('assets/js/app.js') }}></script>
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+          $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
+        });
+        </script>
 
 </body>
 

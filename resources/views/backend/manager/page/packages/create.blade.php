@@ -144,15 +144,15 @@
                                 </div>
                                 <!-- price and quantity input -->
                                 <div class="row mb-5">
-                                    <div class="col">  
+                                    <div class="col">
                                         <select class="form-select" Disabled aria-label="Disabled select example"
                                             name="departure">
                                             @foreach ($branches as $branch)
                                                 @if ($branch->id == $departure_id)
-                                              
-                                                    <option selected  value="{{ $branch->id }}">{{ $branch->b_name }}
-                                                    </option> 
-                                                     <input type="hidden" name="departure_id" value="{{ $branch->id }}">
+                                                    <option selected value="{{ $branch->id }}">{{ $branch->b_name }}
+                                                    </option>
+                                                    <input type="hidden" name="departure_id"
+                                                        value="{{ $branch->id }}">
                                                 @endif
                                             @endforeach
 
@@ -227,20 +227,17 @@
                                                     <td>{{ $good->quantity }}</td>
                                                     <td>{{ $good->fee }} $</td>
                                                     <td>
-                                                        {{-- <form action="{{ route('storage.destroy', $good->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-
-                                                            <input type="hidden" name="num"
-                                                                value="{{ $num = $num + 1 }}">
-                                                            <input type="hidden" name="total_item"
-                                                                value="{{ $total_item }}">
-                                                            <input type="hidden" name="total_fee"
-                                                                value="{{ $total_fee }}">
-                                                            <button type="submit"
-                                                                class="btn btn-danger btn-rounded waves-effect waves-light">Remove</button>
-                                                        </form> --}}
+                                                        <input type="hidden" name="num"
+                                                            value="{{ $num = $num + 1 }}">
+                                                        <input type="hidden" name="total_item"
+                                                            value="{{ $total_item }}">
+                                                        <input type="hidden" name="total_fee"
+                                                            value="{{ $total_fee }}">
+                                                        <input type="hidden" name="id"
+                                                            value="{{ $good->id }}">
+                                                            <a href="{{URL::to('/manager/storage/destroy/'.$good->id)}}" >Delete</a>
+                                                        {{-- <button type="submit"
+                                                            class="btn btn-danger btn-rounded waves-effect waves-light">Remove</button> --}}
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -251,13 +248,13 @@
                                 <input type="hidden" name="num" value="{{ $num }}">
                                 <input type="hidden" name="total_item" value="{{ $total_item }}">
                                 <input type="hidden" name="total_fee" value="{{ $total_fee }}">
-                                <div style=" margin-left: 200%; display:flex; padding:0 10px; margin-top:60%">
+                                <div style=" margin-left: 195%; display:flex; padding:0 10px; margin-top:60%; ">
                                     <div style=" margin:0 20px;" class="text-center">
-                                        <h5>Total Items</h5>
+                                        <h5 style="width:100px">Total Items</h5>
                                         <h6> {{ $total_item }}</h6>
                                     </div>
                                     <div class="text-center">
-                                        <h5>Total Fee</h5>
+                                        <h5 style="width:100px">Total Fee</h5>
                                         <h6> {{ $total_fee }} $</h6>
                                     </div>
                                 </div>

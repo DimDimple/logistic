@@ -128,6 +128,7 @@ class StorageController extends Controller
     public function destroy(Storage $storage, Request $request)
     {
         //delete all goods with package ID
+        // @dd($storage);
         $storage->delete();
 
 
