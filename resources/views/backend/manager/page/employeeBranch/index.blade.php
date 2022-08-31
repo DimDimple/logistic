@@ -58,7 +58,7 @@
                                         <form action="{{ route('employeebranch.destroy', $employee->id) }}" method="POST">
 
                                             <a class="btn btn-info btn-sm-rounded btn-sm waves-effect waves-light"
-                                                href="#">Show</a>
+                                                href="{{ route('employeebranch.show', $employee->id) }}">Show</a>
 
                                             <a class="btn btn-warning btn-sm-rounded btn-sm waves-effect waves-light"
                                                 href="{{ route('employeebranch.edit', $employee->id) }}">Edit</a>

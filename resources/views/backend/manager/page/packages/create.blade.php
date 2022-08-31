@@ -103,12 +103,12 @@
                                             <input type="hidden" name="total_fee" value="{{ $total_fee }}">
                                             <!--hidden fields-->
                                             <button type="submit" data-bs-dismiss="modal"
-                                                class="btn btn-primary btn-rounded waves-effect waves-light"
+                                                class="btn btn-outline-success"
                                                 style="margin-left: 70%">
                                                 Saved
                                             </button>
 
-                                            <a class="btn btn-dark btn-rounded waves-effect waves-light"
+                                            <a class="btn btn-outline-danger"
                                                 data-bs-dismiss="modal" href="{{ route('packages.create') }}">
                                                 Cancel</a>
                                         </form>
@@ -116,7 +116,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button"
+                        <a class="btn btn-warning" data-bs-toggle="modal" href="#exampleModalToggle" role="button"
                             style="margin-left: 36%; margin-top:-2px">Add Goods</a>
                     </div>
                     <div class="infor" style="display:flex">
@@ -248,17 +248,17 @@
                                 <input type="hidden" name="num" value="{{ $num }}">
                                 <input type="hidden" name="total_item" value="{{ $total_item }}">
                                 <input type="hidden" name="total_fee" value="{{ $total_fee }}">
-                                <div style=" margin-left: 195%; display:flex; padding:0 10px; margin-top:60%; ">
+                                <div style=" margin-left: 185%; display:flex; padding:0 10px; margin-top:60%; ">
                                     <div style=" margin:0 20px;" class="text-center">
-                                        <h5 style="width:100px">Total Items</h5>
+                                        <h5 style="width:100px" class="text-info" >Total Items</h5>
                                         <h6> {{ $total_item }}</h6>
                                     </div>
                                     <div class="text-center">
-                                        <h5 style="width:100px">Total Fee</h5>
+                                        <h5 style="width:100px" class="text-primary">Total Fee</h5>
                                         <h6> {{ $total_fee }} $</h6>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-rounded waves-effect waves-light"
+                                <button type="submit" class="btn btn-success"
                                     style="margin-left: 230%; margin-top:5%">
                                     Submit
                                 </button></a>

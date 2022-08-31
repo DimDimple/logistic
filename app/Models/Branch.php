@@ -29,8 +29,8 @@ class Branch extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function employee_branches()
+    public function employees()
     {
-        return $this->hasMany(EmployeeBranch::class);
+        return $this->hasMany(Employee::class);
     }
 }

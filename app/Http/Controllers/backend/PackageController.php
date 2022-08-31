@@ -36,10 +36,10 @@ class PackageController extends Controller
         // @dd($branch);
         // @dd($branch_id);
         $packages = Package::latest()->paginate(5);
-//    @dd($packages);     
+        //    @dd($packages);     
         // if employee->branch_id==branch_id
 
-        return view('backend.manager.page.packages.index', compact('packages', 'branch_id','departure_id','branch'))
+        return view('backend.manager.page.packages.index', compact('packages', 'branch_id', 'departure_id', 'branch'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -95,7 +95,7 @@ class PackageController extends Controller
         // @dd($request);
         $lastId = Storage::get()->last()->id;
 
-        for ($i = 0; $i < $request->num-1; $i++) {
+        for ($i = 0; $i < $request->num - 1; $i++) {
             $array[$i] = $lastId - $i;
         }
 
@@ -192,8 +192,8 @@ class PackageController extends Controller
 
         $package_type = PType::get()->first();
 
-// @dd($package);
-        $goods = Goods::where('package_id','=',$package->id)->get();
+        // @dd($package);
+        $goods = Goods::where('package_id', '=', $package->id)->get();
         // @dd($goods);
         //    @dd($package->branch);
 
@@ -202,7 +202,7 @@ class PackageController extends Controller
         // $package_id = Goods::latest()->paginate(5);
         // $good = $package_id;
 
-        return view('backend.manager.page.packages.show', compact('package', 'branch', 'goods', 'package_type', 'branchOne','num','total_fee','total_item'));
+        return view('backend.manager.page.packages.show', compact('package', 'branch', 'goods', 'package_type', 'branchOne', 'num', 'total_fee', 'total_item'));
     }
 
     /**
@@ -218,13 +218,13 @@ class PackageController extends Controller
         // @dd(Auth::user());
         $user_id = Auth::user()->id;
         $branch = Branch::where('user_id', '=', $user_id)->first();
+        $num = 0;
+        $total_fee = 0;
+        $total_item = 0;
 
-        $package_type = $package->package_type;
+        // $package_types = $package->package_type;
 
-        $destination_id = $package->destination_id;
-        $destination = Branch::where('id', '=', $destination_id)->first();
-        $departure_id = $branch->id;
-        return view('backend.manager.page.packages.edit', compact('package', 'branches', 'branch', 'destination_id', 'package_type', 'destination', 'departure_id'));
+        return view('backend.manager.page.packages.edit', compact('package', 'branches', 'branch', 'num', 'total_fee', 'total_item'));
     }
 
     /**
@@ -239,8 +239,6 @@ class PackageController extends Controller
         $request->validate([
             'sender_phone' => 'required',
             'receiver_phone' => 'required',
-            'departure_id' => 'required',
-            'destination_id' => 'required',
             'status' => 'required',
             'pay_status' => 'required',
             'total_fee' => 'required',
@@ -253,6 +251,47 @@ class PackageController extends Controller
             ->with('success', 'Package updated successfully.');
     }
 
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Goods  $good
+     * @return \Illuminate\Http\Response
+     */
+    public function editGoods(Goods $good)
+    {
+
+        
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Goods  $good
+     * @return \Illuminate\Http\Response
+     */
+    public function updateGoods(Request $request, Goods $good)
+    {
+        $request->validate([
+            'package_price'  => 'required',
+            'package_type'   => 'required',
+            'fee'            => 'required',
+            'destination_id' => 'required',
+            'departure_id'   => 'required',
+            'quantity'       => 'required',
+            'message'        => 'required',
+            'receiver_phone' => 'required',
+        ]);
+        $good->update($request->all());
+
+        return redirect()->route('packages.index')
+            ->with('success', 'Goods updated successfully.');
+    }
+
+
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -263,9 +302,9 @@ class PackageController extends Controller
     {
         //find package id in goods Pthen delete 
         //good store package foreign key
-        $goods = Goods::where('package_id','=',$package->id)->get();
+        $goods = Goods::where('package_id', '=', $package->id)->get();
         // $goods->delete();
-        foreach($goods as $good){
+        foreach ($goods as $good) {
             $good->delete();
         }
         //delete all goods with package ID

@@ -87,7 +87,7 @@
                             <div class="col">
                                 <select class="form-select" name="type_id" aria-label=".form-select-lg example">
                                     <option selected>Positions</option>
-                                    @foreach ($type as $type)
+                                    @foreach ($types as $type)
                                         <option value="{{ $type->id }}">
                                             {{ $type->type }}</option>
                                     @endforeach

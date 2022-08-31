@@ -103,13 +103,13 @@ class UserController extends Controller
         // @dd(isset($request->name));
         //isset check request if it true or false
         if(isset($request->name)) {
-            $admin->name = $request->name;
+            $user->name = $request->name;
         }
         if(isset($request->email)){
-            $admin->email = $request->email;
+            $user->email = $request->email;
         }
        if(isset($request->phone)){
-        $admin->phone = $request->phone;
+        $user->phone = $request->phone;
        }
 
         //save data to database

@@ -7,7 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\backend\PackageController;
 // use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\AdminController;
-use App\Http\Controllers\backend\EmployeeBranchController;
+use App\Http\Controllers\backend\EmployeeController;
 use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\ProcessController;
 use App\Http\Controllers\backend\DeclineController;
@@ -18,7 +18,6 @@ use App\Http\Controllers\backend\PTypesController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\PositionController;
 use App\Http\Controllers\frontend\EditProfileController;
-use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\BranchController;
 // use App\Http\Controllers\ManagerController;
@@ -97,7 +96,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin', [HomeController::class, 'adminHome'])->name('admin');
     Route::resource('/new/admin', AdminController::class);
     Route::resource('/admin/user', UserController::class);
-    Route::resource('/admin/employee', EmployeeController::class);
+    // Route::resource('/admin/employee', EmployeeController::class);
     Route::resource('/admin/location', LocationController::class);
     Route::get('admin/branch/updatestatus/{id}', [BranchController::class, 'updateStatus'])->name('updatestatus');
     Route::resource('/admin/branch', BranchController::class);
@@ -127,7 +126,7 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     // Route::resource('/manager/user', UserController::class);
     Route::resource('/manager/packageType', PTypesController::class);
     Route::resource('/manager/position', PositionController::class);
-    Route::resource('/manager/employeebranch', EmployeeBranchController::class);
+    Route::resource('/manager/employeebranch', EmployeeController::class);
     Route::resource('/manager/storage', StorageController::class);
 
     // Route::get('/manager/create',function(){

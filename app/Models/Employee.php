@@ -17,7 +17,17 @@ class Employee extends Model
         'dob',
         'pob',
         'address',
-       
-
+        'branch_id',
+        'type_id',
     ];
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+    public function type()
+    {
+        return $this->belongsTo(Position::class);
+    }
+
+
 }

@@ -12,9 +12,9 @@ class Position extends Model
         'type',
     ];
 
-    public function employeeBranches()
+    public function employees()
     {
-        return $this->hasMany(EmployeeBranch::class);
+        return $this->hasMany(Employee::class);
     }
 
 }
