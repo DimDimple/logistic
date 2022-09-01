@@ -38,9 +38,10 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="/manager" class="waves-effect">
+                    <a href="/manager/dashboard" class="waves-effect">
                         <i class="ri-home-gear-line"></i>
                         <span>Dashboard</span>
+                       
                     </a>
                 </li>
 

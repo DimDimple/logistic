@@ -3,7 +3,7 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-sm-10">
-            <h4 class="my-3">Manage Location</h4>
+            <h4 class="my-3">Package Type</h4>
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -50,13 +50,14 @@
                                    
                                     <td>
                                         <form action="{{ route('packageType.destroy', $package_type->id) }}" method="POST">
-
+                                            <a 
+                                            href="{{ route('packageType.edit', $package_type->id) }}" data-toggle="tooltip" title='Edit'><i class='bx bx-edit' style='color:#0f07e6;font-size:20px'  ></i></a>
+                                
                                             @csrf
                                             @method('DELETE')
                                             <input name="_method" type="hidden" value="DELETE">
-                                            <button type="submit"
-                                                class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"
-                                                data-toggle="tooltip" title='Delete'>Delete</button>
+                                            <a type="submit"
+                                                data-toggle="tooltip" title='Delete'><i class='bx bx-trash' style='color:#f51028; font-size:20px'  ></i></a>
 
                                         </form>
                                     </td>

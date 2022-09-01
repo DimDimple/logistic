@@ -12,9 +12,10 @@
     <div class="shadow-lg p-3 mb-5 bg-white rounded text-primary" style="font-size: 20px"><strong>Tracking Number:</strong>
         <div style="margin-left:10%">{{ $package->id }}</div>
     </div>
-    <div style="display:flex; margin-top: 10px">
+    <div style="margin-top: 10px">
 
-        <div class="shadow-lg p-3 mb-5 bg-white rounded" style=" width:50%"><strong style="font-size: 20px;">Sender
+        <div class="shadow-lg p-3 mb-5 bg-white rounded" style=" width:70%;margin-left:250px"><strong
+                style="font-size: 20px;">Sender
                 Information</strong>
             <div class="header-u" style="margin-top:20px;display:flex">
                 <div style="width: 50%">
@@ -38,20 +39,25 @@
             </div>
 
         </div>
-        <div class="shadow-lg p-3 mb-5 bg-white rounded" style=" width:85%; margin-left:20px"><strong
+        <div class="shadow-lg p-3 mb-5 bg-white rounded" style=" width:95%; margin-left:55px"><strong
                 style="font-size: 20px;">Package
                 Information</strong>
+            
             <table id="datatable" class="table table-bordered dt-responsive nowrap"
                 style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:3%">
                 <thead>
                     <tr class="text-center">
 
                         <th>ID</th>
+                        <th>Receiver Phone</th>
                         <th>Package Price</th>
                         <th>Package Type</th>
                         <th>Quantity</th>
                         <th>Fee</th>
                         <th>Messages</th>
+                        <th>Destination</th>
+                        <th>Status</th>
+                        <th>Action</th>
 
                     </tr>
                 </thead>
@@ -60,11 +66,19 @@
                     @foreach ($goods as $key => $good)
                         <tr class="text-center">
                             <td>{{ ++$key }}</td>
+                            <td></td>
                             <td>{{ $good->package_price }}</td>
                             <td>{{ $package_type->package_type }}</td>
                             <td>{{ $good->quantity }}</td>
                             <td>{{ $good->fee }} $</td>
                             <td>{{ $good->message }}</td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <a href="#" data-toggle="tooltip" title='Edit'><i class='bx bx-edit'
+                                        style='color:#0f07e6;font-size:20px'></i></a>
+
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -75,24 +89,24 @@
         <div class="text-center" style="margin-top:20px;display:flex">
             <div style="width: 50%">
                 <h5 class="card-title p-3 mb-2 bg-success text-white">STATUS</h5>
-               <h6 class="text-center"> {{ $package->status }}</h6>
+                <h6 class="text-center"> {{ $package->status }}</h6>
             </div>
             <div style="width: 50%; margin-left:20px">
                 <h5 class="card-title p-3 mb-2 bg-warning text-dark">PAYMENT STATUS</h5>
-               <h6 class="text-center"> {{ $package->pay_status }}</h6>
+                <h6 class="text-center"> {{ $package->pay_status }}</h6>
             </div>
 
-    
-         
+
+
             <div style="width: 50%; margin-left:20px">
                 <h5 class="card-title p-3 mb-2 bg-primary text-white">TOTAL ITEMS</h5>
                 <h6 class="text-center">{{ $package->total_item }}</h6>
 
-            </div> 
-            
+            </div>
+
             <div style="width: 50%; margin-left:20px">
                 <h5 class="card-title p-3 mb-2 bg-info text-white">TOTAL FEE</h5>
-               <h6 class="text-center"> {{ $package->total_fee }} $</h6>
+                <h6 class="text-center"> {{ $package->total_fee }} $</h6>
             </div>
         </div>
 

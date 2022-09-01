@@ -66,24 +66,37 @@ class PTypesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PType  $pType
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(PType $pType)
+    public function edit($id)
     {
-        //
+        $package_types = PType::find($id); 
+ 
+        return view('backend.manager.page.packageType.edit', compact('package_types'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PType  $pType
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PType $pType)
+    public function update(Request $request, $id)
     {
-        //
+        $package_types = PType::find($id);
+        
+         if(isset($request->package_type)){
+            $package_types->package_type = $request->package_type;
+         }
+
+         $package_types->save();
+       
+         return redirect()->route('packageType.index')
+         ->with('succees', 'Package type updated successfully');
+
+
     }
 
     /**

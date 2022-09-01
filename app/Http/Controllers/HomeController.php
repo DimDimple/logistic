@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+       
         return view('frontend.home');
     }
 
@@ -33,6 +35,7 @@ class HomeController extends Controller
      */
     public function adminHome()
     {
+        
         return view('backend.admin.adminDashboard');
     }
    
@@ -43,6 +46,6 @@ class HomeController extends Controller
      */
     public function managerHome()
     {
-        return view('backend.manager.manager');
+       
     }
 }

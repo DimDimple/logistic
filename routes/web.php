@@ -13,6 +13,7 @@ use App\Http\Controllers\backend\ProcessController;
 use App\Http\Controllers\backend\DeclineController;
 use App\Http\Controllers\backend\PendingController;
 use App\Http\Controllers\backend\CompletedController;
+use App\Http\Controllers\backend\DashbaordController;
 use App\Http\Controllers\backend\StorageController;
 use App\Http\Controllers\backend\PTypesController;
 use App\Http\Controllers\backend\UserController;
@@ -118,11 +119,13 @@ All Admin Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:manager'])->group(function () {
 
-    Route::get('/manager/home', [HomeController::class, 'managerHome'])->name('manager');
+
+    Route::get('manager/dashboard', [DashbaordController::class, 'index'])->name('manager');
+    
     // Route::get('/manager/home', [DashboardController::class, 'managerHome'])->name('manager');
-    Route::get('/manager', function () {
-        return view('backend.manager.manager');
-    });
+    // Route::get('/manager', function () {
+    //     return view('backend.manager.manager');
+    // });
     Route::resource('/manager/packages', PackageController::class);
     Route::resource('/manager/decline', DeclineController::class);
     Route::resource('/manager/process', ProcessController::class);
