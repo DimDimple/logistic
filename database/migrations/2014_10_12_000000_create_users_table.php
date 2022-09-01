@@ -23,6 +23,7 @@ return new class extends Migration
             $table->tinyInteger('type')->default(0);
             /* Users: 0=>User, 1=>Admin, 2=>Manager */
             $table->string('password');
+            $table->string('image')->default('user.png');
             // $table->unsignedBigInteger('branch_id')->nullable();
             $table->rememberToken();
             $table->timestamps();

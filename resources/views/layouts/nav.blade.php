@@ -4,32 +4,25 @@
         </a>
 
         @if (Route::has('login'))
-            <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block" style="margin: 20px 0px 0px 0px">
-                @auth
-                <li class="nav-item dropdown" style="position:absolute; top:15px; right: 150px; display:flex;">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }}
-                    </a>
 
-                    <div class="dropdown-menu dropdown-menu-end d-flex"  aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
+            <div class="hidden d-flex fixed top-0 right-0 px-6 py-4 sm:block" style="margin: 20px 0px 0px 0px">
+                {{-- @if (Auth::user()->image)
+                    <img class="image rounded-circle" src="{{ asset('/storage/images/' . Auth::user()->image) }}"
+                        alt="profile_image" style="width: 50px;height: 50px; padding: 10px; margin: 0px; ">
+                @endif --}}
+                @auth
+                    <li class="nav-item dropdown" style="position:absolute; top:15px; right: 90px; display:flex;">
+                        <button onclick="menuToggle()">
+                            {{ Auth::user()->name }}
+                        </button>
+                    </li>
                 @else
                     <a href="{{ route('login') }}" class="text-sm text-black-500 dark:text-black-500">Log
                         in</a>
 
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}"
-                            class="ml-4 text-sm text-black-500 dark:text-black-500" style="margin-left:10px">Register</a>
+                        <a href="{{ route('register') }}" class="ml-4 text-sm text-black-500 dark:text-black-500"
+                            style="margin-left:10px">Register</a>
                     @endif
                 @endauth
             </div>
@@ -44,3 +37,38 @@
         </ul>
     </div>
 </nav>
+
+
+
+<div class="menu-profile" id="menu-profile">
+    <h3> {{ Auth::user() ? Auth::user()->name : '' }}</h3>
+    <ul>
+        <li><a href="/editprofile"><i class='bx bx-edit-alt'></i>Edit Profile</a></li>
+        <li><a href="/changepassword"><i class='bx bx-lock'></i>Change Password</a></li>
+        <li><a href="/orderlist"><i class='bx bx-collection'></i> My Order List</a></li>
+        {{-- <li><img src="" alt=""><a href="#">Feedback</a></li> --}}
+        <li>
+            <a class="dropdown-item" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                <i class='bx bx-log-out'></i>
+                {{ __('Logout') }}
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+        </li>
+
+    </ul>
+</div>
+
+<script>
+    function menuToggle() {
+        const toggleMenu = document.querySelector('.menu-profile');
+        toggleMenu.classList.toggle('active');
+
+        // const menu = document.getElementById("menu-profile");
+        // menu.innerHTML = "Hide";
+
+    }
+</script>
