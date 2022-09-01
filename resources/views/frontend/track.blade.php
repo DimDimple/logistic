@@ -12,7 +12,7 @@
                     <input type="text" class="search-input" placeholder="Type Search.....">
 
                     <button class="search-button" >
-                        <i class='bx bx-search' style='color: #DE8F1F; '></i>
+                        <i class='bx bx-search' style='color: #DE8F1F; margin-top:-1px'></i>
                     </button>
                 </div>
             </div>

@@ -37,16 +37,16 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'type' => 'required',
         ]);
-        
+
         Position::create($request->all());
 
         return redirect()->route('position.index')
 
-        ->with('success', 'Position created successfully.');
+            ->with('success', 'Position created successfully.');
     }
 
     /**
@@ -63,12 +63,14 @@ class PositionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Position  $position
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Position $position)
+    public function edit($id)
     {
-        //
+        $types  = Position::find($id);
+      
+        return view('backend.manager.page.position.edit', compact('types'));
     }
 
     /**
@@ -80,7 +82,25 @@ class PositionController extends Controller
      */
     public function update(Request $request, Position $position)
     {
-        //
+        
+        // $types = Position::find($id);
+      
+        // if (isset($request->type)) {
+        //     $types->type;
+        // }
+
+        // $types->save();
+        // return redirect()->route('position.index')
+        //     ->with('succees', 'Employee updated successfully');
+
+        $request->validate([
+            'type' => 'required'
+        ]);
+
+        $position->update($request->all());
+
+        return redirect()->route('position.index')
+            ->with('succees', 'Employee updated successfully');
     }
 
     /**
@@ -93,6 +113,6 @@ class PositionController extends Controller
     {
         $position->delete();
         return redirect()->route('position.index')
-                        ->with('success','Position deleted successfully');
+            ->with('success', 'Position deleted successfully');
     }
 }

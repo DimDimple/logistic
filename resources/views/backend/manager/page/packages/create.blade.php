@@ -103,12 +103,12 @@
                                             <input type="hidden" name="total_fee" value="{{ $total_fee }}">
                                             <!--hidden fields-->
                                             <button type="submit" data-bs-dismiss="modal"
-                                                class="btn btn-outline-success"
+                                                class="btn btn-success"
                                                 style="margin-left: 70%">
                                                 Saved
                                             </button>
 
-                                            <a class="btn btn-outline-danger"
+                                            <a class="btn btn-danger"
                                                 data-bs-dismiss="modal" href="{{ route('packages.create') }}">
                                                 Cancel</a>
                                         </form>
@@ -116,7 +116,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="btn btn-warning" data-bs-toggle="modal" href="#exampleModalToggle" role="button"
+                        <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button"
                             style="margin-left: 36%; margin-top:-2px">Add Goods</a>
                     </div>
                     <div class="infor" style="display:flex">
@@ -209,7 +209,7 @@
                                     </div>
                                 </div>
 
-                                <div style="width:100%; margin-left:125%; margin-top:-85%">
+                                <div style="width:100%; margin-left:125%; margin-top:-70%">
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap"
                                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>

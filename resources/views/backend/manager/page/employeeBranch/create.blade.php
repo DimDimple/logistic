@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-9 mt-4">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">ADD NEW EMPLOYEE</h4><br>
+        <div class="col-9 mt-1">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="card-body shadow-lg p-3 mb-5 bg-white rounded">
+                    <h4 class="card-title shadow-lg p-3 mb-5 bg-white rounded">ADD NEW EMPLOYEE</h4><br>
 
                     <form action="{{ route('employeebranch.store') }}" class="custom-validation" method="POST">
                         @csrf

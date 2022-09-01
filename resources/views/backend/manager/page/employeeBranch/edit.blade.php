@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-9 mt-4">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">EDIT EMPLOYEE'S <span> ID : {{ $employee->id }}</span></h4><br>
+        <div class="col-9 mt-1">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="card-body shadow-lg p-3 mb-5 bg-white rounded">
+                    <h4 class="card-title shadow-lg p-3 mb-5 bg-white rounded">EDIT EMPLOYEE'S <span> ID : {{ $employee->id }}</span></h4><br>
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <strong>Oops!</strong> There were some problems with your input.<br><br>

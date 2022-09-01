@@ -17,7 +17,6 @@ class Goods extends Model
         'message',
         'package_id'
         
-        
     ];
 
     public function package()

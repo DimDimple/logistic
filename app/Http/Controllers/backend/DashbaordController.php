@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Package;
+use App\Models\Goods;
+use App\Models\PType;
+use App\Models\Storage;
+use App\Models\Position;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashbaordController extends Controller
 {
@@ -24,7 +30,10 @@ class DashbaordController extends Controller
      */
     public function index()
     {
-        return view('frontend.home');
+        $packages = Package::get()->count();
+      
+        
+        return view('backend.manager.manager', compact('packages'));
     }
 
     /**

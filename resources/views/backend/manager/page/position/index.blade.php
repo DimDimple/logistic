@@ -8,11 +8,12 @@
                 <div class="card-body">
                     <div class="row">
                         {{-- <label for="firstname" class="col-sm-2 col-form-label">Last Name</label> --}}
-                        <form action="{{ route('position.store') }}" class="d-flex" method="POST" >
+                        <form action="{{ route('position.store') }}" class="d-flex" method="POST">
                             @csrf
-                                <input class="form-control" type="text" id="type" name="type"
-                                    placeholder="Enter Position" style="">
-                                <button type="submit" class="btn btn-primary btn-sm-rounded" style="margin-left:4px">Add New Position</button>
+                            <input class="form-control" type="text" id="type" name="type"
+                                placeholder="Enter Position" style="">
+                            <button type="submit" class="btn btn-primary btn-sm-rounded" style="margin-left:4px">Add New
+                                Position</button>
                         </form>
                     </div>
                 </div>
@@ -42,21 +43,22 @@
                         <tbody>
                             @foreach ($types as $key => $type)
                                 <tr>
-                                    
+
                                     <th scope="row">{{ ++$key }}</th>
                                     {{-- <td>{{ $location->id }}</td> --}}
-                                    <td>{{ $type->type}}</td>
+                                    <td>{{ $type->type }}</td>
                                     <td>{{ $type->created_at->toDateString() }}</td>
-                                   
+
                                     <td>
                                         <form action="{{ route('position.destroy', $type->id) }}" method="POST">
-
+                                        
+                                            <a 
+                                                href="{{ route('position.edit',$type->id ) }}" data-toggle="tooltip" title='Edit'><i class='bx bx-edit' style='color:#0f07e6;font-size:20px'  ></i></a>
                                             @csrf
                                             @method('DELETE')
                                             <input name="_method" type="hidden" value="DELETE">
-                                            <button type="submit"
-                                                class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"
-                                                data-toggle="tooltip" title='Delete'>Delete</button>
+                                            <a type="submit"
+                                                data-toggle="tooltip" title='Delete'><i class='bx bx-trash' style='color:#f51028; font-size:20px'  ></i></a>
 
                                         </form>
                                     </td>
