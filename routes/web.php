@@ -21,6 +21,8 @@ use App\Http\Controllers\backend\PositionController;
 use App\Http\Controllers\frontend\EditProfileController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\ProfileController;
 // use App\Http\Controllers\ManagerController;
 
 
@@ -83,6 +85,12 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
     // Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+    Route::get('/changepassword', [PasswordController::class, 'changePwd'])->name('changePwd');
+    Route::post('/updatepassword', [PasswordController::class, 'updatePwd'])->name('updatePwd');
+
+    Route::get('/editprofile', [ProfileController::class,'edit'])->name('profile.edit');
+    Route::put('/editprofile', [ProfileController::class,'update'])->name('profile.update');
+
 
 
 });
@@ -144,7 +152,7 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     //     return view('backend.manager.page.packages.indexPT');
     // });
 
-   
+
     // Route::get('/manager/customer', function () {
     //     return view('backend.manager.page.customer.index');
     // });
