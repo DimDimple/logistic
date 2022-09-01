@@ -19,6 +19,8 @@
     <link rel="stylesheet" href={{ asset('css/faq.css') }}>
     <link rel="stylesheet" href={{ asset('css/privacy.css') }}>
     <link rel="stylesheet" href={{ asset('css/terms.css') }}>
+    <link rel="stylesheet" href={{ asset('css/profile.css') }}>
+
 
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 

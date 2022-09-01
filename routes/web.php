@@ -73,6 +73,10 @@ Route::get('/edit', function () {
     return view('frontend.userEdit.editProfile');
 });
 
+Route::get('/orderlist', function () {
+    return view('frontend.profile.orderList');
+});
+
 
 Auth::routes();
 
@@ -88,12 +92,14 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/changepassword', [PasswordController::class, 'changePwd'])->name('changePwd');
     Route::post('/updatepassword', [PasswordController::class, 'updatePwd'])->name('updatePwd');
 
-    Route::get('/editprofile', [ProfileController::class,'edit'])->name('profile.edit');
-    Route::put('/editprofile', [ProfileController::class,'update'])->name('profile.update');
+    Route::get('/editprofile', [ProfileController::class, 'edit'])->name('profile.edit');
 
+    Route::put('/editprofile', [ProfileController::class, 'update'])->name('profile.update');
 
-
+    Route::post('/editprofile', [ProfileController::class, 'upload'])->name('profile.upload');
 });
+
+
 
 /*------------------------------------------
 --------------------------------------------
@@ -121,7 +127,7 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
 
 
     Route::get('manager/dashboard', [DashbaordController::class, 'index'])->name('manager');
-    
+
     // Route::get('/manager/home', [DashboardController::class, 'managerHome'])->name('manager');
     // Route::get('/manager', function () {
     //     return view('backend.manager.manager');
