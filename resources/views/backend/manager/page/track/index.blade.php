@@ -7,7 +7,7 @@
                 <h4 class="mb-0">Track</h4>
 
                 <div class="page-title-right">
-                    <ol class="breadcrumb m-0">                        
+                    <ol class="breadcrumb m-0">
                         <a href="http://dmgo.express/manager/packages">Record</a>
                     </ol>
                 </div>
@@ -37,186 +37,129 @@
 
     </div>
 
-    <div class="card">
-        <div class="card-body">
-            <div class="track">
-                <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span
-                        class="text">Order confirmed</span> </div>
-                <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
-                <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
-                <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-10 hh-grayBox pt45 pb20">
+                <div class="row justify-content-between">
+                    <div class="order-tracking completed">
+                        <span class="is-complete"></span>
+                        <p>Pending<br><span>Mon, June 24</span></p>
+                    </div>
+                    <div class="order-tracking completed">
+                        <span class="is-complete"></span>
+                        <p>Processing<br><span>Tue, June 25</span></p>
+                    </div>
+                    <div class="order-tracking completed">
+                        <span class="is-complete"></span>
+                        <p>Shipped<br><span>Tue, June 25</span></p>
+                    </div>
+                    <div class="order-tracking">
+                        <span class="is-complete"></span>
+                        <p>Completed<br><span>Fri, June 28</span></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-body">
-            //Show detail infor
-        </div>
-    </div>
-
-  
-
-
-
-
-
-
-
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-
-        body {
-            background-color: #eeeeee;
-            font-family: 'Open Sans', serif
+        .hh-grayBox {
+            background-color: #F8F8F8;
+            margin-bottom: 20px;
+            padding: 35px;
+            margin-top: 20px;
+            width: 1200px;
         }
 
-        .container {
-            margin-top: 50px;
-            margin-bottom: 50px
+        .pt45 {
+            padding-top: 45px;
         }
 
-        .card {
-            position: relative;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            min-width: 0;
-            word-wrap: break-word;
-            background-color: #fff;
-            background-clip: border-box;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 0.10rem
-        }
-
-        .card-header:first-child {
-            border-radius: calc(0.37rem - 1px) calc(0.37rem - 1px) 0 0
-        }
-
-        .card-header {
-            padding: 0.75rem 1.25rem;
-            margin-bottom: 0;
-            background-color: #fff;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1)
-        }
-
-        .track {
-            position: relative;
-            background-color: #ddd;
-            height: 7px;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            margin-bottom: 60px;
-            margin-top: 50px
-        }
-
-        .track .step {
-            -webkit-box-flex: 1;
-            -ms-flex-positive: 1;
-            flex-grow: 1;
-            width: 25%;
-            margin-top: -18px;
+        .order-tracking {
             text-align: center;
-            position: relative
+            width: 25%;
+            position: relative;
+            display: block;
         }
 
-        .track .step.active:before {
-            background: #DE8F1F;
+        .order-tracking .is-complete {
+            display: block;
+            position: relative;
+            border-radius: 50%;
+            height: 30px;
+            width: 30px;
+            border: 0px solid #AFAFAF;
+            background-color: #f7be16;
+            margin: 0 auto;
+            transition: background 0.25s linear;
+            -webkit-transition: background 0.25s linear;
+            z-index: 2;
         }
 
-        .track .step::before {
-            height: 7px;
+        .order-tracking .is-complete:after {
+            display: block;
             position: absolute;
-            content: "";
-            width: 100%;
-            left: 0;
-            top: 18px
+            content: '';
+            height: 14px;
+            width: 7px;
+            top: -2px;
+            bottom: 0;
+            left: 5px;
+            margin: auto 0;
+            border: 0px solid #AFAFAF;
+            border-width: 0px 2px 2px 0;
+            transform: rotate(45deg);
+            opacity: 0;
         }
 
-        .track .step.active .icon {
-            background: #DE8F1F;
-            color: #fff
+        .order-tracking.completed .is-complete {
+            border-color: #27aa80;
+            border-width: 0px;
+            background-color: #27aa80;
         }
 
-        .track .icon {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            position: relative;
-            border-radius: 100%;
-            background: #ddd
+        .order-tracking.completed .is-complete:after {
+            border-color: #fff;
+            border-width: 0px 3px 3px 0;
+            width: 7px;
+            left: 11px;
+            opacity: 1;
         }
 
-        .track .step.active .text {
-            font-weight: 400;
-            color: #000
+        .order-tracking p {
+            color: #A4A4A4;
+            font-size: 16px;
+            margin-top: 8px;
+            margin-bottom: 0;
+            line-height: 20px;
         }
 
-        .track .text {
+        .order-tracking p span {
+            font-size: 14px;
+        }
+
+        .order-tracking.completed p {
+            color: #000;
+        }
+
+        .order-tracking::before {
+            content: '';
             display: block;
-            margin-top: 7px
+            height: 3px;
+            width: calc(100% - 40px);
+            background-color: #f7be16;
+            top: 13px;
+            position: absolute;
+            left: calc(-50% + 20px);
+            z-index: 0;
         }
 
-        .itemside {
-            position: relative;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            width: 100%
+        .order-tracking:first-child:before {
+            display: none;
         }
 
-        .itemside .aside {
-            position: relative;
-            -ms-flex-negative: 0;
-            flex-shrink: 0
-        }
-
-        .img-sm {
-            width: 80px;
-            height: 80px;
-            padding: 7px
-        }
-
-        ul.row,
-        ul.row-sm {
-            list-style: none;
-            padding: 0
-        }
-
-        .itemside .info {
-            padding-left: 15px;
-            padding-right: 7px
-        }
-
-        .itemside .title {
-            display: block;
-            margin-bottom: 5px;
-            color: #212529
-        }
-
-        p {
-            margin-top: 0;
-            margin-bottom: 1rem
-        }
-
-        .btn-warning {
-            color: #ffffff;
-            background-color: #DE8F1F;
-            border-color: #DE8F1F;
-            border-radius: 1px
-        }
-
-        .btn-warning:hover {
-            color: #ffffff;
-            background-color: #DE8F1F;
-            border-color: #DE8F1F;
-            border-radius: 1px
+        .order-tracking.completed:before {
+            background-color: #27aa80;
         }
     </style>
 @endsection

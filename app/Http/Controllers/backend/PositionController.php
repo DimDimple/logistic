@@ -109,9 +109,13 @@ class PositionController extends Controller
      * @param  \App\Models\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Position $position)
+    public function destroy(Ptype $type)
     {
-        $position->delete();
+        // $position = Position::find($id);
+        $type = Position::where('id', '=', $type->id)->get();
+
+
+        $type->delete();
         return redirect()->route('position.index')
             ->with('success', 'Position deleted successfully');
     }

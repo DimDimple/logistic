@@ -11,6 +11,7 @@ class PType extends Model
     protected $fillable=[
         'package_type',
     ];
+    
     public function goods()
     {
         return $this->hasOne(Goods::class);

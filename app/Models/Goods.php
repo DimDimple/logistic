@@ -11,7 +11,6 @@ class Goods extends Model
     protected $fillable=[
        
         'package_price',
-        'quantity', 
         'ptype_id',
         'fee',
         'message',

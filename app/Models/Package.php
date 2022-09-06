@@ -17,6 +17,7 @@ class Package extends Model
         'pay_status',
         'total_fee',
         'total_item',
+        'reference_number',
         
     ];
 

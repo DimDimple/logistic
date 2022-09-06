@@ -13,7 +13,8 @@ use App\Models\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class PackageController extends Controller
 {
@@ -38,6 +39,7 @@ class PackageController extends Controller
         $packages = Package::latest()->paginate(5);
         //    @dd($packages);     
         // if employee->branch_id==branch_id
+        
 
         return view('backend.manager.page.packages.index', compact('packages', 'branch_id', 'departure_id', 'branch'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -103,7 +105,7 @@ class PackageController extends Controller
 
         $goods = Storage::find($array);
         //find array in goods 
-
+     
         $request->validate([
             'sender_phone' => 'required',
             'receiver_phone' => 'required',
@@ -113,6 +115,7 @@ class PackageController extends Controller
             'pay_status' => 'required',
             'total_fee' => 'required',
             'total_item' => 'required',
+           
 
         ]);
 
@@ -125,9 +128,10 @@ class PackageController extends Controller
             'pay_status' => $request['pay_status'],
             'total_fee' => (int)$request['total_fee'],
             'total_item' => (int)$request['total_item'],
-
+            'reference_number' =>  ("DM" . random_int(1000, 9999)), //random to user // string DM + 4 number
         ]);
 
+    //    dd($savedPackage);
 
         if (!$savedPackage) {
             abort(503);
@@ -137,7 +141,6 @@ class PackageController extends Controller
         foreach ($goods as $good) {
             $savedBranch[] = $savedPackage->goods()->create([
                 'package_price' => (int)$good->package_price,
-                'quantity' => (int)$good->quantity,
                 'ptype_id' => $good->package_type,
                 'fee' => (float)$good->fee,
                 'message' => $good->message,
@@ -162,6 +165,7 @@ class PackageController extends Controller
 
         // unset $request;
         // @dd($request);
+
         return view('backend.manager.page.packages.index', compact('packages', 'branch_id'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -179,21 +183,20 @@ class PackageController extends Controller
         $user_id = Auth::user()->id;
         $branch = Branch::where('user_id', '=', $user_id)->first();
         $departure_id = $branch->id;
-
+        $destination_id = $package->destination_id;
+      
+        $destination = Branch::where('id', '=', $destination_id)->first();
         // track data // 
         $num = 0;
         $total_fee = 0;
         $total_item = 0;
-        foreach ($branches as $branchOne) {
-            if ($branchOne->id !== $departure_id) {
-                $branchOne->id = $branchOne->b_name;
-            }
-        }
 
         $package_type = PType::get()->first();
+       
 
         // @dd($package);
         $goods = Goods::where('package_id', '=', $package->id)->get();
+       
         // @dd($goods);
         //    @dd($package->branch);
 
@@ -202,7 +205,7 @@ class PackageController extends Controller
         // $package_id = Goods::latest()->paginate(5);
         // $good = $package_id;
 
-        return view('backend.manager.page.packages.show', compact('package', 'branch', 'goods', 'package_type', 'branchOne', 'num', 'total_fee', 'total_item'));
+        return view('backend.manager.page.packages.show', compact('package', 'branch', 'goods', 'package_type','destination', 'num', 'total_fee', 'total_item'));
     }
 
     /**
@@ -218,13 +221,16 @@ class PackageController extends Controller
         // @dd(Auth::user());
         $user_id = Auth::user()->id;
         $branch = Branch::where('user_id', '=', $user_id)->first();
-        $num = 0;
-        $total_fee = 0;
-        $total_item = 0;
-
+        $departure_id = $branch->id;
+        $destination_id = $package->destination_id;
+      
+        $destination = Branch::where('id', '=', $destination_id)->first();
+    
+        // dd($branches);
+        //   dd($destination);
         // $package_types = $package->package_type;
 
-        return view('backend.manager.page.packages.edit', compact('package', 'branches', 'branch', 'num', 'total_fee', 'total_item'));
+        return view('backend.manager.page.packages.edit', compact('package', 'branches', 'branch', 'departure_id','destination_id','destination'));
     }
 
     /**
@@ -236,68 +242,87 @@ class PackageController extends Controller
      */
     public function update(Request $request, Package $package)
     {
+        // dd($request);
         $request->validate([
             'sender_phone' => 'required',
             'receiver_phone' => 'required',
             'status' => 'required',
             'pay_status' => 'required',
-            'total_fee' => 'required',
-            'total_item' => 'required',
+            'departure_id' => 'required',
+            'destination_id' => 'required',
 
         ]);
-        $package->update($request->all());
 
+    //    dd($request); 
+        $package->update($request->all());
+      
         return redirect()->route('packages.index')
             ->with('success', 'Package updated successfully.');
     }
 
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Goods  $good
-     * @return \Illuminate\Http\Response
-     */
-    public function editGoods(Goods $good)
-    {
-
-        
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified status in packages.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Goods  $good
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateGoods(Request $request, Goods $good)
-    {
-        $request->validate([
-            'package_price'  => 'required',
-            'package_type'   => 'required',
-            'fee'            => 'required',
-            'destination_id' => 'required',
-            'departure_id'   => 'required',
-            'quantity'       => 'required',
-            'message'        => 'required',
-            'receiver_phone' => 'required',
-        ]);
-        $good->update($request->all());
 
-        return redirect()->route('packages.index')
-            ->with('success', 'Goods updated successfully.');
+    public function updateStatus(Request $request, $id){
+       $package = Package::find($id);
+       $package->status = $request->status;
+       $package->save();
+       return redirect()->route('packages.index')
+       ->with('success', 'Status updated successfully.');
+      
     }
 
+    public function excel()
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'reference_number');
+        $sheet->setCellValue('B1', 'sender_phone');
+        $sheet->setCellValue('C1', 'receiver_phone');
+        $sheet->setCellValue('D1', 'departure');
+        $sheet->setCellValue('E1', 'destination');
+        $sheet->setCellValue('F1', 'status');
+        $sheet->setCellValue('G1', 'pay_status');
+        $sheet->setCellValue('H1', 'total_fee');
+        $sheet->setCellValue('I1', 'total_items');
+       
 
 
+        $packages = Package::get();
+        $rows = 2;
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
-     */
+        foreach ($packages as $package) {
+
+            $sheet->setCellValue('A' . $rows, $package['reference_number']);
+            $sheet->setCellValue('B' . $rows, $package['sender_phone']);
+            $sheet->setCellValue('C' . $rows, $package['receiver_phone']);
+            $sheet->setCellValue('D' . $rows, $package['departure_id']);
+            $sheet->setCellValue('E' . $rows, $package['destination_id']);
+            $sheet->setCellValue('F' . $rows, $package['status']);
+            $sheet->setCellValue('G' . $rows, $package['pay_status']);
+            $sheet->setCellValue('H' . $rows, $package['total_fee']);
+            $sheet->setCellValue('I' . $rows, $package['total_item']);
+   
+            $rows++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('report/PackageReport.xlsx');
+
+        return redirect()->route('packages.index')
+            ->with('success', 'Excel exported successfully.');
+    }
+
+   
+
+   
     public function destroy(Package $package)
     {
         //find package id in goods Pthen delete 
@@ -314,7 +339,14 @@ class PackageController extends Controller
             ->with('success', 'Package deleted successfully');
     }
 
-
+    // public function updateStatus(Request $request)
+    // {   
+    //     dd($request);
+    //     $package = Package::find($id);
+    //     $package->status = $request->status;
+     
+    //     return redirect()->route('packages.index');
+    // }
     public function updatePayStatus($id)
     {
         $packages = Package::find($id);

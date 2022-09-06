@@ -36,6 +36,7 @@
                                 <th>#</th>
                                 <th>Position</th>
                                 <th>Created</th>
+                                <th>Updated</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -48,7 +49,7 @@
                                     {{-- <td>{{ $location->id }}</td> --}}
                                     <td>{{ $type->type }}</td>
                                     <td>{{ $type->created_at->toDateString() }}</td>
-
+                                    <td>{{ $type->updated_at->toDateString() }}</td>
                                     <td>
                                         <form action="{{ route('position.destroy', $type->id) }}" method="POST">
                                         
@@ -58,7 +59,7 @@
                                             @method('DELETE')
                                             <input name="_method" type="hidden" value="DELETE">
                                             <a type="submit"
-                                                data-toggle="tooltip" title='Delete'><i class='bx bx-trash' style='color:#f51028; font-size:20px'  ></i></a>
+                                                data-toggle="tooltip" title='Delete'><i class='bx bx-trash show-alert-delete-box' style='color:#f51028; font-size:20px'  ></i></a>
 
                                         </form>
                                     </td>

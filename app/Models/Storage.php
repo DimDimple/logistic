@@ -11,11 +11,9 @@ class Storage extends Model
     protected $fillable=[
        
         'package_price',
-        'quantity', 
         'package_type',
         'fee',
         'message',
-       
-        
     ];
+    
 }

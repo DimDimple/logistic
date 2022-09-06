@@ -10,6 +10,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class EmployeeController extends Controller
 {
     /**
@@ -22,7 +25,8 @@ class EmployeeController extends Controller
         $user_id = Auth::user()->id;
         $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
 
-        $employees = Employee::where('branch_id', '=', $branch_id)->get();
+        $employees = Employee::where('branch_id', '=', $branch_id)->paginate(5);
+        // $employees = Employee::latest()->paginate(5);
         // dd($employees);
 
         return view('backend.manager.page.employeeBranch.index', compact('employees', 'branch_id'));
@@ -101,7 +105,7 @@ class EmployeeController extends Controller
         $departure_id = $branch->id;
         $employee = Employee::find($id);
         $types = Position::get();
-       
+
 
         return view('backend.manager.page.employeeBranch.show', compact('employee', 'branch'));
     }
@@ -123,7 +127,7 @@ class EmployeeController extends Controller
 
         // $employee = Employee::get();
         $types = Position::get();
-       
+
 
         return view('backend.manager.page.employeeBranch.edit', compact('employee', 'branches', 'branch_id', 'types'));
     }
@@ -138,7 +142,7 @@ class EmployeeController extends Controller
     public function update($id, Request $request)
     {
         $employee = Employee::find($id);
-      
+
         if (isset($request->firstname)) {
             $employee->firstname = $request->firstname;
         }
@@ -187,16 +191,62 @@ class EmployeeController extends Controller
             ->with('succees', 'Employee updated successfully');
     }
 
+
+    public function excel()
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'id');
+        $sheet->setCellValue('B1', 'firstname');
+        $sheet->setCellValue('C1', 'lastname');
+        $sheet->setCellValue('D1', 'gender');
+        $sheet->setCellValue('E1', 'email');
+        $sheet->setCellValue('F1', 'position');
+        $sheet->setCellValue('G1', 'phone');
+        $sheet->setCellValue('H1', 'address');
+        $sheet->setCellValue('I1', 'dob');
+        $sheet->setCellValue('J1', 'pob');
+
+
+        $employees = Employee::get();
+        $rows = 2;
+
+        foreach ($employees as $employee) {
+
+            $sheet->setCellValue('A' . $rows, $employee['id']);
+            $sheet->setCellValue('B' . $rows, $employee['firstname']);
+            $sheet->setCellValue('C' . $rows, $employee['lastname']);
+            $sheet->setCellValue('D' . $rows, $employee['gender']);
+            $sheet->setCellValue('E' . $rows, $employee['email']);
+            $sheet->setCellValue('F' . $rows, $employee['type']->type);
+            $sheet->setCellValue('G' . $rows, $employee['phone']);
+            $sheet->setCellValue('H' . $rows, $employee['address']);
+            $sheet->setCellValue('I' . $rows, $employee['dob']);
+            $sheet->setCellValue('J' . $rows, $employee['pob']);
+
+            $rows++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('report/EmployeeReport.xlsx');
+
+        return redirect()->route('employeebranch.index')
+            ->with('success', 'Excel exported successfully.');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employee $employee)
+    public function destroy(Employee $employee, $id)
     {
         //
+        $employee = Employee::find($id);
         $employee->delete();
+
         return redirect()->route('employeebranch.index')
             ->with('success', 'Package deleted successfully');
     }
