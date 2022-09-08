@@ -10,7 +10,7 @@ use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\EmployeeController;
 use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\ProcessController;
-use App\Http\Controllers\backend\DeclineController;
+use App\Http\Controllers\backend\ShippedController;
 use App\Http\Controllers\backend\PendingController;
 use App\Http\Controllers\backend\CompletedController;
 use App\Http\Controllers\backend\DashbaordController;
@@ -18,6 +18,7 @@ use App\Http\Controllers\backend\StorageController;
 use App\Http\Controllers\backend\PTypesController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\PositionController;
+use App\Http\Controllers\backend\TrackController;
 use App\Http\Controllers\frontend\EditProfileController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\BranchController;
@@ -149,19 +150,25 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     //     return view('backend.manager.manager');
     // });
     Route::resource('/manager/packages', PackageController::class);
-    Route::resource('/manager/decline', DeclineController::class);
+    Route::resource('/manager/shipped', ShippedController::class);
     Route::resource('/manager/process', ProcessController::class);
     Route::resource('/manager/completed', CompletedController::class);
     Route::resource('/manager/pending', PendingController::class);
     // Route::resource('/manager/packageType', PackageTypeController::class);
 
-    Route::get('manager/packages/status/{id}', [PackageController::class, 'updatePayStatus', 'updateStatus'])->name('updatepaystatus', 'updatestatus');
+    Route::get('/manager/packages/paystatus/{id}', [PackageController::class, 'updatePayStatus'])->name('updatepaystatus');
+    Route::put('/manager/goods/status/update/{id}', [PackageController::class, 'updateStatus'])->name('updatestatus');
+    //Route::post('/manager/packages/status/update', 'PackageController@updateStatus');
+
     // Route::resource('/manager/user', UserController::class);
     Route::resource('/manager/packageType', PTypesController::class);
     Route::resource('/manager/position', PositionController::class);
     Route::resource('/manager/employeebranch', EmployeeController::class);
     Route::resource('/manager/storage', StorageController::class);
-
+    Route::put('/manager/goods/update/{id}', [StorageController::class, 'update'])->name('update');
+    Route::get('/manager/tracking', [TrackController::class, 'search'])->name('search');
+    Route::get('/manager/export/excel', [EmployeeController::class, 'excel'])->name('employee.export');
+    Route::get('/manager/package/export/excel', [PackageController::class, 'excel'])->name('package.export');
     // Route::get('/manager/create',function(){
     //         return view('backend.manager.page.packages.create');
     // });
@@ -178,9 +185,9 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     // Route::get('/manager/customer', function () {
     //     return view('backend.manager.page.customer.index');
     // });
-    Route::get('/manager/tracking', function () {
-        return view('backend.manager.page.track.index');
-    });
+    // Route::get('/manager/tracking', function () {
+    //     return view('backend.manager.page.track.index');
+    // });
     // Route::get('/manager/managePackage', function () {
     //     return view('backend.manager.page.managePackage.index');
     // });

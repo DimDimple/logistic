@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('total_item');
             $table->string('status');
             $table->string('pay_status');
-          
+            $table->string('reference_number');
             $table->timestamps();
 
             $table->foreign('departure_id')->references('id')->on('branches');

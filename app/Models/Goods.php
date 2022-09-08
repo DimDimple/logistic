@@ -12,7 +12,10 @@ class Goods extends Model
     protected $fillable=[
 
         'package_price',
+<<<<<<< HEAD
         'quantity',
+=======
+>>>>>>> 058ccd29a0ceaa9388568f2f8ee83e43b7f0496c
         'ptype_id',
         'fee',
         'message',

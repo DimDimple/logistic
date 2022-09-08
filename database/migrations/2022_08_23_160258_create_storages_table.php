@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('storages', function (Blueprint $table) {
             $table->id();
             $table->float('package_price', 8,2);
-            $table->integer('quantity');
             $table->string('package_type');
             $table->float('fee',8,2);
             $table->string('message');

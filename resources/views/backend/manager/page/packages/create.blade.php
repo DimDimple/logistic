@@ -52,6 +52,7 @@
                                     <div class="modal-body">
                                         <form action="{{ route('storage.store') }}" method="POST">
                                             @csrf
+                                            
                                             <!-- price and quantity input -->
                                             <div class="row mb-3">
                                                 <div class="col">
@@ -78,13 +79,6 @@
                                             <!-- Message input -->
                                             <div class="row mb-3" style="margin-top: 5px">
                                                 <div class="col">
-                                                    <div class="form-outline mb-4">
-                                                        <input type="text" id="form7Example2" class="form-control"
-                                                            name="quantity" />
-                                                        <label class="form-label" for="form7Example2">Quantity</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
                                                     <div class="form-outline">
                                                         <input type="text" id="form7Example2" class="form-control"
                                                             name="fee" />
@@ -102,14 +96,13 @@
                                             <input type="hidden" name="total_item" value="{{ $total_item }}">
                                             <input type="hidden" name="total_fee" value="{{ $total_fee }}">
                                             <!--hidden fields-->
-                                            <button type="submit" data-bs-dismiss="modal"
-                                                class="btn btn-success"
+                                            <button type="submit" data-bs-dismiss="modal" class="btn btn-info"
                                                 style="margin-left: 70%">
                                                 Saved
                                             </button>
 
-                                            <a class="btn btn-danger"
-                                                data-bs-dismiss="modal" href="{{ route('packages.create') }}">
+                                            <a class="btn btn-dark" data-bs-dismiss="modal"
+                                                href="{{ route('packages.create') }}">
                                                 Cancel</a>
                                         </form>
                                     </div>
@@ -209,13 +202,13 @@
                                     </div>
                                 </div>
 
-                                <div style="width:100%; margin-left:125%; margin-top:-70%">
+                                <div style="width:100%; margin-left:125%; margin-top:-80%">
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap"
                                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr class="text-center">
                                                 <th>ID</th>
-                                                <th>Quantity</th>
+                                                <th>Package Type</th>
                                                 <th>Fee</th>
                                                 <th>Action</th>
                                             </tr>
@@ -224,7 +217,7 @@
                                             @foreach ($goods as $key => $good)
                                                 <tr class="text-center">
                                                     <td>{{ ++$key }}</td>
-                                                    <td>{{ $good->quantity }}</td>
+                                                    <td>{{ $package_type->package_type }}</td>
                                                     <td>{{ $good->fee }} $</td>
                                                     <td>
                                                         <input type="hidden" name="num"
@@ -235,7 +228,8 @@
                                                             value="{{ $total_fee }}">
                                                         <input type="hidden" name="id"
                                                             value="{{ $good->id }}">
-                                                            <a href="{{URL::to('/manager/storage/destroy/'.$good->id)}}" >Delete</a>
+                                                        <a
+                                                            href="{{ URL::to('/manager/storage/destroy/' . $good->id) }}">Delete</a>
                                                         {{-- <button type="submit"
                                                             class="btn btn-danger btn-rounded waves-effect waves-light">Remove</button> --}}
                                                     </td>
@@ -250,7 +244,7 @@
                                 <input type="hidden" name="total_fee" value="{{ $total_fee }}">
                                 <div style=" margin-left: 185%; display:flex; padding:0 10px; margin-top:60%; ">
                                     <div style=" margin:0 20px;" class="text-center">
-                                        <h5 style="width:100px" class="text-info" >Total Items</h5>
+                                        <h5 style="width:100px" class="text-info">Total Items</h5>
                                         <h6> {{ $total_item }}</h6>
                                     </div>
                                     <div class="text-center">
@@ -258,8 +252,7 @@
                                         <h6> {{ $total_fee }} $</h6>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-success"
-                                    style="margin-left: 230%; margin-top:5%">
+                                <button type="submit" class="btn btn-success" style="margin-left: 230%; margin-top:5%">
                                     Submit
                                 </button></a>
                             </form>

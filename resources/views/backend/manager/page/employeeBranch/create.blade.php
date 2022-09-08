@@ -97,7 +97,7 @@
                         <div class=" row mb-3">
                             <label for="phone" class="col-sm-2 col-form-label">Phone Number</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control" id="phone" required parsley-type="phone"
+                                <input type="text" class="form-control" id="phone" required parsley-type="phone"
                                     name="phone" placeholder="Enter a valid phone number" />
                             </div>
                         </div>

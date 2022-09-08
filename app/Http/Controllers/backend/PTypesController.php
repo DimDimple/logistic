@@ -105,8 +105,9 @@ class PTypesController extends Controller
      * @param  \App\Models\PType  $pType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PType $pType)
+    public function destroy(PType $pType, $id)
     {
+        $pType = PType::find($id);
         $pType->delete();
         return redirect()->route('packageType.index')
                         ->with('success','Package Type deleted successfully');

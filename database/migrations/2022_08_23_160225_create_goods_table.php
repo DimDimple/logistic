@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('package_id');
             $table->float('package_price', 8,2);
-            $table->integer('quantity');
             $table->unsignedBigInteger('ptype_id');
             $table->float('fee',8,2);
             $table->string('message');

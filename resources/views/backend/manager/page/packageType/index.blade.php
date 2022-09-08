@@ -4,8 +4,10 @@
     <div class="row justify-content-center">
         <div class="col-sm-10">
             <h4 class="my-3">Package Type</h4>
+          
             <div class="card">
                 <div class="card-body">
+                 
                     <div class="row">
                         {{-- <label for="firstname" class="col-sm-2 col-form-label">Last Name</label> --}}
                         <form action="{{ route('packageType.store') }}" class="d-flex" method="POST" >
@@ -35,6 +37,7 @@
                                 <th>#</th>
                                 <th>Package Type</th>
                                 <th>Created</th>
+                                <th>Updated</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -47,7 +50,7 @@
                                     {{-- <td>{{ $location->id }}</td> --}}
                                     <td>{{ $package_type->package_type}}</td>
                                     <td>{{ $package_type->created_at->toDateString() }}</td>
-                                   
+                                    <td>{{ $package_type->updated_at->toDateString() }}</td>
                                     <td>
                                         <form action="{{ route('packageType.destroy', $package_type->id) }}" method="POST">
                                             <a 
@@ -57,7 +60,7 @@
                                             @method('DELETE')
                                             <input name="_method" type="hidden" value="DELETE">
                                             <a type="submit"
-                                                data-toggle="tooltip" title='Delete'><i class='bx bx-trash' style='color:#f51028; font-size:20px'  ></i></a>
+                                                data-toggle="tooltip" title='Delete'><i class='bx bx-trash show-alert-delete-box' style='color:#f51028; font-size:20px'  ></i></a>
 
                                         </form>
                                     </td>
