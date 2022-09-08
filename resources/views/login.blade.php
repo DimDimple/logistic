@@ -9,14 +9,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Dmgo</title>
-
+    <link rel="icon" href="{{ asset('images/logo1removebg.png') }}" type="image/png" />
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
+    
+    <!-- bootstrap icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
 </head>
 
 <body>
     @yield('content')
-    
+
 </body>
 
 </html>

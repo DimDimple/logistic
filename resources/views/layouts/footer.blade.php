@@ -15,7 +15,7 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/track">Track&Trace</a></li>
                 <li><a href="/information">Information</a></li>
-                <li><a href="/contact">About Us</a></li>
+                <li><a href="/contact">Contact Us</a></li>
             </ul>
         </div>
         <div class="footer-right">

@@ -1,28 +1,28 @@
 <nav>
     <div class="logo">
-        <a><img src={{ asset('assets/images/logoDMgo.png') }} alt="" style="width: 150px; height: 100px">
+        <a><img src={{ asset('assets/images/logoDMgo.png') }} alt="" >
         </a>
 
         @if (Route::has('login'))
 
-            <div class="hidden d-flex fixed top-0 right-0 px-6 py-4 sm:block" style="margin: 20px 0px 0px 0px">
+            <div class="user">
                 {{-- @if (Auth::user()->image)
                     <img class="image rounded-circle" src="{{ asset('/storage/images/' . Auth::user()->image) }}"
                         alt="profile_image" style="width: 50px;height: 50px; padding: 10px; margin: 0px; ">
                 @endif --}}
                 @auth
-                    <li class="nav-item dropdown" style="position:absolute; top:15px; right: 90px; display:flex;">
+                    <li class="nav-item dropdown" style="position:absolute; top:0px; right: 0px; display:flex;">
                         <button onclick="menuToggle()">
                             {{ Auth::user()->name }}
                         </button>
                     </li>
                 @else
-                    <a href="{{ route('login') }}" class="text-sm text-black-500 dark:text-black-500">Log
+                    <a href="{{ route('login') }}" class="text-sm text-black-500 dark:text-black-500" style="text-decoration: none; text-align: center;">Log
                         in</a>
 
                     @if (Route::has('register'))
                         <a href="{{ route('register') }}" class="ml-4 text-sm text-black-500 dark:text-black-500"
-                            style="margin-left:10px">Register</a>
+                            style="text-decoration: none;margin-left:10px" >Register</a>
                     @endif
                 @endauth
             </div>
@@ -33,7 +33,7 @@
             <li><a href="/home">Home</a></li>
             <li><a href="/track">Track&Trace</a></li>
             <li><a href="/information">Information</a></li>
-            <li><a href="/contact">About us</a></li>
+            <li><a href="/contact">Contact us</a></li>
         </ul>
     </div>
 </nav>

@@ -9,13 +9,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Dmgo</title>
-    
+    <link rel="icon" href="{{ asset('images/logo1removebg.png') }}" type="image/png" />
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    
+
     <style>
         .text-sm {
             font-size: 18px;
@@ -23,7 +23,7 @@
             border-radius: 5px;
             color: white;
             cursor: pointer;
-            
+
         }
 
         .text-sm:hover {

@@ -6,13 +6,13 @@
 <head>
 
     <meta charset="utf-8" />
-    <title> DMgo</title>
+    <title>DMgo</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
-
+    <link rel="icon" href="{{ asset('images/logo1removebg.png') }}" type="image/png" />
     <!-- jquery.vectormap css -->
     <link href={{ asset('assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }} rel="stylesheet"
         type="text/css" />

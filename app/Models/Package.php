@@ -17,7 +17,7 @@ class Package extends Model
         'pay_status',
         'total_fee',
         'total_item',
-        
+
     ];
 
     public function goods()
@@ -28,5 +28,13 @@ class Package extends Model
     // {
     //     return $this->hasMany(Branch::class);
     // }
+
+    public function province_departure(){
+        return $this->hasOne(Location::class, 'id', 'departure_id');
+    }
+
+    public function province_destination(){
+        return $this->hasOne(Location::class, 'id', 'destination_id');
+    }
 
 }

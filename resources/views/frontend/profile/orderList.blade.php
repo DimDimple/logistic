@@ -3,7 +3,7 @@
 @section('edit_pf')
     <div class="bar">
         <div class="title_list">
-            <h3>Order List</h3>
+            <h3 style="color:#df9123;">Order List</h3>
         </div>
         <div class="box_search">
             <div class="search-box">
@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="warpper_list">
-        	{{-- card1 --}}
+        {{-- card1 --}}
         {{-- <div class="box_card">
             <div class="left">
                 <div class="ticket_header">
@@ -67,43 +67,63 @@
                 </div>
             </div>
         </div> --}}
-        <div class="box_card card2">
+        @foreach ($lists as $list)
+            {{-- @if ($list->package->sender_phone == $user_phone || $list->package->receiver_phone == $user_phone) --}}
+            <div class="box_card card2">
 
-            <div class="card2_top">
+                <div class="card2_top">
+                    @foreach ($branches as $branch)
 
-                <h5>Phnom Penh <i class="bi bi-arrow-right fa-lg"></i> Kampot</h5>
+                        @if ($branch->id == $list->departure_id)
+                            <span class="title">{{ $branch->province }}
+                                <i class="bi bi-arrow-right fa-lg"></i></></span>
+                        @elseif ($branch->id == $list->destination_id)
+                            <span class="title">{{ $branch->province }}</></span>
+                        @endif
 
+                    @endforeach
 
+                </div>
+                <div class="card2_bottom">
+                    <div class="col1">
+                        <div class="col1_top">
+                            <p style="color: #959393;"><b></b>Sender/Receiver</b></p>
+                            <span><b>{{ $list->sender_phone }}</b></span>
+                        </div>
+                        <div class="col1_bottom">
+                            {{-- <p style="color: #959393;"><b>Receiver</b></p> --}}
+                            <p><b>{{ $list->receiver_phone }}</b></p>
+
+                            <div style="color: #959393;">
+                                <i class="bi bi-box-seam"></i>
+                                <span>{{ $list->package_type }}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col2">
+                        <p style="color: #959393;">Departure Date/Time</p>
+                        <span><b>{{ date('d-m-Y', strtotime($list->created_at)) }}</b></span><br><br>
+                        <p><b>{{ date('h:i A', strtotime($list->created_at)) }}</b></p>
+                        <div class="color-text">
+                            <i class="bi bi-ticket-perforated"></i>
+                            <span>asdg3gs</span>
+                        </div>
+
+                    </div>
+                    <div class="col3">
+                        <p style="color: #959393;">Amount</b></p>
+                        <span><b>{{ number_format($list->fee, 2) }}</b></span><br><br>
+                        <p><b>USD</b></p>
+                        <div class="color-text">
+                            <i class="bi bi-coin"></i>
+                            <span>{{ $list->pay_status }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card2_bottom">
-                <div class="col1">
-                    <div class="col1_top">
-                        <p><b>Sender</b></p>
-                        <span>012 234 234</span>
-                    </div>
-                    <div class="col1_bottom">
-                        <p><b>Receiver</b></p>
-                        <span>012 234 234</span>
-                    </div>
-                </div>
-                <div class="col2">
-                    <p><b>Departure Date/Time</b></p>
-                    <span>10-01-22</span><br><br>
-                    <p>09:00 AM</p>
-                    <div class="color-text">
-                        <i class="bi bi-ticket-perforated"></i>
-                        <span>asdg3gs</span>
-                    </div>
-
-                </div>
-                <div class="col3">
-                    <p><b>Amount</b></p>
-                    <span>1.25</span><br><br>
-                    <p>USD</p>
-                    <span class="color-text">Paid</span>
-                </div>
-            </div>
-        </div>
+            {{-- @endif --}}
+        @endforeach
 
     </div>
 @endsection

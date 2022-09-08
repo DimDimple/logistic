@@ -38,13 +38,16 @@
                                         </span>
                                     @enderror
                                 </div>
-
                                 <!-- Password input -->
                                 <div class="form-outline mb-3">
                                     <input id="password" type="password" placeholder="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"    
+                                        class="form-control @error('password') is-invalid @enderror" name="password"
                                         required autocomplete="current-password">
-                                  
+                                    <div style="margin-left:450px; position:absolute; margin-top:-30px">
+                                        <i class="bi bi-eye-slash" id="toggle_password"
+                                            onclick="showPassword('password')"></i>
+                                    </div>
+
                                     <label class="form-label" for="form3Example4">{{ __('') }}</label>
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -86,4 +89,29 @@
             </div>
         </div>
     </section>
+    <script>
+        const toggle_password = document.querySelector('#toggle_password');
+
+        // const password = document.querySelector('#password');
+
+        toggle_password.addEventListener("click", function() {
+
+            // toggle the icon
+            this.classList.toggle("bi-eye");
+        });
+
+        // //prevent form submit
+        // const form = document.querySelector('form');
+        // form.addEventListener('submit',function(e){
+        //     e.preventDefault();
+        // })
+        function showPassword(idclick) {
+            const password = document.querySelector('#' + idclick);
+
+            //alert(idclick);
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+
+        }
+    </script>
 @endsection

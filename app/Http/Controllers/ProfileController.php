@@ -25,7 +25,8 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+        $user = User:: get();
+        return view('frontend.profile.editProfile', compact('user'));
     }
 
     /**
@@ -36,7 +37,24 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // $request->validate([
+        //     'name' => 'required',
+        //     'email' => 'required',
+        //     'phone' => 'required',
+        //     'address' => 'required',
+        // ]);
+
+        // // $user = User::find(Auth::user()->id);
+
+
+        //     $user=User::create([
+        //         'name' => $request['name'],
+        //         'email' => $request['email'],
+        //         'phone' => $request['phone'],
+        //         'address' => $request['address'],
+        //     ]);
+        //     return view('frontend.profile.editProfile', compact('user'));
     }
 
     /**
@@ -60,7 +78,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-        return view('frontend.profile.editProfile', $data, array('user' => Auth::user()));
+        return view('frontend.profile.editProfile', $data, array('user'=>Auth::user()));
     }
 
     /**
@@ -76,16 +94,26 @@ class ProfileController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'address' => 'required',
+            // 'address' => 'required',
         ]);
 
         $user = User::find(Auth::user()->id);
 
+        // dd($request);
+
         if($user){
-            $user->update($request->all());
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                // $user->email = $request->get('email'),
+                // $user->phone = $request->get('phone'),
+                // $user->address = $request->get('address'),
+            ]);
         }
 
-        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully');
+        return redirect()->route('profile.edit',array('user' => Auth::user()))->with('success', 'Profile updated successfully');
     }
 
     /**

@@ -67,8 +67,25 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="/admin/branch">Branch</a></li>
-                        {{-- <li><a href="/admin/manager">Branch Manager</a></li> --}}
                         <li><a href="/admin/location">Location</a></li>
+
+                    </ul>
+
+
+                    {{-- <ul class="sub-menu" aria-expanded="false">
+
+                    </ul> --}}
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class='bx bxs-map-pin bx-flip-horizontal' style='color:#414040' ></i>
+                        <span class="badge rounded-pill bg-danger float-end">1</span>
+                        <span>Message</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="/admin/contact">Contact Message</a></li>
+                        {{-- <li><a href="/admin/manager">Branch Manager</a></li> --}}
+                        {{-- <li><a href="/admin/location">Location</a></li> --}}
 
                     </ul>
 

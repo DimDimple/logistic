@@ -39,13 +39,13 @@
                                 @foreach ($admins as $key => $admin)
                                     <tr>
                                         <th scope="row">{{ ++$key }}</th>
-                                       
-                                        <td>{{ $admin->name }}</td>   
+
+                                        <td>{{ $admin->name }}</td>
                                         <td>{{ $admin->email }}</td>
-                                        
+
                                         <td>{{ $admin->phone  }}</td>
-                                        <td>{{ $admin->created_at->toDateString() }}</td>
-                
+                                        <td>{{ date('d-m-Y', strtotime($admin->created_at)) }}</td>
+
                                         <td>
                                             <form action="{{ route('admin.destroy', $admin->id) }}" method="POST">
 

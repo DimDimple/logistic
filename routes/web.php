@@ -23,6 +23,9 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ListController;
+use App\Http\Controllers\ContactController;
+
 // use App\Http\Controllers\ManagerController;
 
 
@@ -51,8 +54,10 @@ Route::get('/track', function () {
 });
 
 Route::get('/contact', function () {
-    return view('frontend.aboutUs');
+    return view('frontend.contactUs');
 });
+
+Route::post('/contact/store',[ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/information', function () {
     return view('frontend.information.faq');
@@ -69,13 +74,11 @@ Route::get('/information/termXcondition', function () {
 Route::get('/information/privacy', function () {
     return view('frontend.information.privacy');
 });
-Route::get('/edit', function () {
-    return view('frontend.userEdit.editProfile');
-});
 
-Route::get('/orderlist', function () {
-    return view('frontend.profile.orderList');
-});
+
+// Route::get('/orderlist', function () {
+//     return view('frontend.profile.orderList');
+// });
 
 
 Auth::routes();
@@ -97,7 +100,12 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::put('/editprofile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::post('/editprofile', [ProfileController::class, 'upload'])->name('profile.upload');
+
+    Route::get('/orderlist',[ListController::class, 'index']);
+    Route::get('/emptylist',[ListController::class, 'index']);
+
 });
+
 
 
 
@@ -116,6 +124,14 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('admin/branch/updatestatus/{id}', [BranchController::class, 'updateStatus'])->name('updatestatus');
     Route::resource('/admin/branch', BranchController::class);
     // Route::resource('/admin/manager', ManagerController::class);
+
+    // Route::post('admin/contact',[ContactController::class,'store'])->name('contact.store');
+
+    Route::get('admin/contact',[ContactController::class,'index'])->name('contact.index');
+    Route::get('admin/show/{id}',[ContactController::class,'show'])->name('contact.show');
+    Route::delete('admin/delete/{id}',[ContactController::class,'destroy'])->name('contact.destroy');
+    // Route::resource('admin/contact',[ContactController::class]);
+
 });
 
 /*------------------------------------------

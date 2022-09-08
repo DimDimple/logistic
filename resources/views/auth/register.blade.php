@@ -58,12 +58,18 @@
                                             </div>
                                         </div>
 
+                                        <!-- password -->
                                         <div class="d-flex flex-row align-items-center mb-0">
                                             <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
                                                 <input id="password" type="password" placeholder="Password"
                                                     class="form-control @error('password') is-invalid @enderror"
                                                     name="password" required autocomplete="new-password">
+                                                <div style="margin-left:380px; position:absolute; margin-top:-30px">
+                                                    <i class="bi bi-eye-slash" id="toggle_password"
+                                                        onclick="showPassword('password')"></i>
+                                                </div>
+
                                                 <label class="form-label" for="form3Example4c">{{ __('') }}</label>
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
@@ -73,12 +79,17 @@
                                             </div>
                                         </div>
 
+                                        <!-- confirm password -->
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <input id="password-confirm" type="password" placeholder="Confirm Password"
+                                                <input  id="password-confirm" type="password" placeholder="Confirm Password"
                                                     class="form-control" name="password_confirmation" required
                                                     autocomplete="new-password">
+                                                <div style="margin-left:380px; position:absolute; margin-top:-30px">
+                                                    <i class="bi bi-eye-slash" id="toggle_password3"
+                                                        onclick="showPassword('password-confirm')"></i>
+                                                </div>
                                                 <label class="form-label" for="form3Example4cd">{{ __('') }}</label>
                                             </div>
                                         </div>
@@ -113,4 +124,40 @@
             </div>
         </div>
     </section>
+    <!-- script for toggle password  -->
+    <script>
+        const toggle_password = document.querySelector('#toggle_password');
+        const toggle_password2 = document.querySelector('#toggle_password2');
+        const toggle_password3 = document.querySelector('#toggle_password3');
+        // const password = document.querySelector('#password');
+
+        toggle_password.addEventListener("click", function() {
+
+            // toggle the icon
+            this.classList.toggle("bi-eye");
+        });
+
+        toggle_password2.addEventListener("click", function() {
+
+            this.classList.toggle("bi-eye");
+        });
+
+        toggle_password3.addEventListener("click", function() {
+
+            this.classList.toggle("bi-eye");
+        });
+
+        // //prevent form submit
+        // const form = document.querySelector('form');
+        // form.addEventListener('submit',function(e){
+        //     e.preventDefault();
+        // })
+        function showPassword(idclick) {
+            const password = document.querySelector('#' + idclick);
+            //alert(idclick);
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+
+        }
+    </script>
 @endsection

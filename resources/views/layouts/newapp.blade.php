@@ -9,6 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>DMgo</title>
+    <link rel="icon" href="{{ asset('images/logo1removebg.png') }}" type="image/png" />
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -36,7 +37,7 @@
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
 </head>
 
-<body>
+<body class="antialiased">
 
     @include('layouts.nav')
 
