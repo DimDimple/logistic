@@ -20,16 +20,16 @@
             <h2 class="card-title">Tracking Your Package</h2>
             <div class="row height d-flex justify-content-center align-items-center">
 
-                <div class="col-md-8">
+                <form class="col-md-8" action="{{ route('track') }}">
                     <div class="form-outline" style="width:100%; display:flex">
-                        <input type="search" class="form-control" id="datatable-search-input" style="margin-left:10%"
-                            placeholder="Search  ......">
-                        <button type="button" class="btn btn-primary">
+                        <input type="text" class="form-control" id="datatable-search-input" name="reference_number"
+                            style="margin-left:10%" placeholder="Search Tracking Number.........">
+                        <button type="submit" class="btn btn-primary">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
 
-                </div>
+                </form>
 
             </div>
 
@@ -37,129 +37,300 @@
 
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-10 hh-grayBox pt45 pb20">
-                <div class="row justify-content-between">
-                    <div class="order-tracking completed">
-                        <span class="is-complete"></span>
-                        <p>Pending<br><span>Mon, June 24</span></p>
+    <div class="container padding-bottom-3x mb-1">
+        @foreach ($trackNumber as $trackNum)
+            <div class="card mb-3 shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="p-4 text-center text-white text-lg bg-dark rounded-top"><span class="text-uppercase">Tracking
+                        Order
+                        No - </span><span class="text-medium">{{ $trackNum->reference_number }}</span></div>
+                <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-white">
+                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Sender Phone Number:</span>
+                        <p class="text-primary">{{ $trackNum->sender_phone }}</p>
                     </div>
-                    <div class="order-tracking completed">
-                        <span class="is-complete"></span>
-                        <p>Processing<br><span>Tue, June 25</span></p>
+                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Receiver Phone Number:</span>
+                        <p class="text-danger">{{ $trackNum->receiver_phone }}</p>
                     </div>
-                    <div class="order-tracking completed">
-                        <span class="is-complete"></span>
-                        <p>Shipped<br><span>Tue, June 25</span></p>
+                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Departure:</span>
+                        <p class="text-warning">{{ $departure }}</p>
                     </div>
-                    <div class="order-tracking">
-                        <span class="is-complete"></span>
-                        <p>Completed<br><span>Fri, June 28</span></p>
+
+                </div>
+                <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
+                    <div class="w-100 text-center py-1 px-2"><span class="text-medium text-danger">Destination:</span>
+                        {{ $destination }}</div>
+                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Status:</span>
+                        {{ $trackNum->status }}</div>
+                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Accepted Date:</span>
+                        {{ $trackNum->created_at->toDateString() }}
                     </div>
                 </div>
+                <div class="card-body">
+                    <!--Status = pending-->
+                    @if($trackNum->status == 'Pending')
+                    <div
+                        class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
+
+                        <div class="step completed" >
+                            <div class="step-icon-wrap">
+                                <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
+                                        class='bx bx-loader-alt' style='color:#8813b7'></i></div>
+                            </div>
+                            <h4 class="step-title">Pending</h4>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon-wrap">
+                                <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
+                                        class='bx bx-loader-circle' style='color:#07833a'></i></div>
+                            </div>
+                            <h4 class="step-title">Processing</h4>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon-wrap">
+                                <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
+                                        class='bx bxs-truck' style='color:#0b60f1'></i></div>
+                            </div>
+                            <h4 class="step-title">Shipped</h4>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon-wrap">
+                                <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
+                                        class='bx bx-check-shield' style='color:#8813b7'></i></div>
+                            </div>
+                            <h4 class="step-title">Completed</h4>
+                        </div>
+                    </div>
+                    @endif
+                    @if ($trackNum->status == 'Processing')
+                    <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
+                    <div class="step completed" >
+                        <div class="step-icon-wrap">
+                            <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
+                                    class='bx bx-loader-alt' style='color:#8813b7'></i></div>
+                        </div>
+                        <h4 class="step-title">Pending</h4>
+                    </div>
+                    <div class="step completed">
+                        <div class="step-icon-wrap">
+                            <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
+                                    class='bx bx-loader-circle' style='color:#07833a'></i></div>
+                        </div>
+                        <h4 class="step-title">Processing</h4>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon-wrap">
+                            <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
+                                    class='bx bxs-truck' style='color:#0b60f1'></i></div>
+                        </div>
+                        <h4 class="step-title">Shipped</h4>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon-wrap">
+                            <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
+                                    class='bx bx-check-shield' style='color:#8813b7'></i></div>
+                        </div>
+                        <h4 class="step-title">Completed</h4>
+                    </div>
+                </div>
+                    @endif
+                @if ($trackNum->status == 'Shipped')
+                <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
+
+                <div class="step completed" >
+                    <div class="step-icon-wrap">
+                        <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
+                                class='bx bx-loader-alt' style='color:#8813b7'></i></div>
+                    </div>
+                    <h4 class="step-title">Pending</h4>
+                </div>
+                <div class="step completed">
+                    <div class="step-icon-wrap">
+                        <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
+                                class='bx bx-loader-circle' style='color:#07833a'></i></div>
+                    </div>
+                    <h4 class="step-title">Processing</h4>
+                </div>
+                <div class="step completed">
+                    <div class="step-icon-wrap">
+                        <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
+                                class='bx bxs-truck' style='color:#0b60f1'></i></div>
+                    </div>
+                    <h4 class="step-title">Shipped</h4>
+                </div>
+                <div class="step">
+                    <div class="step-icon-wrap">
+                        <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
+                                class='bx bx-check-shield' style='color:#8813b7'></i></div>
+                    </div>
+                    <h4 class="step-title">Completed</h4>
+                </div>
             </div>
-        </div>
+                @endif
+                @if ($trackNum->status == 'Completed')
+                <div
+                class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
+
+                <div class="step completed" >
+                    <div class="step-icon-wrap">
+                        <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
+                                class='bx bx-loader-alt' style='color:#8813b7'></i></div>
+                    </div>
+                    <h4 class="step-title">Pending</h4>
+                </div>
+                <div class="step completed">
+                    <div class="step-icon-wrap">
+                        <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
+                                class='bx bx-loader-circle' style='color:#07833a'></i></div>
+                    </div>
+                    <h4 class="step-title">Processing</h4>
+                </div>
+                <div class="step completed">
+                    <div class="step-icon-wrap">
+                        <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
+                                class='bx bxs-truck' style='color:#0b60f1'></i></div>
+                    </div>
+                    <h4 class="step-title">Shipped</h4>
+                </div>
+                <div class="step completed">
+                    <div class="step-icon-wrap">
+                        <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
+                                class='bx bx-check-shield' style='color:#8813b7'></i></div>
+                    </div>
+                    <h4 class="step-title">Completed</h4>
+                </div>
+            </div>
+                @endif
+
+                </div>
+            </div>
+            <div
+                class="d-flex flex-wrap flex-md-nowrap justify-content-center justify-content-sm-between align-items-center">
+                <div class="custom-control custom-checkbox mr-3">
+                    <input class="custom-control-input" type="checkbox" id="notify_me" checked="">
+                    <label class="custom-control-label" for="notify_me">Notify me when order is delivered</label>
+                </div>
+                <div class="text-left text-sm-right"><a class="btn btn-outline-primary btn-rounded btn-sm" href="#"
+                        data-toggle="modal" data-target="#orderDetails">View Order Details</a></div>
+            </div>
+        @endforeach
     </div>
 
     <style>
-        .hh-grayBox {
-            background-color: #F8F8F8;
-            margin-bottom: 20px;
-            padding: 35px;
+        body {
             margin-top: 20px;
-            width: 1200px;
         }
 
-        .pt45 {
-            padding-top: 45px;
-        }
-
-        .order-tracking {
-            text-align: center;
-            width: 25%;
-            position: relative;
+        .steps .step {
             display: block;
+            width: 100%;
+            margin-bottom: 35px;
+            text-align: center
         }
 
-        .order-tracking .is-complete {
+        .steps .step .step-icon-wrap {
             display: block;
             position: relative;
-            border-radius: 50%;
-            height: 30px;
-            width: 30px;
-            border: 0px solid #AFAFAF;
-            background-color: #f7be16;
-            margin: 0 auto;
-            transition: background 0.25s linear;
-            -webkit-transition: background 0.25s linear;
-            z-index: 2;
+            width: 100%;
+            height: 80px;
+            text-align: center
         }
 
-        .order-tracking .is-complete:after {
+        .steps .step .step-icon-wrap::before,
+        .steps .step .step-icon-wrap::after {
             display: block;
             position: absolute;
-            content: '';
-            height: 14px;
-            width: 7px;
-            top: -2px;
-            bottom: 0;
-            left: 5px;
-            margin: auto 0;
-            border: 0px solid #AFAFAF;
-            border-width: 0px 2px 2px 0;
-            transform: rotate(45deg);
-            opacity: 0;
-        }
-
-        .order-tracking.completed .is-complete {
-            border-color: #27aa80;
-            border-width: 0px;
-            background-color: #27aa80;
-        }
-
-        .order-tracking.completed .is-complete:after {
-            border-color: #fff;
-            border-width: 0px 3px 3px 0;
-            width: 7px;
-            left: 11px;
-            opacity: 1;
-        }
-
-        .order-tracking p {
-            color: #A4A4A4;
-            font-size: 16px;
-            margin-top: 8px;
-            margin-bottom: 0;
-            line-height: 20px;
-        }
-
-        .order-tracking p span {
-            font-size: 14px;
-        }
-
-        .order-tracking.completed p {
-            color: #000;
-        }
-
-        .order-tracking::before {
-            content: '';
-            display: block;
+            top: 50%;
+            width: 50%;
             height: 3px;
-            width: calc(100% - 40px);
-            background-color: #f7be16;
-            top: 13px;
-            position: absolute;
-            left: calc(-50% + 20px);
-            z-index: 0;
+            margin-top: -1px;
+            background-color: #e1e7ec;
+            content: '';
+            z-index: 1
         }
 
-        .order-tracking:first-child:before {
-            display: none;
+        .steps .step .step-icon-wrap::before {
+            left: 0
         }
 
-        .order-tracking.completed:before {
-            background-color: #27aa80;
+        .steps .step .step-icon-wrap::after {
+            right: 0
+        }
+
+        .steps .step .step-icon {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border: 1px solid #e1e7ec;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            color: #374250;
+            font-size: 35px;
+            line-height: 81px;
+            z-index: 5;
+
+        }
+
+        .steps .step .step-title {
+            margin-top: 16px;
+            margin-bottom: 10px;
+            color: #606975;
+            font-size: 14px;
+            font-weight: 500
+        }
+
+        .steps .step:first-child .step-icon-wrap::before {
+            display: none
+        }
+
+        .steps .step:last-child .step-icon-wrap::after {
+            display: none
+        }
+
+        .steps .step.completed .step-icon-wrap::before,
+        .steps .step.completed .step-icon-wrap::after {
+            background-color: #ffc107
+        }
+
+        .steps .step.completed .step-icon {
+
+            color: #fff
+        }
+
+        @media (max-width: 576px) {
+
+            .flex-sm-nowrap .step .step-icon-wrap::before,
+            .flex-sm-nowrap .step .step-icon-wrap::after {
+                display: none
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .flex-md-nowrap .step .step-icon-wrap::before,
+            .flex-md-nowrap .step .step-icon-wrap::after {
+                display: none
+            }
+        }
+
+        @media (max-width: 991px) {
+
+            .flex-lg-nowrap .step .step-icon-wrap::before,
+            .flex-lg-nowrap .step .step-icon-wrap::after {
+                display: none
+            }
+        }
+
+        @media (max-width: 1200px) {
+
+            .flex-xl-nowrap .step .step-icon-wrap::before,
+            .flex-xl-nowrap .step .step-icon-wrap::after {
+                display: none
+            }
+        }
+
+        .bg-faded,
+        .bg-secondary {
+            background-color: #f5f5f5 !important;
         }
     </style>
 @endsection

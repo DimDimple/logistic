@@ -31,13 +31,19 @@ class DashbaordController extends Controller
      */
     public function index()
     {
-        $packageNumber = Package::get()->count();
+
         $goods = Goods::get()->count();
         $branches = Branch::get();
         $user_id = Auth::user()->id;
         $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
         $branch = Branch::where('user_id', '=', $user_id)->first();
+
+
         $departure_id = $branch->id;
+        $countDeparture = Package::where('departure_id' ,'=',$branch_id)->get()->count();
+        $countDestination = Package::where('destination_id' ,'=',$branch_id)->get()->count();
+
+        $packageNumber =  $countDeparture + $countDestination;
         // @dd($departure_id );
         // $branch = Branch::where("")->branch;
         // @dd($branch);
