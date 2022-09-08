@@ -17,12 +17,7 @@ class Package extends Model
         'pay_status',
         'total_fee',
         'total_item',
-<<<<<<< HEAD
-
-=======
         'reference_number',
-        
->>>>>>> 058ccd29a0ceaa9388568f2f8ee83e43b7f0496c
     ];
 
     public function goods()

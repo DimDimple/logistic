@@ -2,7 +2,7 @@
 @section('edit_pf')
     <div class="emp_wrapper">
         <div class="emp_pic">
-            <img src={{ asset('images/package.png') }} alt="">
+            <img src={{ asset('images/package2.png') }} alt="">
             <h5>Oops! Nothing there...Zzz</h5>
             <p>Your order list is empty :( </p>
         </div>
