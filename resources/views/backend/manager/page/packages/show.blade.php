@@ -5,6 +5,7 @@
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <h4 class="mb-0">Package Information</h4>
+
             </div>
         </div>
     </div>
@@ -66,18 +67,18 @@
                                             <label class="form-label" for="form7Example1">Package Price</label>
                                         </div>
                                     </div>
-                                    {{-- <div class="col">
+                                    <div class="col">
                                         <div class="form-outline">
                                             <select class="form-select" name="package_type" id="package_type"
-                                                aria-label=".form-select-lg example" value=" ">
-                                                <option selected>{{ $package_type->package_type }}</option>
+                                                aria-label=".form-select-lg example" value="">
+                                                <option selected id="p_type"></option>
                                                 @foreach ($package_types as $package_type)
                                                     <option value="{{ $package_type->id }}">
                                                         {{ $package_type->package_type }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                 </div>
 
                                 <!--Hidden fields -->
@@ -141,9 +142,10 @@
                             <td>{{ $good->ptype->package_type }}</td>
                             <td>{{ $good->fee }}</td>
                             <td>{{ $good->message }}</td>
+
                             <td>
                                 <a data-toggle="tooltip" title='Edit' role="button" data-bs-toggle="modal"
-                                    class="btn btn-success editbtn">Edit</a>
+                                    class="btn btn-success editbtn" onclick="goodID({{ $good->ptype_id }})">Edit</a>
 
                             </td>
                         </tr>
@@ -182,6 +184,12 @@
         crossorigin="anonymous"></script>
 
     <script>
+        let good_id;
+
+        function goodID(id) {
+            // good equal parameter
+            good_id = id;
+        }
         // when we click the button modal will popup
         $(document).ready(function() {
 
@@ -196,10 +204,14 @@
                 }).get();
                 //test data
                 console.log(data, "data");
+
                 //get data by one row and get by order
                 $('#goodId').val(data[0]);
                 $('#package_price').val(data[1]);
-                $('#package_type').val(data[2]);
+                //in select option have two type to do (val and text)
+                $('#p_type').val(good_id);
+                //display(use only select)
+                $('#p_type').text(data[2]);
                 $('#fee').val(data[3]);
                 // $('#total_fee').val(data[4]);
                 $('#message').val(data[4]);
@@ -220,8 +232,9 @@
                 data: $("#editFormID").serialize(),
                 //serialize() = $request from controller 
                 success: function(res) {
-                    // window.location = window.location.href;
-                   
+                    // window.location = window.
+                    location.reload();
+
                     console.log(res);
                 },
                 error: function(response) {

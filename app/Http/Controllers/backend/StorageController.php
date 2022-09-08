@@ -66,11 +66,10 @@ class StorageController extends Controller
 
         //find array the last iterm like we create 2 iterm they get two items by we count the last id to the top
         $lastId = Storage::get()->last()->id;
-       
+
 
         for ($i = 0; $i < $request->num; $i++) {
             $array[$i] = $lastId - $i;
-           
         }
 
         //if we have 7iterm before then we input 3 iterm more we get 3 iterms
@@ -79,11 +78,11 @@ class StorageController extends Controller
         $num = $request->num;
         //
         $total_item = $num;
-        $total_fee = $request->total_fee+$request->fee;
+        $total_fee = $request->total_fee + $request->fee;
 
 
         //find array in goods
-        return view('backend.manager.page.packages.create', compact('branches', 'user_id', 'branch', 'num', 'departure_id', 'goods','package_types','total_item','total_fee'));
+        return view('backend.manager.page.packages.create', compact('branches', 'user_id', 'branch', 'num', 'departure_id', 'goods', 'package_types', 'total_item', 'total_fee'));
     }
 
     /**
@@ -106,7 +105,7 @@ class StorageController extends Controller
     public function edit($id)
     {
         $good = Goods::find($id);
-        return view('backend.manager.page.packages.show', compact('good'));   
+        return view('backend.manager.page.packages.show', compact('good'));
     }
 
     /**
@@ -118,44 +117,60 @@ class StorageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // return $request->package_type;
         $good = Goods::find($id);
-        $package = Package::find($good->package_id);
+
         $good->package_price = $request->package_price;
+        $good->ptype_id = $request->package_type;
         $good->fee = $request->fee;
         $good->message = $request->message;
         $good->save();
 
-        $branches = Branch::get();
-        $user_id = Auth::user()->id;
-        $branch = Branch::where('user_id', '=', $user_id)->first();
-        $departure_id = $branch->id;
-        $destination_id = $package->destination_id;
-      
-        $destination = Branch::where('id', '=', $destination_id)->first();
-        // track data // 
-        $num = 0;
-        $total_fee = 0;
-        $total_item = 0;
+        //update total fee in package 
+        $package = Package::find($good->package_id);
+        $goods = Goods::where('package_id', '=', $good->package_id)->get();
+        //find variable
+        $total_fee=0;
+        foreach ($goods as $good){
+            //sum fee
+            $total_fee = $total_fee+$good->fee;
+        }   
+        //update total fee+
+        $package->total_fee = $total_fee;
+        $package->save();
+        return $id;
 
-        $package_type = PType::get()->first();
-       
+        //     $branches = Branch::get();
+        //     $user_id = Auth::user()->id;
+        //     $branch = Branch::where('user_id', '=', $user_id)->first();
+        //     $departure_id = $branch->id;
+        //     $destination_id = $package->destination_id;
 
-        // @dd($package);
-        $goods = Goods::where('package_id', '=', $package->id)->get();
-       
-        // @dd($goods);
-        //    @dd($package->branch);
+        //     $destination = Branch::where('id', '=', $destination_id)->first();
+        //     // track data // 
+        //     $num = 0;
+        //     $total_fee = 0;
+        //     $total_item = 0;
 
-        // @dd($package->id);
-        // $good = Goods::where('package_id', '=', $package_id)->first()->id;
-        // $package_id = Goods::latest()->paginate(5);
-        // $good = $package_id;
-        return redirect()->route('packages.show', compact('package', 'branch', 'goods', 'package_type','destination', 'num', 'total_fee', 'total_item'))
-      ->with('success', 'Goods updated successfully.');
-        
+        //     $package_type = PType::get()->first();
+
+
+
+        //     $goods = Goods::where('package_id', '=', $package->id)->get();
+
+        //     // @dd($goods);
+        //     //    @dd($package->branch);
+
+        //     // @dd($package->id);
+        //     // $good = Goods::where('package_id', '=', $package_id)->first()->id;
+        //     // $package_id = Goods::latest()->paginate(5);
+        //     // $good = $package_id;
+        //     return redirect()->route('packages.show', compact('package', 'branch', 'goods', 'package_type','destination', 'num', 'total_fee', 'total_item'))
+        //   ->with('success', 'Goods updated successfully.');
+
     }
 
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -168,7 +183,7 @@ class StorageController extends Controller
         //delete all goods with package ID
         // @dd($storage);
         $storage->delete();
-       
+
         $branches = Branch::get();
         // if(Auth::users() == )
         $user_id = Auth::user()->id;
@@ -181,11 +196,10 @@ class StorageController extends Controller
 
         //find array the last iterm like we create 2 iterm they get two items by we count the last id to the top
         $lastId = Storage::get()->last()->id;
-       
+
 
         for ($i = 0; $i < $request->num; $i++) {
             $array[$i] = $lastId - $i;
-           
         }
 
         //if we have 7iterm before then we input 3 iterm more we get 3 iterms
@@ -194,10 +208,10 @@ class StorageController extends Controller
         $num = $request->num;
         //
         $total_item = $num;
-        $total_fee = $request->total_fee+$request->fee;
+        $total_fee = $request->total_fee + $request->fee;
 
 
         //find array in goods
-        return view('backend.manager.page.packages.create', compact('branches', 'user_id', 'branch', 'num', 'departure_id', 'goods','package_types','total_item','total_fee'));
+        return view('backend.manager.page.packages.create', compact('branches', 'user_id', 'branch', 'num', 'departure_id', 'goods', 'package_types', 'total_item', 'total_fee'));
     }
 }

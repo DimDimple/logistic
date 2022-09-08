@@ -9,7 +9,8 @@
                 <span id="time" style=" position:absolute; margin-left:40%"></span>
             </div>
             <a href="{{ route('package.export') }}">
-                <button type="button" class="btn btn-secondary" style="margin-left: 90%;margin-top:-3%">Export Excel</button>
+                <button type="button" class="btn btn-secondary" style="margin-left: 90%;margin-top:-3%">Export
+                    Excel</button>
             </a>
 
         </div>
@@ -20,12 +21,15 @@
             <div class="card">
                 <div class="card-body">
                     <h1 class="card-title">List Package</h1>
+                    <div class="alert text-dark" style="height:25px">
+                        <p id="message"></p>
+                    </div>
 
-                    @if ($message = Session::get('success'))
+                    {{-- @if ($message = Session::get('success'))
                         <div class="alert bg-light text-dark" style="height:45px">
                             <p>{{ $message }}</p>
                         </div>
-                    @endif
+                    @endif --}}
                     <div class="form-outline" style="width:20%; display:flex">
                         <input type="search" class="form-control" id="myInput" style=" margin-top:3%"
                             placeholder="Search">
@@ -63,7 +67,7 @@
                                                 <option selected>{{ $package->status }}</option>
                                                 <option value="Pending">Pending</option>
                                                 <option value="Processing">Processing</option>
-                                                <option value="Decline">Decline</option>
+                                                <option value="Shipped">Shipped</option>
                                                 <option value="Completed">Completed</option>
                                             </select>
 
@@ -147,6 +151,11 @@
 
                 },
                 success: function(msg) {
+                    setInterval($('#message').text(msg));
+                    setInterval(location.reload(), 3000);//5000 = 5s
+                    // location.reload();
+                    // $('#message').text(msg);
+                   
                     console.log(msg);
                 },
                 error: function(response) {

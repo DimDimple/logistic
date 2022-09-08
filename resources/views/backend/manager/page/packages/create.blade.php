@@ -220,14 +220,7 @@
                                                     <td>{{ $package_type->package_type }}</td>
                                                     <td>{{ $good->fee }} $</td>
                                                     <td>
-                                                        <input type="hidden" name="num"
-                                                            value="{{ $num = $num + 1 }}">
-                                                        <input type="hidden" name="total_item"
-                                                            value="{{ $total_item }}">
-                                                        <input type="hidden" name="total_fee"
-                                                            value="{{ $total_fee }}">
-                                                        <input type="hidden" name="id"
-                                                            value="{{ $good->id }}">
+                                                       
                                                         <a
                                                             href="{{ URL::to('/manager/storage/destroy/' . $good->id) }}">Delete</a>
                                                         {{-- <button type="submit"

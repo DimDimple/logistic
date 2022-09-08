@@ -166,7 +166,7 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     Route::resource('/manager/employeebranch', EmployeeController::class);
     Route::resource('/manager/storage', StorageController::class);
     Route::put('/manager/goods/update/{id}', [StorageController::class, 'update'])->name('update');
-    Route::get('/manager/tracking', [TrackController::class, 'search'])->name('search');
+    Route::get('/manager/tracking', [TrackController::class, 'track'])->name('track');
     Route::get('/manager/export/excel', [EmployeeController::class, 'excel'])->name('employee.export');
     Route::get('/manager/package/export/excel', [PackageController::class, 'excel'])->name('package.export');
     // Route::get('/manager/create',function(){

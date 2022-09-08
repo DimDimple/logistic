@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use App\Models\Position;
 use Illuminate\Http\Request;
 
@@ -109,13 +110,10 @@ class PositionController extends Controller
      * @param  \App\Models\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ptype $type)
+    public function destroy(Position  $position)
     {
-        // $position = Position::find($id);
-        $type = Position::where('id', '=', $type->id)->get();
-
-
-        $type->delete();
+        // $employees = Employee::where('type_id', '=', $position->id)->get();
+        $position->delete();
         return redirect()->route('position.index')
             ->with('success', 'Position deleted successfully');
     }
