@@ -94,7 +94,7 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-
+        // dd($request->goods);
         $lastId = Storage::get()->last()->id;
 
         for ($i = 0; $i < $request->num - 1; $i++) {
@@ -111,7 +111,7 @@ class PackageController extends Controller
             'receiver_phone' => 'required',
             'departure_id' => 'required',
             'destination_id' => 'required',
-            'status' => 'required',
+            // 'status' => 'required',
             'pay_status' => 'required',
             'total_fee' => 'required',
             'total_item' => 'required',
@@ -124,11 +124,11 @@ class PackageController extends Controller
             'receiver_phone' => $request['receiver_phone'],
             'departure_id' => (int)$request['departure_id'],
             'destination_id' => (int)$request['destination_id'],
-            'status' => $request['status'],
+            // 'status' => $request['status'],
             'pay_status' => $request['pay_status'],
             'total_fee' => (int)$request['total_fee'],
             'total_item' => (int)$request['total_item'],
-            'reference_number' => ("DM" . random_int(1000, 9999)), //random to user // string DM + 4 number
+            // 'reference_number' => ("DM" . random_int(1000, 9999)), //random to user // string DM + 4 number
         ]);
 
         //    dd($savedPackage);
@@ -145,7 +145,8 @@ class PackageController extends Controller
                 'fee' => (float)$good->fee,
                 'message' => $good->message,
                 'package_id' => $savedPackage->id,
-
+                'status' => $good->status,
+                'reference_number' => ("DM" . random_int(1000, 9999)),
             ]);
         }
         if (!$savedBranch) {
@@ -183,8 +184,12 @@ class PackageController extends Controller
         $user_id = Auth::user()->id;
         $branch = Branch::where('user_id', '=', $user_id)->first();
         $departure_id = $branch->id;
+        $branch_id = $departure_id;
         $destination_id = $package->destination_id;
-
+        // dd($package);
+        $sender = Branch::where('id', '=', $package->departure_id)->get();
+        $receiver = Branch::where('id', '=', $package->destination_id)->get();
+        // dd($receiver);
         $destination = Branch::where('id', '=', $destination_id)->first();
         // track data // 
         $num = 0;
@@ -199,6 +204,7 @@ class PackageController extends Controller
         // @dd($package);
         $goods = Goods::where('package_id', '=', $package->id)->get();
 
+
         // @dd($goods);
         //    @dd($package->branch);
 
@@ -208,7 +214,7 @@ class PackageController extends Controller
         // $good = $package_id;
 
 
-        return view('backend.manager.page.packages.show', compact('package', 'branch', 'goods', 'package_type', 'destination', 'num', 'total_fee', 'total_item', 'package_types'));
+        return view('backend.manager.page.packages.show', compact('sender','receiver','package', 'branch_id', 'branch', 'goods', 'package_type', 'destination', 'num', 'total_fee', 'total_item', 'package_types'));
     }
 
     /**
@@ -249,7 +255,7 @@ class PackageController extends Controller
         $request->validate([
             'sender_phone' => 'required',
             'receiver_phone' => 'required',
-            'status' => 'required',
+            // 'status' => 'required',
             'pay_status' => 'required',
             'departure_id' => 'required',
             'destination_id' => 'required',
@@ -264,36 +270,37 @@ class PackageController extends Controller
     }
 
 
-    /**
-     * Update the specified status in packages.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // /**
+    //  * Update the specified status in packages.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
 
-    public function updateStatus(Request $request, $id)
-    {
-        $package = Package::find($id);
-        $package->status = $request->status;
-        $package->save();
-         return 'Package status updated successfully.';
-    }
+    // public function updateStatus(Request $request, $id)
+    // {
+    //     $good = Goods::find($id);
+    //     $good->status = $request->status;
+    //     $good->save();
+    //      return 'Package status updated successfully.';
+    // }
 
     public function excel()
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        $sheet->setCellValue('A1', 'reference_number');
+        // $sheet->setCellValue('A1', 'reference_number');
+        $sheet->setCellValue('A1', 'id');
         $sheet->setCellValue('B1', 'sender_phone');
         $sheet->setCellValue('C1', 'receiver_phone');
         $sheet->setCellValue('D1', 'departure');
         $sheet->setCellValue('E1', 'destination');
-        $sheet->setCellValue('F1', 'status');
-        $sheet->setCellValue('G1', 'pay_status');
-        $sheet->setCellValue('H1', 'total_fee');
-        $sheet->setCellValue('I1', 'total_items');
+        // $sheet->setCellValue('F1', 'status');
+        $sheet->setCellValue('F1', 'pay_status');
+        $sheet->setCellValue('G1', 'total_fee');
+        $sheet->setCellValue('H1', 'total_items');
 
         $packages = Package::get();
         $rows = 2;
@@ -303,24 +310,25 @@ class PackageController extends Controller
 
         foreach ($packages as $package) {
 
-           
+
             $destination_id = $package->destination_id;
             $destination = Branch::where('id', '=', $destination_id)->first();
 
-            $sheet->setCellValue('A' . $rows, $package['reference_number']);
+            // $sheet->setCellValue('A' . $rows, $package['reference_number']);
+            $sheet->setCellValue('A' . $rows, $package['id']);
             $sheet->setCellValue('B' . $rows, $package['sender_phone']);
             $sheet->setCellValue('C' . $rows, $package['receiver_phone']);
             $sheet->setCellValue('D' . $rows, $branch->b_name);
             $sheet->setCellValue('E' . $rows, $destination->b_name);
-            $sheet->setCellValue('F' . $rows, $package['status']);
-            $sheet->setCellValue('G' . $rows, $package['pay_status']);
-            $sheet->setCellValue('H' . $rows, $package['total_fee']);
-            $sheet->setCellValue('I' . $rows, $package['total_item']);
+            // $sheet->setCellValue('F' . $rows, $package['status']);
+            $sheet->setCellValue('F' . $rows, $package['pay_status']);
+            $sheet->setCellValue('G' . $rows, $package['total_fee']);
+            $sheet->setCellValue('H' . $rows, $package['total_item']);
 
             $rows++;
         }
-        
-        
+
+
         $writer = new Xlsx($spreadsheet);
         $writer->save('report/PackageReport.xlsx');
 

@@ -71,15 +71,7 @@
                         <!-- price and quantity input -->
 
                         <div class="row mb-5">
-                            <div class="col">
-                                <select class="form-select" aria-label="Disabled select example" name="status">
-                                    <option selected value=" {{ $package->status }}"> {{ $package->status }}</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="Processing">Processing</option>
-                                    <option value="Decline">Decline</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
-                            </div>
+                            
                             <div class="col">
                                 <select class="form-select" aria-label="Disabled select example" name="pay_status">
                                     <option selected value=" {{ $package->pay_status }}"> {{ $package->pay_status }}

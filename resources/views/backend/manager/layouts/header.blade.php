@@ -5,19 +5,19 @@
             <div class="navbar-brand-box">
                 <a href="index.html" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="assets/images/logo-sm.png" alt="" height="22">
+                        <img src="#" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="assets/images/logo-dark.png" alt="" height="20">
+                        <img src="#" alt="" height="20">
                     </span>
                 </a>
 
                 <a href="index.html" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="assets/images/logo-sm-light.png" alt="" height="22">
+                        <img src="#" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="assets/images/logo-light.png" alt="" height="20">
+                        <img src="#" alt="" height="20">
                     </span>
                 </a>
             </div>
@@ -109,7 +109,7 @@
                         <a href="#" class="text-reset notification-item">
                             <div class="d-flex align-items-center">
                                 <div class="mt-1">
-                                    <img src="assets/images/users/avatar-3.jpg"
+                                    <img src="#"
                                         class="me-3 rounded-circle avatar-xs mt-1" alt="user-pic">
                                     <div class="noti-top-icon">
                                         <i class="mdi mdi-circle text-white bg-success"></i>
@@ -144,7 +144,7 @@
                         <a href="#" class="text-reset notification-item">
                             <div class="d-flex align-items-center">
                                 <div class="mt-1">
-                                    <img src="assets/images/users/avatar-4.jpg" class="me-3 rounded-circle avatar-xs"
+                                    <img src="#" class="me-3 rounded-circle avatar-xs"
                                         alt="user-pic">
                                     <div class="noti-top-icon">
                                         <i class="mdi mdi-heart text-white bg-danger"></i>
@@ -162,7 +162,7 @@
 
                         <a href="#" class="text-reset notification-item">
                             <div class="d-flex align-items-center">
-                                <img src="assets/images/users/avatar-6.jpg" class="me-3 rounded-circle avatar-xs"
+                                <img src="#" class="me-3 rounded-circle avatar-xs"
                                     alt="user-pic">
                                 <div class="flex-grow-1 text-truncate">
                                     <h6 class="mt-0 mb-1">Jonathon Joseph <span

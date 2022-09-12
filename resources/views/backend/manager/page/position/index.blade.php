@@ -33,7 +33,7 @@
                     <table id="selection-datatable" class="table dt-responsive nowrap w-100 ">
                         <thead class="table-light">
                             <tr>
-                                <th>#</th>
+                                <th>No</th>
                                 <th>Position</th>
                                 <th>Created</th>
                                 <th>Updated</th>

@@ -85,6 +85,15 @@
                                                         <label class="form-label" for="form7Example2">Fee</label>
                                                     </div>
                                                 </div>
+                                                <div class="col">
+                                                    <select class="form-select" aria-label="Disabled select example" name="status">
+                                                        <option selected>Status</option>
+                                                        <option value="Pending">Pending</option>
+                                                        <option value="Processing">Processing</option>
+                                                        <option value="Decline">Decline</option>
+                                                        {{-- <option value="Completed">Completed</option> --}}
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="row mb-3" style="margin-top: -10px">
                                                 <label for="message-text" class="col-form-label">Message:</label>
@@ -180,17 +189,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row mb-5">
-                                    <div class="col">
-                                        <select class="form-select" aria-label="Disabled select example" name="status">
-                                            <option selected>Status</option>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Processing">Processing</option>
-                                            <option value="Decline">Decline</option>
-                                            <option value="Completed">Completed</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                
                                 <div class="row mb-5">
                                     <div class="col">
                                         <select class="form-select" aria-label="Disabled select example"
@@ -202,21 +201,22 @@
                                     </div>
                                 </div>
 
-                                <div style="width:100%; margin-left:125%; margin-top:-80%">
+                                <div style="width:100%; margin-left:130%; margin-top:-70%">
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap"
                                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr class="text-center">
-                                                <th>ID</th>
+                                                <th>Reference Number</th>
                                                 <th>Package Type</th>
                                                 <th>Fee</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($goods as $key => $good)
+                                            @foreach ($goods as $good)
                                                 <tr class="text-center">
-                                                    <td>{{ ++$key }}</td>
+                                                    {{-- <td>{{ ++$key }}</td> --}}
+                                                    <td>{{ $good->reference_number }}</td>
                                                     <td>{{ $package_type->package_type }}</td>
                                                     <td>{{ $good->fee }} $</td>
                                                     <td>

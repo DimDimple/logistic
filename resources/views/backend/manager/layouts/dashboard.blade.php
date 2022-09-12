@@ -11,11 +11,11 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
     <!-- App favicon -->
-<<<<<<< HEAD
+
     <link rel="icon" href="{{ asset('images/logo1removebg.png') }}" type="image/png" />
-=======
+
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
->>>>>>> 058ccd29a0ceaa9388568f2f8ee83e43b7f0496c
+
 
     <!-- jquery.vectormap css -->
     <link href={{ asset('assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }} rel="stylesheet"
@@ -111,13 +111,13 @@
     <script src={{ asset('assets/libs/node-waves/waves.min.js') }}></script>
 
     <!-- apexcharts -->
-    <script src={{ asset('assets/libs/apexcharts/apexcharts.min.js') }}></script>
+    {{-- <script src={{ asset('assets/libs/apexcharts/apexcharts.min.js') }}></script> --}}
 
     <!-- jquery.vectormap map -->
     <script src={{ asset('assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js') }}></script>
     <script src={{ asset('assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js') }}></script>
 
-    <script src={{ asset('assets/js/pages/dashboard.init.js') }}></script>
+    {{-- <script src={{ asset('assets/js/pages/dashboard.init.js') }}></script> --}}
 
     <!-- App js -->
     <script src={{ asset('assets/js/app.js') }}></script>
@@ -173,15 +173,12 @@
         })
     </script>
 
-
-
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#myInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
-                $("#myTable tr").filter(function() {
+                $("#myTable tr ").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });

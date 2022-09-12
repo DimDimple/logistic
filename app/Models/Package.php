@@ -13,11 +13,11 @@ class Package extends Model
         'receiver_phone',
         'departure_id',
         'destination_id',
-        'status',
+        // 'status',
         'pay_status',
         'total_fee',
         'total_item',
-        'reference_number',
+        // 'reference_number',
     ];
 
     public function goods()

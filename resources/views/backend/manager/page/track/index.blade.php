@@ -43,26 +43,17 @@
                 <div class="p-4 text-center text-white text-lg bg-dark rounded-top"><span class="text-uppercase">Tracking
                         Order
                         No - </span><span class="text-medium">{{ $trackNum->reference_number }}</span></div>
-                <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-white">
-                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Sender Phone Number:</span>
-                        <p class="text-primary">{{ $trackNum->sender_phone }}</p>
-                    </div>
-                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Receiver Phone Number:</span>
-                        <p class="text-danger">{{ $trackNum->receiver_phone }}</p>
-                    </div>
-                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Departure:</span>
-                        <p class="text-warning">{{ $departure }}</p>
-                    </div>
-
-                </div>
                 <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
-                    <div class="w-100 text-center py-1 px-2"><span class="text-medium text-danger">Destination:</span>
-                        {{ $destination }}</div>
+                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Package Price:</span>
+                        <p class="text-primary">{{ $trackNum->package_price }}</p>
+                    </div>
                     <div class="w-100 text-center py-1 px-2"><span class="text-medium">Status:</span>
-                        {{ $trackNum->status }}</div>
+                        <p class="text-danger">{{ $trackNum->status }}</p>
+                    </div>
                     <div class="w-100 text-center py-1 px-2"><span class="text-medium">Accepted Date:</span>
                         {{ $trackNum->created_at->toDateString() }}
                     </div>
+
                 </div>
                 <div class="card-body">
                     <!--Status = pending-->
@@ -79,21 +70,21 @@
                         </div>
                         <div class="step">
                             <div class="step-icon-wrap">
-                                <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
+                                <div class="step-icon" style="border-color: #0d6efd; background-color"><i
                                         class='bx bx-loader-circle' style='color:#07833a'></i></div>
                             </div>
                             <h4 class="step-title">Processing</h4>
                         </div>
                         <div class="step">
                             <div class="step-icon-wrap">
-                                <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
+                                <div class="step-icon" style="border-color: #0d6efd; background-color:"><i
                                         class='bx bxs-truck' style='color:#0b60f1'></i></div>
                             </div>
                             <h4 class="step-title">Shipped</h4>
                         </div>
                         <div class="step">
                             <div class="step-icon-wrap">
-                                <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
+                                <div class="step-icon" style="border-color: #0d6efd; background-color:"> <i
                                         class='bx bx-check-shield' style='color:#8813b7'></i></div>
                             </div>
                             <h4 class="step-title">Completed</h4>
@@ -118,14 +109,14 @@
                     </div>
                     <div class="step">
                         <div class="step-icon-wrap">
-                            <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
+                            <div class="step-icon" style="border-color: #0d6efd; background-color:"><i
                                     class='bx bxs-truck' style='color:#0b60f1'></i></div>
                         </div>
                         <h4 class="step-title">Shipped</h4>
                     </div>
                     <div class="step">
                         <div class="step-icon-wrap">
-                            <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
+                            <div class="step-icon" style="border-color: #0d6efd; background-color:"> <i
                                     class='bx bx-check-shield' style='color:#8813b7'></i></div>
                         </div>
                         <h4 class="step-title">Completed</h4>
@@ -158,7 +149,7 @@
                 </div>
                 <div class="step">
                     <div class="step-icon-wrap">
-                        <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
+                        <div class="step-icon" style="border-color: #0d6efd; background-color:"> <i
                                 class='bx bx-check-shield' style='color:#8813b7'></i></div>
                     </div>
                     <h4 class="step-title">Completed</h4>
