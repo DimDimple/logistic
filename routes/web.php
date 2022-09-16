@@ -157,7 +157,7 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     // Route::resource('/manager/packageType', PackageTypeController::class);
 
     Route::get('/manager/packages/paystatus/{id}', [PackageController::class, 'updatePayStatus'])->name('updatepaystatus');
-    Route::put('/manager/goods/status/update/{id}', [PackageController::class, 'updateStatus'])->name('updatestatus');
+    Route::put('/manager/goods/status/update/{id}', [StorageController::class, 'updateStatus'])->name('updatestatus');
     //Route::post('/manager/packages/status/update', 'PackageController@updateStatus');
 
     // Route::resource('/manager/user', UserController::class);
@@ -165,6 +165,7 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     Route::resource('/manager/position', PositionController::class);
     Route::resource('/manager/employeebranch', EmployeeController::class);
     Route::resource('/manager/storage', StorageController::class);
+    Route::resource('/manager/goods', StorageController::class);
     Route::put('/manager/goods/update/{id}', [StorageController::class, 'update'])->name('update');
     Route::get('/manager/tracking', [TrackController::class, 'track'])->name('track');
     Route::get('/manager/export/excel', [EmployeeController::class, 'excel'])->name('employee.export');

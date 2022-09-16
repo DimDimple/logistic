@@ -206,28 +206,27 @@
                         style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
                         <thead>
                             <tr class="text-center">
-                                <th>Reference Number</th>
+                               <th>No</th>
                                 <th>Sender Phone Number</th>
                                 <th>Receiver Phone Number</th>
                                 <th>Total Items</th>
                                 <th>Total Fee</th>
-                                <th>Status</th>
                                 <th>Payment Status</th>
 
                             </tr>
                         </thead>
                         <tbody id="myTable">
                             @csrf
-                            @foreach ($packages as $package)
+                            @foreach ($packages as $key => $package)
                                 @if ($package->departure_id == $branch_id || $package->destination_id == $branch_id)
                                     <tr class="text-center">
-                                        <td>{{ $package->reference_number }}</td>
+                                        <td>{{ ++$key }}</td>
                                         <td>{{ $package->sender_phone }}</td>
                                         <td>{{ $package->receiver_phone }}</td>
                                         <td>{{ $package->total_item }}</td>
                                         <td>{{ $package->total_fee }} $</td>
 
-                                        <td>
+                                        {{-- <td>
 
                                             <select class="form-select" aria-label="Disabled select example"
                                                 name="status" data-package-id="{{ $package->id }}">
@@ -238,7 +237,7 @@
                                                 <option value="Completed">Completed</option>
                                             </select>
 
-                                        </td>
+                                        </td> --}}
                                         @if ($package->pay_status == 'Paid')
                                             <td>
                                                 <a href="{{ route('updatepaystatus', $package->id) }}"

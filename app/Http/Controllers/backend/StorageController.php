@@ -24,9 +24,36 @@ class StorageController extends Controller
      */
     public function index()
     {
+        $branches = Branch::get();
+        $user_id = Auth::user()->id;
+        $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
+
+
+        // $packages = Package::where('destination_id', '=', $destination_id)->get();
         //
+        $packages = Package::where('departure_id', '=', $branch_id)->orWhere('destination_id', '=', $branch_id)->get();
+        //    dd($packages);
+        //let goods are array
+        // two dimension array (array loop in array)
+        $goods = [];
+
+        foreach($packages as $package){
+            //loop find goods by package id 
+            $goods[]=Goods::where('package_id','=',$package->id)->get();
+            
+        }
+
+        return view('backend.manager.page.goods.index', compact('goods'));
     }
 
+
+    public function updateStatus(Request $request, $id)
+    {
+        $good = Goods::find($id);
+        $good->status = $request->status;
+        $good->save();
+        return 'Package status updated successfully.';
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -44,16 +71,34 @@ class StorageController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
 
             'package_price' => 'required',
             'package_type' => 'required',
             'fee' => 'required',
             'message' => 'required',
-
+            'status' => 'required',
 
         ]);
-        Storage::create($request->all());
+        $savedStorages = Storage::create([
+
+            'package_type' => $request['package_type'],
+            'package_price' => (int)$request['package_price'],
+            'fee' => (int)$request['fee'],
+            'message' => $request['message'],
+            'status' => $request['status'],
+            'reference_number' => ("DM" . random_int(1000, 9999)), //random to user // string DM + 4 number
+        ]);
+
+
+
+        if (!$savedStorages) {
+            abort(503);
+        }
+
+
+
         $branches = Branch::get();
         // if(Auth::users() == )
         $user_id = Auth::user()->id;
@@ -105,6 +150,13 @@ class StorageController extends Controller
     public function edit($id)
     {
         $good = Goods::find($id);
+        $branches = Branch::get();
+        $user_id = Auth::user()->id;
+        $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
+        // $completed = false;
+        // if($good->package->departure_id == $branch_id){
+        //     $completed = true;
+        // }
         return view('backend.manager.page.packages.show', compact('good'));
     }
 
@@ -117,12 +169,12 @@ class StorageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request->package_type;
+        // return $request;
         $good = Goods::find($id);
-
         $good->package_price = $request->package_price;
         $good->ptype_id = $request->package_type;
         $good->fee = $request->fee;
+        $good->status = $request->status;
         $good->message = $request->message;
         $good->save();
 
@@ -130,11 +182,11 @@ class StorageController extends Controller
         $package = Package::find($good->package_id);
         $goods = Goods::where('package_id', '=', $good->package_id)->get();
         //find variable
-        $total_fee=0;
-        foreach ($goods as $good){
+        $total_fee = 0;
+        foreach ($goods as $good) {
             //sum fee
-            $total_fee = $total_fee+$good->fee;
-        }   
+            $total_fee = $total_fee + $good->fee;
+        }
         //update total fee+
         $package->total_fee = $total_fee;
         $package->save();

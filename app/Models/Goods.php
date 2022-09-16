@@ -10,14 +10,15 @@ class Goods extends Model
 {
     use HasFactory;
     protected $fillable=[
-
+        
         'package_price',
         'quantity',
         'ptype_id',
         'fee',
         'message',
-        'package_id'
-
+        'package_id',
+        'status',
+        'reference_number',
     ];
 
     public function package()

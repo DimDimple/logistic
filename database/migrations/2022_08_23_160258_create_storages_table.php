@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('storages', function (Blueprint $table) {
             $table->id();
+            $table->string('reference_number');
             $table->float('package_price', 8,2);
             $table->string('package_type');
             $table->float('fee',8,2);
             $table->string('message');
-          
+            $table->string('status');
             $table->timestamps();
           
         });

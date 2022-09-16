@@ -14,6 +14,8 @@ class Storage extends Model
         'package_type',
         'fee',
         'message',
+        'status',
+        'reference_number',
     ];
     
 }

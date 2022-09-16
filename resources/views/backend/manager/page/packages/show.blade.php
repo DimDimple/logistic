@@ -10,9 +10,9 @@
         </div>
     </div>
 
-    <div class="shadow-lg p-3 mb-5 bg-white rounded text-primary" style="font-size: 20px"><strong>Tracking Number:</strong>
+    {{-- <div class="shadow-lg p-3 mb-5 bg-white rounded text-primary" style="font-size: 20px"><strong>Tracking Number:</strong>
         <div style="margin-left:10%">{{ $package->reference_number }}</div>
-    </div>
+    </div> --}}
     <div style="margin-top: 10px">
 
         <div class="shadow-lg p-3 mb-5 bg-white rounded" style=" width:70%;margin-left:250px"><strong style="font-size: 20px;"
@@ -29,14 +29,18 @@
                 </div>
             </div>
             <div class="header-u" style="margin-top:20px;display:flex;margin-left:215px">
+                @foreach ($sender as $sent )
                 <div style="width: 50%">
                     <h5 class="card-title text-warning">Departure</h5>
-                    {{ $branch->b_name }}
+                    {{ $sent->b_name }}
                 </div>
+                @endforeach
+                @foreach ($receiver as $receiv)
                 <div style="width: 50%; margin-left:20px">
                     <h5 class="card-title text-danger">Destination</h5>
-                    {{ $destination->b_name }}
+                    {{ $receiv->b_name }}
                 </div>
+                @endforeach
             </div>
 
         </div>
@@ -93,12 +97,16 @@
                                             <label class="form-label" for="form7Example2">Fee</label>
                                         </div>
                                     </div>
-                                    {{-- <div class="col">
-                                        <div class="form-outline">
-                                            <input type="text" id="total_fee" class="form-control" name="total_fee" />
-                                            <label class="form-label" for="form7Example2" value=" ">Total Fee</label>
-                                        </div>
-                                    </div> --}}
+                                    <div class="col">
+                                        <select class="form-select" aria-label="Disabled select example" name="status" />
+                                        <option selected id="g_status"></option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Processing">Processing</option>
+                                        <option value="Decline">Decline</option>
+                                        <option value="Completed" id="completed">Completed</option>
+
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="row mb-3" style="margin-top: -10px">
                                     <label for="message-text" class="col-form-label">Message:</label>
@@ -125,27 +133,40 @@
                 <thead>
                     <tr class="text-center">
 
-                        <th>ID</th>
+                        <th>Reference Number</th>
                         <th>Package Price</th>
                         <th>Package Type</th>
                         <th>Fee</th>
                         <th>Messages</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    @foreach ($goods as $key => $good)
+                    @foreach ($goods as $good)
                         <tr class="text-center">
-                            <td>{{ $good->id }}</td>
-                            <td>{{ $good->package_price }}</td>
+                            <input type="hidden" id="departure" name="departure" value="{{ $good->package->departure_id }}">
+                            <input type="hidden" id="branch" name="branch" value="{{ $branch_id }}">
+                            {{-- <input type="hidden" id="goodId" name="goodId" value="{{ $good->id }}"> --}}
+                            <td>{{ $good->reference_number }}</td>
+                            <td>{{ $good->package_price }} </td>
                             <td>{{ $good->ptype->package_type }}</td>
-                            <td>{{ $good->fee }}</td>
+                            <td>{{ $good->fee }} </td>
                             <td>{{ $good->message }}</td>
+
+                            <td>{{ $good->status }}</td>
 
                             <td>
                                 <a data-toggle="tooltip" title='Edit' role="button" data-bs-toggle="modal"
-                                    class="btn btn-success editbtn" onclick="goodID({{ $good->ptype_id }})">Edit</a>
+                                    class="btn btn-success editbtn btn-sm"
+                                    onclick="goodID({{ $good->id }})">Edit</a>
+                              
+                                @csrf
+                                @method('DELETE')
+                                <input name="_method" type="hidden" value="DELETE">
+                                <button type="submit" class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"
+                                    data-toggle="tooltip" title='Delete'>Delete</button>
 
                             </td>
                         </tr>
@@ -156,10 +177,7 @@
     </div>
     <div class="shadow-lg p-3 mb-5 bg-white rounded">
         <div class="text-center" style="margin-top:20px;display:flex">
-            <div style="width: 50%">
-                <h5 class="card-title p-3 mb-2 bg-success text-white">STATUS</h5>
-                <h6 class="text-center"> {{ $package->status }}</h6>
-            </div>
+
             <div style="width: 50%; margin-left:20px">
                 <h5 class="card-title p-3 mb-2 bg-warning text-dark">PAYMENT STATUS</h5>
                 <h6 class="text-center"> {{ $package->pay_status }}</h6>
@@ -204,17 +222,26 @@
                 }).get();
                 //test data
                 console.log(data, "data");
-
+                var branch_id=$('#branch').val();
+                var departure_id=$('#departure').val();
+                if(branch_id == departure_id){
+                    $('#completed').hide();
+                }
+               
                 //get data by one row and get by order
-                $('#goodId').val(data[0]);
+                // $('#goodId').val(data[0]);
                 $('#package_price').val(data[1]);
                 //in select option have two type to do (val and text)
                 $('#p_type').val(good_id);
                 //display(use only select)
                 $('#p_type').text(data[2]);
                 $('#fee').val(data[3]);
+
                 // $('#total_fee').val(data[4]);
                 $('#message').val(data[4]);
+                $('#g_status').val(good_id);
+                //display(use only select)
+                $('#g_status').text(data[5]);
             })
         });
         //we use submit when we saved data
@@ -222,9 +249,9 @@
         $('#editFormID').on('submit', function(e) {
             //
             e.preventDefault();
-
+           
             //create variable get data from hidden fields
-            var good_id = $("#goodId").val();
+            // var good_id = $("#goodId").val();
             //request/response from controller 
             $.ajax({
                 url: `/manager/goods/update/${good_id}`,
@@ -233,8 +260,8 @@
                 //serialize() = $request from controller 
                 success: function(res) {
                     // window.location = window.
-                    location.reload();
-
+                    // location.reload();
+                    // alert(res);
                     console.log(res);
                 },
                 error: function(response) {

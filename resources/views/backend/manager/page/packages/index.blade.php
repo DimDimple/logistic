@@ -21,15 +21,15 @@
             <div class="card">
                 <div class="card-body">
                     <h1 class="card-title">List Package</h1>
-                    <div class="alert text-dark" style="height:25px">
+                    {{-- <div class="alert text-dark" style="height:25px">
                         <p id="message"></p>
-                    </div>
+                    </div> --}}
 
-                    {{-- @if ($message = Session::get('success'))
+                    @if ($message = Session::get('success'))
                         <div class="alert bg-light text-dark" style="height:45px">
                             <p>{{ $message }}</p>
                         </div>
-                    @endif --}}
+                    @endif
                     <div class="form-outline" style="width:20%; display:flex">
                         <input type="search" class="form-control" id="myInput" style=" margin-top:3%"
                             placeholder="Search">
@@ -39,39 +39,39 @@
                         style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
                         <thead>
                             <tr class="text-center">
-                                <th>Reference Number</th>
+                                <th>No</th>
                                 <th>Sender Phone Number</th>
                                 <th>Receiver Phone Number</th>
                                 <th>Total Items</th>
                                 <th>Total Fee</th>
-                                <th>Status</th>
                                 <th>Payment Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="myTable">
                             @csrf
-                            @foreach ($packages as $package)
+                            @foreach ($packages as $key => $package)
                                 @if ($package->departure_id == $branch_id || $package->destination_id == $branch_id)
                                     <tr class="text-center">
-                                        <td>{{ $package->reference_number }}</td>
+                                        <th scope="row" >{{ ++$key }}</th>
+                                        {{-- <td>{{ $package->id }}</td> --}}
                                         <td>{{ $package->sender_phone }}</td>
                                         <td>{{ $package->receiver_phone }}</td>
                                         <td>{{ $package->total_item }}</td>
                                         <td>{{ $package->total_fee }} $</td>
 
-                                        <td>
+                                        {{-- <td>
 
                                             <select class="form-select" aria-label="Disabled select example" name="status"
                                                 data-package-id="{{ $package->id }}">
                                                 <option selected>{{ $package->status }}</option>
                                                 <option value="Pending">Pending</option>
                                                 <option value="Processing">Processing</option>
-                                                <option value="Shipped">Shipped</option>
+                                                <option value="Decline">Decline</option>
                                                 <option value="Completed">Completed</option>
                                             </select>
 
-                                        </td>
+                                        </td> --}}
                                         @if ($package->pay_status == 'Paid')
                                             <td>
                                                 <a href="{{ route('updatepaystatus', $package->id) }}"
@@ -121,7 +121,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
         integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
-    <script>
+    {{-- <script>
         let package_id;
 
         function getId(id) {
@@ -164,5 +164,5 @@
             });
 
         })
-    </script>
+    </script> --}}
 @endsection

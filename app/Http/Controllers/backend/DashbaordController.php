@@ -41,8 +41,8 @@ class DashbaordController extends Controller
 
 
         $departure_id = $branch->id;
-        $countDeparture = Package::where('departure_id' ,'=',$branch_id)->get()->count();
-        $countDestination = Package::where('destination_id' ,'=',$branch_id)->get()->count();
+        $countDeparture = Package::where('departure_id', '=', $branch_id)->get()->count();
+        $countDestination = Package::where('destination_id', '=', $branch_id)->get()->count();
 
         $packageNumber =  $countDeparture + $countDestination;
         // @dd($departure_id );
