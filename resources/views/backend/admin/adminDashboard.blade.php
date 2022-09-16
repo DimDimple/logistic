@@ -10,14 +10,15 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h4 class="mb-0">Dashboard</h4>
+                <h4 class="mb-0">Admin Dashboard</h4>
 
-                <div class="page-title-right">
+                {{-- <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <a href="http://dmgo.express/informationUser">form</a>
                     </ol>
-                </div>
-
+                </div> --}}
+                <i class='bx bx-calendar-week' style="margin-right:10%"></i>
+                <span id="time" style="position:absolute; margin-left:89%"></span>
             </div>
         </div>
     </div>
@@ -30,16 +31,57 @@
                     <div class="card overflow-hidden card-h-100">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h5 class="font-size-15 text-uppercase mb-0">Customers</h5>
+                                <h5 class="font-size-15 text-uppercase mb-0">Admins</h5>
                                 <div class="avatar-xs">
                                     <span class="avatar-title rounded bg-soft-primary font-size-20 mini-stat-icon">
-                                        <i class="ri-user-line text-primary"></i>
+                                        <i class="bx bxs-group text-primary"></i>
                                     </span>
                                 </div>
                             </div>
-                            <h3 class="font-size-24">26.46% <span
+                            <h3 class="font-size-24">{{ $totalAdmin }}<span
                                     class="text-success fw-normal font-size-14 ms-2">+8.34%</span></h3>
-                            <p class="text-muted mb-0">Total Users World wide</p>
+                            <p class="text-muted mb-0">Total Admins</p>
+                        </div><!-- end card-body -->
+
+                        <!-- Project chart -->
+                        <div id="project-chart"></div>
+                    </div><!-- end card -->
+                </div><!-- end col-->
+                <div class="col-md-6 col-xl-4">
+                    <div class="card overflow-hidden card-h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="font-size-15 text-uppercase mb-0">Managers</h5>
+                                <div class="avatar-xs">
+                                    <span class="avatar-title rounded bg-soft-primary font-size-20 mini-stat-icon">
+                                        <i class="bx bxs-group text-primary"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <h3 class="font-size-24">{{ $totalManager }}<span
+                                    class="text-success fw-normal font-size-14 ms-2">+8.34%</span></h3>
+                            <p class="text-muted mb-0">Total Managers </p>
+                        </div><!-- end card-body -->
+
+                        <!-- Project chart -->
+                        <div id="project-chart"></div>
+                    </div><!-- end card -->
+                </div><!-- end col-->
+
+                <div class="col-md-6 col-xl-4">
+                    <div class="card overflow-hidden card-h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="font-size-15 text-uppercase mb-0">Customers</h5>
+                                <div class="avatar-xs">
+                                    <span class="avatar-title rounded bg-soft-primary font-size-20 mini-stat-icon">
+                                        <i class="bx bxs-group text-primary"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <h3 class="font-size-24">{{ $totalUser }} <span
+                                    class="text-success fw-normal font-size-14 ms-2">+8.34%</span></h3>
+                            <p class="text-muted mb-0">Total Users login to website</p>
                         </div><!-- end card-body -->
 
                         <!-- Project chart -->

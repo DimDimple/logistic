@@ -57,12 +57,12 @@
                 <div class="col-sm-6">
                     <script>
                         document.write(new Date().getFullYear())
-                    </script> © Medroc.
+                    </script> ©Dmgo Express, All Rights Reserved.
                 </div>
                 <div class="col-sm-6">
                     <div class="text-sm-end d-none d-sm-block">
-                        Crafted with <i class="mdi mdi-heart text-danger"></i> by <a
-                            href="https://1.envato.market/themesdesign" target="_blank">Themesdesign</a>
+                        We make it by <i class="mdi mdi-heart text-danger"></i> by <a href="http://logistic.cc/admin/dashboard"
+                            target="_blank">DimMeyDesign</a>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,26 @@
     <!-- App js -->
     <script src={{ asset('assets/js/app.js') }}></script>
 
+    <!-- show alert -->
+    <script>
+        $(document).ready(function() {
+            // show the alert
+            $(".alert").fadeTo(4000, 500).slideUp(500, function() {
+                $(".alert").alert('close');
+            });
+        });
+    </script>
 
+    {{-- js calendar,date,time, --}}
+    <script>
+        function refreshTime() {
+            const timeDisplay = document.getElementById("time");
+            const dateString = new Date().toLocaleString();
+            const formattedString = dateString.replace(", ", " - ");
+            timeDisplay.textContent = formattedString;
+        }
+        setInterval(refreshTime, 1000);
+    </script>
 
 </body>
 

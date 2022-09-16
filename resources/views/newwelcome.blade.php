@@ -45,7 +45,7 @@
 
             <img src={{ asset('images/bg.png') }} alt="">
         </div>
-        <div style="margin-top:-80px" class="card card-3">
+        <div style="margin-top:-80px" class="card_1 card-3">
             <h1>Track Your Package !</h1>
             <div class="container">
                 <div class="search-box">
@@ -58,7 +58,7 @@
             </div>
         </div>
     </div>
-    <div class="wrapper-1">
+    <div class="wrapper-1" style="margin-top: 180px">
         <div class="box box1">
             <img src={{ asset('images/v.jpg') }} alt="">
         </div>
@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    <div class="wrapper-1">
+    <div class="wrapper-1" style="margin-top: 100px">
         <div class="box box1">
             <h3>Our Vision</h3>
             <p>Connecting people, businesses, and communities to a better future – through logistics.While on-time

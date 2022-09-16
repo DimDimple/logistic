@@ -11,11 +11,11 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
     <!-- App favicon -->
-<<<<<<< HEAD
+
     <link rel="icon" href="{{ asset('images/logo1removebg.png') }}" type="image/png" />
-=======
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
->>>>>>> 058ccd29a0ceaa9388568f2f8ee83e43b7f0496c
+
+    {{-- <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
+
 
     <!-- jquery.vectormap css -->
     <link href={{ asset('assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }} rel="stylesheet"
@@ -128,7 +128,6 @@
 
 
     <script type="text/javascript">
-
         $('.show-alert-delete-box').click(function(event) {
             var form = $(this).closest("form");
             var name = $(this).data("name");
@@ -158,7 +157,7 @@
                         'success'
                     )
                     form.submit();
-                    
+
                 } else if (
                     /* Read more about handling dismissals below */
                     result.dismiss === Swal.DismissReason.cancel
@@ -197,6 +196,16 @@
         }
         setInterval(refreshTime, 1000);
     </script>
+
+    <!-- show alert -->
+    {{-- <script>
+        $(document).ready(function() {
+            // show the alert
+            $(".alert").fadeTo(4000, 500).slideUp(500, function() {
+                $(".alert").alert('close');
+            });
+        });
+    </script> --}}
 </body>
 
 

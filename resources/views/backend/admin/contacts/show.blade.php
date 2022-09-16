@@ -6,7 +6,7 @@
             <div class="col-8 mt-4">
                 <div class="row">
                     <div class="pull-left">
-                        <h3> Show Meesage ID: {{ $contact->id }}</h3>
+                        <h3> Show Message ID: {{ $contact->id }}</h3>
                     </div>
                 </div><br />
 

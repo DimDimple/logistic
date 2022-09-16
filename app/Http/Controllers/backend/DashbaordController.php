@@ -9,6 +9,7 @@ use App\Models\Branch;
 use App\Models\Storage;
 use App\Models\Position;
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,7 +50,7 @@ class DashbaordController extends Controller
         // @dd($branch);
         // @dd($branch_id);
         $packages = Package::latest()->paginate(5);
-        //    @dd($packages);     
+        //    @dd($packages);
         // if employee->branch_id==branch_id
 
         $goodNumber = Goods::get()->count();
@@ -58,7 +59,7 @@ class DashbaordController extends Controller
         $countProcess = Package::where('status','=','Process')->get()->count();
         $countShipped = Package::where('status','=','Shipped')->get()->count();
         $countCompleted = Package::where('status','=','Completed')->get()->count();
-        
+
         return view('backend.manager.manager', compact('packageNumber', 'packages', 'branch_id', 'departure_id', 'branch', 'goodNumber','countEmployees','countPending','countProcess','countShipped','countCompleted'));
     }
 
@@ -69,9 +70,13 @@ class DashbaordController extends Controller
      */
     public function adminHome()
     {
-        return view('backend.admin.adminDashboard');
+        $totalAdmin = User::where('type','1')->get()->count();
+        $totalManager = User::where('type','2')->get()->count();
+        $totalUser = User::where('type','0')->get()->count();
+
+        return view('backend.admin.adminDashboard',compact('totalUser','totalManager','totalAdmin'));
     }
-   
+
     /**
      * Show the application dashboard.
      *

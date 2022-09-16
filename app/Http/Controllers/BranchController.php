@@ -8,6 +8,7 @@ use App\Models\Location;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -21,11 +22,13 @@ class BranchController extends Controller
      */
     public function index()
     {
-       
-        $Branches = Branch::get();
+
+        // $Branches = Branch::get();
+        // $id = Auth::user()->id;
+        // $password = Hash::make('password');
         $branches = Branch::paginate(5);
         // $branch = Branch::find(3);
-        // dd($branch->user);
+        // dd($branches->user);
         return view('backend.admin.branches.index', compact('branches'));
     }
 
@@ -38,7 +41,7 @@ class BranchController extends Controller
     {
         $users = User::get();
         $locations = Location::get();
-        
+
         return view('backend.admin.branches.create', compact('locations'));
     }
 
@@ -53,7 +56,7 @@ class BranchController extends Controller
         //user
 
         //$userType = Auth::user()->type;
-        //admin create manager 
+        //admin create manager
         $type=2;
 
         $request->validate([
@@ -62,11 +65,11 @@ class BranchController extends Controller
             'email' => 'required',
             'password' => 'required',
             'phone' => 'required',
-           
+
         ]);
         $savedUser = User::create([
-            'name' => $request['name'],
             'email' => $request['email'],
+            'name' => $request['name'],
             'password' => Hash::make($request['password']),
             'phone' => $request['phone'],
             'type' => (int)$type,
@@ -136,11 +139,13 @@ class BranchController extends Controller
      * @param  \App\Models\Branch  $branch
      * @return \Illuminate\Http\Response
      */
-    public function edit(Branch $branch)
+    public function edit($id)
     {
+        $branch = Branch::find($id);
+        $user = User::find($branch->user_id);
         $locations = Location::get();
 
-        return view('backend.admin.branches.edit', compact('branch', 'locations'));
+        return view('backend.admin.branches.edit', compact('branch','locations','user'));
     }
 
     /**
@@ -150,28 +155,48 @@ class BranchController extends Controller
      * @param  \App\Models\Branch  $branch
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Branch $branch)
+    public function update(Request $request,$id)
     {
 
-        User::find();
-        $user = $request->validate([
-            'name' => 'required',
-        ]);
-        $branch->update($user);
+        $branch = Branch::find($id);
+        $user = User::find($branch->user_id);
 
-        $branch->update($request->all());
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ]);
+        // $branch->update($user);
+
+        //dd((int)$request->location_id);
+        $branch->update(
+            [
+                'b_name' => $request->b_name,
+                'user_id' => (int)$user->id,
+                'location_id' => (int)$request->location_id,
+                'status' => $request->status
+            ]
+        );
+
+
+        // $branch->update($request->all());
+        // dd( $branch);
         return redirect()->route('branch.index')
             ->with('succees', 'Branch updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
-     *
+     *a
      * @param  \App\Models\Branch  $branch
      * @return \Illuminate\Http\Response
      */
     public function destroy(Branch $branch)
     {
+
+        //1.delete package first
+        //2.delete user
+        //3.delete branch
         $branch->delete();
         return redirect()->route('branch.index')
             ->with('success', 'Branch deleted successfully');

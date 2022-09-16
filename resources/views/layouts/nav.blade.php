@@ -6,16 +6,12 @@
         @if (Route::has('login'))
 
             <div class="user">
-                {{-- @if (Auth::user()->image)
+                @if ( Auth::user() ? Auth::user()->image : '')
                     <img class="image rounded-circle" src="{{ asset('/storage/images/' . Auth::user()->image) }}"
-                        alt="profile_image" style="width: 50px;height: 50px; padding: 10px; margin: 0px; ">
-                @endif --}}
+                        alt="profile_image" style="width: 50px;height: 50px; border: 3px solid #eee" onclick="menuToggle()">
+                @endif
                 @auth
-                    <li class="nav-item dropdown" style="position:absolute; top:0px; right: 0px; display:flex;">
-                        <button onclick="menuToggle()">
-                            {{ Auth::user()->name }}
-                        </button>
-                    </li>
+
                 @else
                     <a href="{{ route('login') }}" class="text-sm text-black-500 dark:text-black-500" style="text-decoration: none; text-align: center;">Log
                         in</a>
@@ -37,7 +33,6 @@
         </ul>
     </div>
 </nav>
-
 
 
 <div class="menu-profile" id="menu-profile">

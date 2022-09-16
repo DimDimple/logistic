@@ -21,8 +21,8 @@ return new class extends Migration
             $table->float('fee',8,2);
             $table->string('message');
             $table->timestamps();
-            $table->foreign('package_id')->references('id')->on('packages');
-            $table->foreign('ptype_id')->references('id')->on('p_types');
+            $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
+            $table->foreign('ptype_id')->references('id')->on('p_types')->onDelete('cascade');
         });
     }
 

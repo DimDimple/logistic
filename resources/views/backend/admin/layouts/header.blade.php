@@ -5,19 +5,19 @@
             <div class="navbar-brand-box">
                 <a href="index.html" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="assets/images/logo-sm.png" alt="" height="22">
+                        <img src="images/logo1removebg.png" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="assets/images/logo-dark.png" alt="" height="20">
+                        <img src="images/logo1removebg.png" alt="" height="20">
                     </span>
                 </a>
 
                 <a href="index.html" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="assets/images/logo-sm-light.png" alt="" height="22">
+                        <img src="images/preview.png" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="assets/images/logo-light.png" alt="" height="20">
+                        <img src="images/preview.png" alt="" height="20">
                     </span>
                 </a>
             </div>
@@ -200,7 +200,7 @@
 
                             </div>
                             <div class="col-auto">
-                                 <span class="email">{{ Auth::user()->email }}</span>
+                                <span class="email">{{ Auth::user()->email }}</span>
                             </div>
                         </div>
                     </div>
@@ -265,8 +265,7 @@
                     </div>
                     <!-- item-->
                     <div class="account-dropdown__footer">
-                        <a class="dropdown-item"
-                            href="{{ route('logout') }}"
+                        <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                       document.getElementById('logout-form').submit();"><i
                                 class="bx bx-power-off"></i><span>Logout</span></a>

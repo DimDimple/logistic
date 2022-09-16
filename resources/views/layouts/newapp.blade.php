@@ -47,6 +47,16 @@
 
     <script src="{{ asset('js/faq.js') }}"></script>
 
+   <!-- show alert -->
+    <script>
+        $(document).ready(function() {
+            // show the alert
+            $(".alert").fadeTo(4000, 500).slideUp(500, function() {
+                $(".alert").alert('close');
+            });
+        });
+    </script>
+
 </body>
 
 <!-- edit profile-->

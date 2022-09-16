@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Crypt;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -58,5 +60,11 @@ class User extends Authenticatable
         return $this->hasOne(Branch::class);
     }
 
-
+    public function getPassowrdAttributes($value){
+        try{
+            return Crypt::decryptString($value);
+        }catch(\Exception $e){
+            return $value;
+        }
+    }
 }

@@ -25,7 +25,7 @@
                     <table id="selection-datatable" class="table dt-responsive nowrap w-100 ">
                         <thead class="table-light">
                             <tr>
-                                <th>Branch Id</th>
+                                <th>Branch No.</th>
                                 <th>Branch Name</th>
                                 <th>Manager Name</th>
                                 <th>Email</th>
@@ -59,19 +59,21 @@
                                     {{-- @dd($branch->user->name); --}}
                                     @if ($branch->status == 'Open')
                                         <td>
-                                            <a href="{{ route('updatestatus', $branch->id) }}"
+                                            <a href="{{ route('updateBranchStatus', $branch->id) }}"
                                                 class="badge rounded-pill bg-success"
                                                 style="font-size:1.1em">{{ $branch->status }}</a>
                                         </td>
                                     @else
                                         <td>
-                                            <a href="{{ route('updatestatus', $branch->id) }}"
+                                            <a href="{{ route('updateBranchStatus', $branch->id) }}"
                                                 class="badge rounded-pill bg-danger"
                                                 style="font-size:1.1em">{{ $branch->status }}</a>
                                         </td>
                                     @endif
                                     <td>
                                         <form action="{{ route('branch.destroy', $branch->id) }}" method="POST">
+                                            <a class="btn btn-info btn-sm-rounded btn-sm waves-effect waves-light"
+                                            href="{{ route('branch.show', $branch->id) }}">Show</a>
 
                                             <a class="btn btn-warning btn-sm-rounded btn-sm waves-effect waves-light"
                                                 href="{{ route('branch.edit', $branch->id) }}">Edit</a>
@@ -151,19 +153,8 @@
                 }
             });
         });
-        //show button
-        // {{-- <a class="btn btn-success btn-sm-rounded btn-sm waves-effect waves-light"
-        //                                         href="#">Show</a> --}}
-
-        <
-        /div> <
-        /div>
-
-        <
-        /div> <
-        /div>
-
-
-        <
-        /div>
-    @endsection
+    </script>
+    {{-- show button --}}
+    {{-- <a class="btn btn-success btn-sm-rounded btn-sm waves-effect waves-light"
+                                                 href="#">Show</a> --}}
+@endsection

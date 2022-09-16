@@ -76,9 +76,10 @@
 
                         @if ($branch->id == $list->departure_id)
                             <span class="title">{{ $branch->province }}
-                                <i class="bi bi-arrow-right fa-lg"></i></></span>
+                                <i class="bi bi-arrow-right fa-lg"></i>
+                            </span>
                         @elseif ($branch->id == $list->destination_id)
-                            <span class="title">{{ $branch->province }}</></span>
+                            <span class="title">{{ $branch->province }}</span>
                         @endif
 
                     @endforeach
@@ -87,7 +88,7 @@
                 <div class="card2_bottom">
                     <div class="col1">
                         <div class="col1_top">
-                            <p style="color: #959393;"><b></b>Sender/Receiver</b></p>
+                            <p style="color: #959393;">Sender/Receiver</p>
                             <span><b>{{ $list->sender_phone }}</b></span>
                         </div>
                         <div class="col1_bottom">
@@ -107,7 +108,7 @@
                         <p><b>{{ date('h:i A', strtotime($list->created_at)) }}</b></p>
                         <div class="color-text">
                             <i class="bi bi-ticket-perforated"></i>
-                            <span>asdg3gs</span>
+                            <span>{{ $list->reference_number }}</span>
                         </div>
 
                     </div>

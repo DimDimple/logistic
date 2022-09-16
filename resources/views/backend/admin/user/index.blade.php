@@ -12,10 +12,10 @@
                         <div class="page-title-box d-flex align-items-center justify-content-between">
                             <h3 class="mb-0">List All User</h3>
                             <div class="float-end">
-                                <a href="{{ route('user.create') }}">
+                                {{-- <a href="{{ route('user.create') }}">
                                     <button type="button" class="btn btn-primary btn-sm-rounded waves-effect waves-light">
                                         Add New User</button>
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                         @if ($message = Session::get('success'))

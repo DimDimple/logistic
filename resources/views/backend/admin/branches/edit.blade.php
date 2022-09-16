@@ -20,9 +20,9 @@
                         @csrf
                         @method('PUT')
                         <div class=" row mb-3">
-                            <label for="name" class="col-sm-2 col-form-label">Branch Name</label>
+                            <label for="b_name" class="col-sm-2 col-form-label">Branch Name</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" id="name" name="b_name"
+                                <input class="form-control" type="text" id="b_name" name="b_name"
                                     placeholder="Type Branch name" value="{{ $branch->b_name}}">
                             </div>
                         </div>
@@ -38,14 +38,14 @@
                             <label for="email" class="col-sm-2 col-form-label">E-mail</label>
                             <div class="col-sm-10">
                                 <input type="email" class="form-control" id="email" required parsley-type="email"
-                                    name="b_email" placeholder="Enter a valid e-mail" value="{{ $branch->user->email}}"/>
+                                    name="email" placeholder="Enter a valid e-mail" value="{{ $branch->user->email}}"/>
                             </div>
                         </div>
                         <div class=" row mb-3">
                             <label for="phone" class="col-sm-2 col-form-label">Phone Number</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" id="phone" required parsley-type="phone"
-                                    name="b_phone" placeholder="Enter a valid phone number" value="{{ $branch->user->phone}}" />
+                                    name="phone" placeholder="Enter a valid phone number" value="{{ $branch->user->phone}}" />
                             </div>
                         </div>
                         <div class=" row mb-3">

@@ -8,7 +8,7 @@
     <div class="navbar-brand-box">
         <a href="/home" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ asset('assets/images/logoDMgo.png') }}" alt="" height="80">
+                <img src="{{ asset('images/preview.png') }}" alt="" height="40">
             </span>
             <span class="logo-lg">
                 <img src="{{ asset('assets/images/logoDMgo.png') }}" alt="" height="80">
@@ -35,19 +35,18 @@
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
-                <li class="menu-title">Menu</li>
+                <li class="menu-title">Dashboard</li>
 
                 <li>
-                    <a href="javascript: void(0);" class="waves-effect">
+                    <a href="/admin/dashboard"class="waves-effect">
                         <i class='bx bxs-dashboard bx-flip-horizontal' style='color:#414040'></i>
                         <span class="badge rounded-pill bg-danger float-end">1</span>
                         <span>Dashboard</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="/new/admin">Admin</a></li>
-                    </ul>
+
                 </li>
 
+                <li class="menu-title">Menu</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <i class='bx bxs-group bx-flip-horizontal' style='color:#414040' ></i>
@@ -55,7 +54,7 @@
                         <span>Manage User</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="/admin/employee">Employee</a></li>
+                        <li><a href="/new/admin">Admin</a></li>
                         <li><a href="/admin/user">User</a></li>
                     </ul>
                 </li>

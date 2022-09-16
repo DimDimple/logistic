@@ -117,12 +117,12 @@ All Admin Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
-    Route::get('/admin', [HomeController::class, 'adminHome'])->name('admin');
+    Route::get('/admin/dashboard', [DashbaordController::class, 'adminHome'])->name('admin');
     Route::resource('/new/admin', AdminController::class);
     Route::resource('/admin/user', UserController::class);
     // Route::resource('/admin/employee', EmployeeController::class);
     Route::resource('/admin/location', LocationController::class);
-    Route::get('admin/branch/updatestatus/{id}', [BranchController::class, 'updateStatus'])->name('updatestatus');
+    Route::get('admin/branch/updatestatus/{id}', [BranchController::class, 'updateStatus'])->name('updateBranchStatus');
     Route::resource('/admin/branch', BranchController::class);
     // Route::resource('/admin/manager', ManagerController::class);
 

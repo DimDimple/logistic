@@ -26,9 +26,9 @@ return new class extends Migration
             $table->string('reference_number');
             $table->timestamps();
 
-            $table->foreign('departure_id')->references('id')->on('branches');
-            $table->foreign('destination_id')->references('id')->on('branches');
-          
+            $table->foreign('departure_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->foreign('destination_id')->references('id')->on('branches')->onDelete('cascade');
+
 
         });
     }
