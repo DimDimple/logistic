@@ -39,28 +39,52 @@ class DashbaordController extends Controller
         $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
         $branch = Branch::where('user_id', '=', $user_id)->first();
 
-
+       
         $departure_id = $branch->id;
         $countDeparture = Package::where('departure_id', '=', $branch_id)->get()->count();
         $countDestination = Package::where('destination_id', '=', $branch_id)->get()->count();
 
         $packageNumber =  $countDeparture + $countDestination;
-        // @dd($departure_id );
-        // $branch = Branch::where("")->branch;
-        // @dd($branch);
-        // @dd($branch_id);
-        $packages = Package::latest()->paginate(5);
-        //    @dd($packages);
-        // if employee->branch_id==branch_id
 
-        $goodNumber = Goods::get()->count();
-        $countEmployees = Employee::get()->count();
-        $countPending = Package::where('status','=','Pending')->get()->count();
-        $countProcess = Package::where('status','=','Process')->get()->count();
-        $countShipped = Package::where('status','=','Shipped')->get()->count();
-        $countCompleted = Package::where('status','=','Completed')->get()->count();
+        //get package by branch
+        $packages = Package::where('departure_id', '=', $branch_id)->orWhere('destination_id', '=', $branch_id)->get();
+        //    dd($packages);
+        //let goods are array
+        // integer
+        $goodNumber = 0;
+        $goods = [];
 
-        return view('backend.manager.manager', compact('packageNumber', 'packages', 'branch_id', 'departure_id', 'branch', 'goodNumber','countEmployees','countPending','countProcess','countShipped','countCompleted'));
+        foreach ($packages as $package) {
+            //loop find goods by package id 
+            $goodNumber = $goodNumber + Goods::where('package_id', '=', $package->id)->get()->count();
+            $goods[] = Goods::where('package_id', '=', $package->id)->get();
+        }
+
+        //default value let all variable are integer
+        $countPending = 0;
+        $countProcess = 0;
+        $countShipped = 0;
+        $countCompleted = 0;
+
+        foreach ($goods as $goodData) {
+            foreach ($goodData as $good){
+                if ($good->status == 'Pending') {
+                    $countPending = $countPending + 1;
+                } elseif ($good->status == 'Processing') {
+                    $countProcess = $countProcess + 1;
+                } elseif ($good->status == 'Shipped') {
+                    $countShipped = $countShipped + 1;
+                } elseif ($good->status == 'Completed') {
+                    $countCompleted = $countCompleted + 1;
+                }
+            }
+        }
+
+        // dd($countPending);
+
+        $countEmployees = Employee::where('branch_id', '=', $branch_id)->get()->count();
+
+        return view('backend.manager.manager', compact('packageNumber', 'packages', 'branch_id', 'departure_id', 'branch', 'goodNumber', 'countEmployees', 'countPending', 'countProcess', 'countShipped', 'countCompleted'));
     }
 
     /**
