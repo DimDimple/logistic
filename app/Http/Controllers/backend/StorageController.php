@@ -38,9 +38,9 @@ class StorageController extends Controller
         $goods = [];
 
         foreach($packages as $package){
-            //loop find goods by package id 
+            //loop find goods by package id
             $goods[]=Goods::where('package_id','=',$package->id)->get();
-            
+
         }
 
         return view('backend.manager.page.goods.index', compact('goods'));
@@ -178,7 +178,7 @@ class StorageController extends Controller
         $good->message = $request->message;
         $good->save();
 
-        //update total fee in package 
+        //update total fee in package
         $package = Package::find($good->package_id);
         $goods = Goods::where('package_id', '=', $good->package_id)->get();
         //find variable
@@ -199,7 +199,7 @@ class StorageController extends Controller
         //     $destination_id = $package->destination_id;
 
         //     $destination = Branch::where('id', '=', $destination_id)->first();
-        //     // track data // 
+        //     // track data //
         //     $num = 0;
         //     $total_fee = 0;
         //     $total_item = 0;

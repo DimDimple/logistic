@@ -46,6 +46,7 @@ class DashbaordController extends Controller
 
         $packageNumber =  $countDeparture + $countDestination;
 
+
         //get package by branch
         $packages = Package::where('departure_id', '=', $branch_id)->orWhere('destination_id', '=', $branch_id)->get();
         //    dd($packages);
@@ -53,6 +54,7 @@ class DashbaordController extends Controller
         // integer
         $goodNumber = 0;
         $goods = [];
+
 
         foreach ($packages as $package) {
             //loop find goods by package id 

@@ -3,22 +3,21 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Package;
 use App\Models\Branch;
+use App\Models\Goods;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class TrackController extends Controller
+class TrackingController extends Controller
 {
-
     public function track(Request $request)
     {
 
         // $user_id = Auth::user()->id;
         // $branch = Branch::where('user_id', '=', $user_id)->first();
-        dd('dd');
+        // dd('dd');
 
-        $trackNumber = Package::where('reference_number', '=', $request->reference_number)->get();
+        $trackNumber = Goods::where('reference_number', '=', $request->reference_number)->get();
 
         // $departure = Package::where('departure_id', '=', $request->departure_id)->get();
         // $departure_id = $trackNumber->departure_id;
@@ -37,7 +36,7 @@ class TrackController extends Controller
         //         dd($destination);
         // dd($trackNumber);
 
-        return view('backend.manager.page.track.index', compact('trackNumber', 'departure', 'destination'))
+        return view('frontend.track', compact('trackNumber', 'departure', 'destination'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

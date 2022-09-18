@@ -118,7 +118,7 @@
                                 <input type="hidden" value="" id="goodId" name="id">
                                 <button type="submit" data-bs-dismiss="modal" class="btn btn-info" id="savedBtn"
                                     style="margin-left: 70%">
-                                    Saved
+                                    Save
                                 </button>
 
                                 <a class="btn btn-dark" data-bs-dismiss="modal">Close</a>
@@ -161,7 +161,7 @@
                                 <a data-toggle="tooltip" title='Edit' role="button" data-bs-toggle="modal"
                                     class="btn btn-success editbtn btn-sm"
                                     onclick="goodID({{ $good->id }})">Edit</a>
-                              
+
                                 @csrf
                                 @method('DELETE')
                                 <input name="_method" type="hidden" value="DELETE">
@@ -217,8 +217,8 @@
                 $tr = $(this).closest('tr');
 
                 var data = $tr.children("td").map(function() {
-                    return $(this).text(); //attribute 
-                    //get data by specific one row 
+                    return $(this).text(); //attribute
+                    //get data by specific one row
                 }).get();
                 //test data
                 console.log(data, "data");
@@ -227,7 +227,7 @@
                 if(branch_id == departure_id){
                     $('#completed').hide();
                 }
-               
+
                 //get data by one row and get by order
                 // $('#goodId').val(data[0]);
                 $('#package_price').val(data[1]);
@@ -249,15 +249,15 @@
         $('#editFormID').on('submit', function(e) {
             //
             e.preventDefault();
-           
+
             //create variable get data from hidden fields
             // var good_id = $("#goodId").val();
-            //request/response from controller 
+            //request/response from controller
             $.ajax({
                 url: `/manager/goods/update/${good_id}`,
                 type: "PUT",
                 data: $("#editFormID").serialize(),
-                //serialize() = $request from controller 
+                //serialize() = $request from controller
                 success: function(res) {
                     // window.location = window.
                     // location.reload();

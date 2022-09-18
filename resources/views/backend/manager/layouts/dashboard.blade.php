@@ -183,7 +183,7 @@
             });
         });
     </script>
-
+    <!-- display Calendar, date, time-->
     <script>
         function refreshTime() {
             const timeDisplay = document.getElementById("time");
@@ -195,14 +195,14 @@
     </script>
 
     <!-- show alert -->
-    {{-- <script>
+    <script>
         $(document).ready(function() {
             // show the alert
             $(".alert").fadeTo(4000, 500).slideUp(500, function() {
                 $(".alert").alert('close');
             });
         });
-    </script> --}}
+    </script>
 </body>
 
 
