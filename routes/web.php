@@ -19,6 +19,7 @@ use App\Http\Controllers\backend\PTypesController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\PositionController;
 use App\Http\Controllers\backend\TrackController;
+// use App\Http\Controllers\backend\TrackController;
 use App\Http\Controllers\frontend\EditProfileController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\BranchController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\frontend\TrackingController;
 
 // use App\Http\Controllers\ManagerController;
 
@@ -50,9 +52,12 @@ Route::get('/', function () {
     return view('newwelcome');
 });
 
-Route::get('/track', function () {
-    return view('frontend.track');
-});
+/* update eror */
+// Route::get('/track', function () {
+//     return view('frontend.track');
+// });
+Route::get('/track', [TrackingController::class, 'track']);
+
 
 Route::get('/contact', function () {
     return view('frontend.contactUs');

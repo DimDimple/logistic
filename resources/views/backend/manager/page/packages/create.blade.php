@@ -36,7 +36,7 @@
 
                     <div class="text-right" style="display:flex">
                         <h5>Destination Information</h5>
-                        <h5 style="margin-left: 36%">Package Iterm</h5>
+                        <h5 style="margin-left: 36%">Packages Items</h5>
                         {{-- <a type="button" class="btn btn-primary float-end" href="/manager/goods/create"
                             style="margin-left: 30%; margin-top:-2px">
                             Add Goods</a> --}}
@@ -52,7 +52,7 @@
                                     <div class="modal-body">
                                         <form action="{{ route('storage.store') }}" method="POST">
                                             @csrf
-                                            
+
                                             <!-- price and quantity input -->
                                             <div class="row mb-3">
                                                 <div class="col">
@@ -107,7 +107,7 @@
                                             <!--hidden fields-->
                                             <button type="submit" data-bs-dismiss="modal" class="btn btn-info"
                                                 style="margin-left: 70%">
-                                                Saved
+                                                Save
                                             </button>
 
                                             <a class="btn btn-dark" data-bs-dismiss="modal"
@@ -129,24 +129,26 @@
                                 <div class="row mb-4">
                                     <div class="col">
                                         <div class="form-outline">
+                                            <label class="form-label" for="form7Example1">Sender Phone Number</label>
                                             <input type="number" id="form7Example1" class="form-control"
                                                 name="sender_phone" />
-                                            <label class="form-label" for="form7Example1">Sender Phone Number</label>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col">
                                         <div class="form-outline">
+                                            <label class="form-label" for="form7Example2">Receiver Phone Number</label>
                                             <input type="number" id="form7Example2" class="form-control"
                                                 name="receiver_phone" />
-                                            <label class="form-label" for="form7Example2">Receiver Phone Number</label>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- price and quantity input -->
                                 <div class="row mb-5">
                                     <div class="col">
+                                        <label class="form-label" for="form7Example2">Current Branch</label>
                                         <select class="form-select" Disabled aria-label="Disabled select example"
                                             name="departure">
                                             @foreach ($branches as $branch)
@@ -177,6 +179,7 @@
                                 </div> --}}
                                 <div class="row mb-5">
                                     <div class="col">
+                                        <label class="form-label" for="form7Example2">Destination Branch</label>
                                         <select class="form-select" aria-label="Disabled select example"
                                             name="destination_id">
                                             <option selected>Destination</option>
@@ -189,9 +192,10 @@
                                         </select>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row mb-5">
                                     <div class="col">
+                                        <label class="form-label" for="form7Example2">Payment</label>
                                         <select class="form-select" aria-label="Disabled select example"
                                             name="pay_status">
                                             <option selected>Payments Status</option>
@@ -201,7 +205,7 @@
                                     </div>
                                 </div>
 
-                                <div style="width:100%; margin-left:130%; margin-top:-70%">
+                                <div style="width:100%; margin-left:130%; margin-top:-82%">
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap"
                                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
@@ -220,9 +224,10 @@
                                                     <td>{{ $package_type->package_type }}</td>
                                                     <td>{{ $good->fee }} $</td>
                                                     <td>
-                                                       
+
                                                         <a
-                                                            href="{{ URL::to('/manager/storage/destroy/' . $good->id) }}">Delete</a>
+                                                            href="{{ URL::to('/manager/storage/destroy/' . $good->id) }}">Delete
+                                                        </a>
                                                         {{-- <button type="submit"
                                                             class="btn btn-danger btn-rounded waves-effect waves-light">Remove</button> --}}
                                                     </td>
@@ -241,7 +246,7 @@
                                         <h6> {{ $total_item }}</h6>
                                     </div>
                                     <div class="text-center">
-                                        <h5 style="width:100px" class="text-primary">Total Fee</h5>
+                                        <h5 style="width:100px" class="text-primary">Total Fees</h5>
                                         <h6> {{ $total_fee }} $</h6>
                                     </div>
                                 </div>

@@ -55,10 +55,10 @@ class DashbaordController extends Controller
 
         $goodNumber = Goods::get()->count();
         $countEmployees = Employee::get()->count();
-        $countPending = Package::where('status','=','Pending')->get()->count();
-        $countProcess = Package::where('status','=','Process')->get()->count();
-        $countShipped = Package::where('status','=','Shipped')->get()->count();
-        $countCompleted = Package::where('status','=','Completed')->get()->count();
+        $countPending = Goods::where('status','=','Pending')->get()->count();
+        $countProcess = Goods::where('status','=','Process')->get()->count();
+        $countShipped = Goods::where('status','=','Shipped')->get()->count();
+        $countCompleted = Goods::where('status','=','Completed')->get()->count();
 
         return view('backend.manager.manager', compact('packageNumber', 'packages', 'branch_id', 'departure_id', 'branch', 'goodNumber','countEmployees','countPending','countProcess','countShipped','countCompleted'));
     }
