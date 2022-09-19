@@ -22,7 +22,7 @@ class StorageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $branches = Branch::get();
         $user_id = Auth::user()->id;
@@ -36,13 +36,29 @@ class StorageController extends Controller
         //let goods are array
         // two dimension array (array loop in array)
         $goods = [];
-
+        $goodData=[];
         foreach($packages as $package){
             //loop find goods by package id
-            $goods[]=Goods::where('package_id','=',$package->id)->get();
+            $goodData=Goods::where('package_id','=',$package->id)->get();
+            foreach($goodData as $good){
+                $goods[]=$good;
+            }
 
         }
 
+        $search = $request->q;
+
+        if($search!=""){
+            $goods = Goods::where(function ($query) use ($search){
+                $query->where('reference_number', 'like', '%'.$search.'%');
+            })
+            ->paginate(5);
+            $goods->appends(['q' => $search]);
+        }
+        else{
+            $goods = Goods::latest()->paginate(5);
+        }
+    //    dd($goods);
         return view('backend.manager.page.goods.index', compact('goods'));
     }
 
@@ -84,8 +100,8 @@ class StorageController extends Controller
         $savedStorages = Storage::create([
 
             'package_type' => $request['package_type'],
-            'package_price' => (int)$request['package_price'],
-            'fee' => (int)$request['fee'],
+            'package_price' => (float)$request['package_price'],
+            'fee' => (float)$request['fee'],
             'message' => $request['message'],
             'status' => $request['status'],
             'reference_number' => ("DM" . random_int(1000, 9999)), //random to user // string DM + 4 number
@@ -121,13 +137,22 @@ class StorageController extends Controller
         $package_types = PType::get();
         $goods = Storage::find($array);
         $num = $request->num;
-        //
+        // dd($goods);
+
         $total_item = $num;
         $total_fee = $request->total_fee + $request->fee;
 
+        $p_types=[];
+        
+        foreach($goods as $good){
+            $p_types[]=PType::find($good->package_type);
+            
+        }
+        // $test = ['hello','hi'];
+        // dd($test[0]);
 
         //find array in goods
-        return view('backend.manager.page.packages.create', compact('branches', 'user_id', 'branch', 'num', 'departure_id', 'goods', 'package_types', 'total_item', 'total_fee'));
+        return view('backend.manager.page.packages.create', compact('branches', 'user_id', 'branch', 'num', 'departure_id', 'goods', 'package_types', 'total_item', 'total_fee','p_types'));
     }
 
     /**
