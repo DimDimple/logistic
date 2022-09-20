@@ -155,6 +155,7 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     //     return view('backend.manager.manager');
     // });
     Route::resource('/manager/packages', PackageController::class);
+    Route::post('/manager/packages/search', [PackageController::class,'index'])->name('searchPackage');
     Route::resource('/manager/shipped', ShippedController::class);
     Route::resource('/manager/process', ProcessController::class);
     Route::resource('/manager/completed', CompletedController::class);
@@ -170,10 +171,12 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     Route::resource('/manager/position', PositionController::class);
     Route::resource('/manager/employeebranch', EmployeeController::class);
     Route::resource('/manager/storage', StorageController::class);
+    Route::post('/manager/goods/search', [StorageController::class,'index'])->name('searchGoods');
     Route::resource('/manager/goods', StorageController::class);
     Route::put('/manager/goods/update/{id}', [StorageController::class, 'update'])->name('update');
     Route::get('/manager/tracking', [TrackController::class, 'track'])->name('track');
     Route::get('/manager/export/excel', [EmployeeController::class, 'excel'])->name('employee.export');
+    Route::post('/manager/employees/search', [EmployeeController::class,'index'])->name('searchEmployee');
     Route::get('/manager/package/export/excel', [PackageController::class, 'excel'])->name('package.export');
     // Route::get('/manager/create',function(){
     //         return view('backend.manager.page.packages.create');

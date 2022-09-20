@@ -22,7 +22,12 @@
                         <div class="card-body px-5 py-5 px-md-5">
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
-
+                                @if ($message = Session::get('error'))
+                                    <div class="alert alert-danger"
+                                        style="display:flex; justify-content:center;align-items:center;">
+                                        <p style="margin:0">{{ $message }}</p>
+                                    </div>
+                                @endif
                                 <img src="https://img.freepik.com/free-vector/login-concept-illustration_114360-4525.jpg?w=826&t=st=1659347731~exp=1659348331~hmac=eecdacd10fbf093f65e6e3909d5b84aa32d7513c2bdc93d3ba320292918f4c67"
                                     style="width: 50%; padding-bottom: 10px; margin-left:100px " alt="">
 
@@ -89,6 +94,13 @@
             </div>
         </div>
     </section>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script>
+        // show the alert
+        $(".alert").fadeTo(3000, 500).slideUp(500, function() {
+            $(".alert").alert('close');
+        });
+    </script>
     <script>
         const toggle_password = document.querySelector('#toggle_password');
 

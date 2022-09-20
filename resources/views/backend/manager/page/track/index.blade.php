@@ -199,8 +199,8 @@
                     <input class="custom-control-input" type="checkbox" id="notify_me" checked="">
                     <label class="custom-control-label" for="notify_me">Notify me when order is delivered</label>
                 </div>
-                <div class="text-left text-sm-right"><a class="btn btn-outline-primary btn-rounded btn-sm" href="#"
-                        data-toggle="modal" data-target="#orderDetails">View Order Details</a></div>
+                <div class="text-left text-sm-right"><a class="btn btn-outline-primary btn-rounded btn-sm" href="{{ route('packages.show',$trackNum->package_id) }}"
+                       >View Order Details</a></div>
             </div>
         @endforeach
     </div>

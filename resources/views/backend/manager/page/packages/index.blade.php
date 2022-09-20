@@ -30,10 +30,21 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <div class="form-outline" style="width:20%; display:flex">
-                        <input type="search" class="form-control" id="myInput" style=" margin-top:3%"
-                            placeholder="Search">
-                    </div>
+
+                    {{-- <div class="form-outline" style="width:30%; display:flex">
+                        <input type="text" name="q" class="form-control"  style=" margin-top:3%"
+                            placeholder="Search package by id or sender phone number">
+                    </div> --}}
+                    <form action="{{ route('searchPackage') }}" method="POST">
+                        @csrf
+                        <div class="form-outline" >
+                            <input type="text" name="q" placeholder="Search sender and receiver phone number..."
+                                style="width:300px; height:40px; padding-left:10px; border:1px solid rgb(219, 219, 219); border-radius:5px" />
+                            <button type="submit" style="height:39px; margin-left:3px; border:1px solid rgb(219, 219, 219); border-radius:5px; background-color:rgb(109, 109, 246);color:#fff;padding:0 10px"> Search </button>
+                        </div>
+
+                    </form>
+
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
@@ -48,12 +59,14 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="myTable">
+                        <tbody>
                             @csrf
                             @foreach ($packages as $key => $package)
                                 @if ($package->departure_id == $branch_id || $package->destination_id == $branch_id)
                                     <tr class="text-center">
-                                        <th scope="row" >{{ ++$key }}</th>
+                                        <th scope="row">
+                                            {{ ($packages->currentPage() - 1) * $packages->links()->paginator->perPage() + $key + 1 }}
+                                        </th>
                                         {{-- <td>{{ $package->id }}</td> --}}
                                         <td>{{ $package->sender_phone }}</td>
                                         <td>{{ $package->receiver_phone }}</td>
@@ -108,18 +121,30 @@
                             @endforeach
                         </tbody>
                     </table>
-
+                    {{ $packages->links() }}
                 </div>
             </div>
         </div> <!-- end col -->
     </div> <!-- end row -->
 
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <!--jquery to do on status option-->
+    <script>
+        $(document).ready(function() {
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr ").filter(function() {
+                    $(this).toggle($(this.children[0]).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script> --}}
+
+    {{-- <!--jquery to do on status option-->
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
-        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script> --}}
 
     {{-- <script>
         let package_id;

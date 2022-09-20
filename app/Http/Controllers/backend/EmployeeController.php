@@ -20,7 +20,7 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user_id = Auth::user()->id;
         $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
@@ -28,6 +28,21 @@ class EmployeeController extends Controller
         $employees = Employee::where('branch_id', '=', $branch_id)->paginate(5);
         // $employees = Employee::latest()->paginate(5);
         // dd($employees);
+
+         $search = $request->q;
+
+        if($search!=""){
+            $employees = Employee::where(function ($query) use ($search){
+                $query->where('firstname', 'like', '%'.$search.'%')->orwhere('lastname','like','%'.$search.'%')
+                    ->orWhere('email', 'like', '%'.$search.'%');
+            })
+            ->paginate(5);
+            $employees->appends(['q' => $search]);
+            // dd($employees);
+        }
+        else{
+            $employees = Employee::latest()->paginate(5);
+        }
 
         return view('backend.manager.page.employeeBranch.index', compact('employees', 'branch_id'));
     }

@@ -9,7 +9,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
 
-                        <li class="breadcrumb-item active">Create New Package</li>
+                        <li class="breadcrumb-item active">Noted: Before you add package please add goods first.</li>
                     </ol>
                 </div>
 
@@ -72,6 +72,15 @@
                                                                     {{ $package_type->package_type }}</option>
                                                             @endforeach
                                                         </select>
+
+                                                        {{-- <select class="form-select" name="package_type" id="package_type"
+                                                            aria-label=".form-select-lg example" value="">
+                                                            <option selected id="p_type"></option>
+                                                            @foreach ($package_types as $package_type)
+                                                                <option value="{{ $package_type->id }}">
+                                                                    {{ $package_type->package_type }}</option>
+                                                            @endforeach
+                                                        </select> --}}
                                                     </div>
 
                                                 </div>
@@ -86,11 +95,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <select class="form-select" aria-label="Disabled select example" name="status">
+                                                    <select class="form-select" aria-label="Disabled select example"
+                                                        name="status">
                                                         <option selected>Status</option>
                                                         <option value="Pending">Pending</option>
                                                         <option value="Processing">Processing</option>
-                                                        <option value="Decline">Decline</option>
+                                                        <option value="Shipped">Shipped</option>
                                                         {{-- <option value="Completed">Completed</option> --}}
                                                     </select>
                                                 </div>
@@ -217,16 +227,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($goods as $good)
+                                            @foreach ($goods as $key => $good)
                                                 <tr class="text-center">
                                                     {{-- <td>{{ ++$key }}</td> --}}
                                                     <td>{{ $good->reference_number }}</td>
-                                                    <td>{{ $package_type->package_type }}</td>
+                                                    <td>{{ $p_types[$key]->package_type }}</td>
                                                     <td>{{ $good->fee }} $</td>
                                                     <td>
 
-                                                        <a
-                                                            href="{{ URL::to('/manager/storage/destroy/' . $good->id) }}">Delete
+                                                        <a href="{{ URL::to('/manager/storage/destroy/' . $good->id) }}">Delete
                                                         </a>
                                                         {{-- <button type="submit"
                                                             class="btn btn-danger btn-rounded waves-effect waves-light">Remove</button> --}}

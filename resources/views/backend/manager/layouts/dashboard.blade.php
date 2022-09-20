@@ -175,8 +175,8 @@
         })
     </script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
+    
+    {{-- <script>
         $(document).ready(function() {
             $("#myInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
@@ -185,7 +185,7 @@
                 });
             });
         });
-    </script>
+    </script> --}}
     <!-- display Calendar, date, time-->
     <script>
         function refreshTime() {

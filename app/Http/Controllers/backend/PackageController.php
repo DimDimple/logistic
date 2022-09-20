@@ -23,7 +23,7 @@ class PackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //find branch location of manager
         //find branch id
@@ -39,7 +39,20 @@ class PackageController extends Controller
         $packages = Package::latest()->paginate(5);
         //    @dd($packages);
         // if employee->branch_id==branch_id
+        
+        $search = $request->q;
 
+        if($search!=""){
+            $packages = Package::where(function ($query) use ($search){
+                $query->where('id', 'like', '%'.$search.'%')
+                    ->orWhere('sender_phone', 'like', '%'.$search.'%');
+            })
+            ->paginate(5);
+            $packages->appends(['q' => $search]);
+        }
+        else{
+            $packages = Package::latest()->paginate(5);
+        }
 
         return view('backend.manager.page.packages.index', compact('packages', 'branch_id', 'departure_id', 'branch'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -68,9 +81,9 @@ class PackageController extends Controller
         $num = 0;
         $total_fee = 0;
         $total_item = 0;
-
+        // $package_type = PType::get()->first();
         $package_types = PType::get();
-
+      
         //check manager departure
 
         //null
@@ -94,7 +107,7 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->goods);
+        // dd($request);
         $lastId = Storage::get()->last()->id;
 
         for ($i = 0; $i < $request->num - 1; $i++) {
@@ -126,7 +139,7 @@ class PackageController extends Controller
             'destination_id' => (int)$request['destination_id'],
             // 'status' => $request['status'],
             'pay_status' => $request['pay_status'],
-            'total_fee' => (int)$request['total_fee'],
+            'total_fee' => (float)$request['total_fee'],
             'total_item' => (int)$request['total_item'],
             // 'reference_number' => ("DM" . random_int(1000, 9999)), //random to user // string DM + 4 number
         ]);
@@ -140,7 +153,7 @@ class PackageController extends Controller
         // loop goods in array
         foreach ($goods as $good) {
             $savedBranch[] = $savedPackage->goods()->create([
-                'package_price' => (int)$good->package_price,
+                'package_price' => (float)$good->package_price,
                 'ptype_id' => $good->package_type,
                 'fee' => (float)$good->fee,
                 'message' => $good->message,
@@ -163,7 +176,7 @@ class PackageController extends Controller
         // @dd($branch);
         // @dd($branch_id);
         $packages = Package::latest()->paginate(5);
-
+       
         // unset $request;
         // @dd($request);
 
