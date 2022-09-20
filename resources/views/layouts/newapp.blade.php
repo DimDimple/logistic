@@ -35,6 +35,12 @@
 
     <!-- Scripts -->
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
+
+    {{-- toastr --}}
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+     {{-- {!! Toastr::message() !!} --}}
+     <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+     <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 </head>
 
 <body class="antialiased">
@@ -43,19 +49,21 @@
 
     @yield('content')
 
-    {{-- @include('layouts.footer') --}}
+    @include('layouts.footer')
 
     <script src="{{ asset('js/faq.js') }}"></script>
 
    <!-- show alert -->
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             // show the alert
             $(".alert").fadeTo(4000, 500).slideUp(500, function() {
                 $(".alert").alert('close');
             });
         });
-    </script>
+    </script> --}}
+
+
 
 </body>
 

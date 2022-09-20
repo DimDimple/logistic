@@ -24,6 +24,8 @@
     <!-- App Css-->
     <link href={{ asset('assets/css/app.min.css') }} id="app-style" rel="stylesheet" type="text/css" />
 
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
 </head>
 
 <body data-topbar="light">
@@ -61,8 +63,8 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="text-sm-end d-none d-sm-block">
-                        We make it by <i class="mdi mdi-heart text-danger"></i> by <a href="http://logistic.cc/admin/dashboard"
-                            target="_blank">DimMeyDesign</a>
+                        We make it by <i class="mdi mdi-heart text-danger"></i> by <a
+                            href="http://logistic.cc/admin/dashboard" target="_blank">DimMeyDesign</a>
                     </div>
                 </div>
             </div>
@@ -97,6 +99,8 @@
     <script src={{ asset('assets/libs/simplebar/simplebar.min.js') }}></script>
     <script src={{ asset('assets/libs/node-waves/waves.min.js') }}></script>
 
+    {{-- datatable search--}}
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
     <!-- apexcharts -->
     <script src={{ asset('assets/libs/apexcharts/apexcharts.min.js') }}></script>
@@ -129,6 +133,55 @@
             timeDisplay.textContent = formattedString;
         }
         setInterval(refreshTime, 1000);
+    </script>
+    {{-- //search --}}
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+
+    {{-- toggle open password --}}
+    <script>
+        var password = document.getElementById("password");
+        const toggle_password = document.querySelector('#toggle_password');
+        const toggle_password2 = document.querySelector('#toggle_password2');
+
+        function genPassword() {
+            var chars = "0123456789abcdefghijklmnopqrstuvwxyz!@$ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var passwordLength = 8;
+            var password = "";
+            for (var i = 0; i <= passwordLength; i++) {
+                var randomNumber = Math.floor(Math.random() * chars.length);
+                password += chars.substring(randomNumber, randomNumber + 1);
+            }
+            document.getElementById("password").value = password;
+        }
+
+        function copyPassword() {
+            var copyText = document.getElementById("password");
+            copyText.select();
+            document.execCommand("copy");
+        }
+
+        // Show password
+        toggle_password.addEventListener("click", function() {
+
+            // toggle the icon
+            this.classList.toggle("bi-eye-fill");
+        });
+
+        toggle_password2.addEventListener("click", function() {
+
+            this.classList.toggle("bi-eye-fill");
+        });
+
+        function showPassword(idclick) {
+            const password = document.querySelector('#' + idclick);
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+
+        }
     </script>
 
 </body>

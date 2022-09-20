@@ -50,7 +50,7 @@
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <i class='bx bxs-group bx-flip-horizontal' style='color:#414040' ></i>
-                        <span class="badge rounded-pill bg-danger float-end">1</span>
+                        <span class="badge rounded-pill bg-danger float-end">2</span>
                         <span>Manage User</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -61,7 +61,7 @@
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <i class='bx bxs-map-pin bx-flip-horizontal' style='color:#414040' ></i>
-                        <span class="badge rounded-pill bg-danger float-end">1</span>
+                        <span class="badge rounded-pill bg-danger float-end">2</span>
                         <span>Manage Branch</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">

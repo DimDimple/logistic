@@ -42,6 +42,29 @@
                             </div>
                         </div>
                         <div class=" row mb-3">
+                            <label for="password" class="col-sm-2 col-form-label">Password </label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="password" required
+                                        parsley-type="password" name="password" placeholder="Enter a valid password" />
+                                    <div class="input-group-append">
+                                        <button  onclick="showPassword('password')" data-toggle="tooltip" id="toggle_password"
+                                            data-original-title="Show/Hide Value"
+                                            class="btn btn-outline-secondary border-grey height-35 toggle-password"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                                <path
+                                                    d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class=" row mb-3">
                             <label for="phone" class="col-sm-2 col-form-label">Phone Number</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" id="phone" required parsley-type="phone"
