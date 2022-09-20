@@ -44,8 +44,9 @@ class PackageController extends Controller
 
         if($search!=""){
             $packages = Package::where(function ($query) use ($search){
-                $query->where('id', 'like', '%'.$search.'%')
-                    ->orWhere('sender_phone', 'like', '%'.$search.'%');
+                $query->where('sender_phone', 'like', '%'.$search.'%')
+                    ->orWhere('receiver_phone', 'like', '%'.$search.'%');
+                   
             })
             ->paginate(5);
             $packages->appends(['q' => $search]);
