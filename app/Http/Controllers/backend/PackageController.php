@@ -37,7 +37,7 @@ class PackageController extends Controller
         // @dd($branch);
         // @dd($branch_id);
         $packages = Package::latest()->paginate(5);
-        //    @dd($packages);     
+        //    @dd($packages);
         // if employee->branch_id==branch_id
 
 
@@ -64,7 +64,7 @@ class PackageController extends Controller
 
         //create goods
         $goods = [];
-        // track data // 
+        // track data //
         $num = 0;
         $total_fee = 0;
         $total_item = 0;
@@ -104,7 +104,7 @@ class PackageController extends Controller
         //if we have 7iterm before then we input 3 iterm more we get 3 iterms
 
         $goods = Storage::find($array);
-        //find array in goods 
+        //find array in goods
 
         $request->validate([
             'sender_phone' => 'required',
@@ -191,7 +191,7 @@ class PackageController extends Controller
         $receiver = Branch::where('id', '=', $package->destination_id)->get();
         // dd($receiver);
         $destination = Branch::where('id', '=', $destination_id)->first();
-        // track data // 
+        // track data //
         $num = 0;
         $total_fee = 0;
         $total_item = 0;
@@ -262,7 +262,7 @@ class PackageController extends Controller
 
         ]);
 
-        //    dd($request); 
+        //    dd($request);
         $package->update($request->all());
         // return ('Package updated successfully.');
         return redirect()->route('packages.index')
@@ -341,7 +341,7 @@ class PackageController extends Controller
 
     public function destroy(Package $package)
     {
-        //find package id in goods Pthen delete 
+        //find package id in goods Pthen delete
         //good store package foreign key
         $goods = Goods::where('package_id', '=', $package->id)->get();
         // $goods->delete();
@@ -356,7 +356,7 @@ class PackageController extends Controller
     }
 
     // public function updateStatus(Request $request)
-    // {   
+    // {
     //     dd($request);
     //     $package = Package::find($id);
     //     $package->status = $request->status;

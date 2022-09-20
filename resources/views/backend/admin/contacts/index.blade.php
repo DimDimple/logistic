@@ -47,7 +47,7 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="myTable">
+                        <tbody id="datatable">
                             @foreach ($contacts as $key => $contact)
                                 <tr class="text-center">
                                     <td>{{ ++$key }}</td>

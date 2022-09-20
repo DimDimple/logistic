@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
+
 
 class ContactController extends Controller
 {
@@ -32,9 +34,9 @@ class ContactController extends Controller
 
         ]);
 
-
+        Toastr::success('Your message was sent successfully :)','Success');
         return redirect()->back()
-            ->with('success', 'Your message was sent!');
+        ->with("error");
     }
 
     public function show($id)

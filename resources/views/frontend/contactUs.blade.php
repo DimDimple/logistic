@@ -1,11 +1,7 @@
 @extends('layouts.newapp')
 
 @section('content')
-@if ($message = Session::get('success'))
-<div class="alert alert-success">
-    <p>{{ $message }}</p>
-</div>
-@endif
+    {!! Toastr::message() !!}
     <div class="contact-container">
         <div class="contact-header">
             <h3>CONTACT US</h3>
@@ -35,12 +31,12 @@
         </div>
     </div>
     <!-- show alert -->
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             // show the alert
             $(".alert").fadeTo(4000, 500).slideUp(500, function() {
                 $(".alert").alert('close');
             });
         });
-    </script>
+    </script> --}}
 @endsection

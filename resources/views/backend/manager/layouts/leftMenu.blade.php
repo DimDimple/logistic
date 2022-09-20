@@ -15,7 +15,7 @@
             </span>
         </a>
 
-        
+
     </div>
 
     <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
@@ -34,7 +34,7 @@
                     <a href="/manager/dashboard" class="waves-effect">
                         <i class="ri-home-gear-line"></i>
                         <span>Dashboard</span>
-                       
+
                     </a>
                 </li>
 
@@ -48,7 +48,7 @@
                         <span>Form Package</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href= {{ route('packages.create') }}>Add Package</a></li>
+                        <li><a href={{ route('packages.create') }}>Add Package</a></li>
                         <li><a href="/manager/packages">Record</a></li>
                         <li><a href="/manager/goods">List Goods</a></li>
                         <li><a href="/manager/packageType">Package Type</a></li>
@@ -57,7 +57,7 @@
 
 
                 <li class="menu-title">Components</li>
-              
+
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <i class='bx bxs-user-account'></i>
@@ -67,7 +67,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="/manager/employeebranch">Branch Employee</a></li>
                         <li><a href="/manager/position">Position</a></li>
-                       
+
 
                     </ul>
                 </li>
@@ -78,7 +78,7 @@
                     </a>
                 </li>
 
-               
+
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <i class='bx bxs-user-account'></i>
@@ -86,7 +86,7 @@
                         <span>Packages</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                       
+
                         <li><a href="/manager/pending">Pending</a></li>
                         <li><a href="/manager/process">Processing</a></li>
                         <li><a href="/manager/shipped">Shipped</a></li>

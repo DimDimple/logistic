@@ -38,8 +38,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <h3 class="font-size-24">{{ $totalAdmin }}<span
-                                    class="text-success fw-normal font-size-14 ms-2">+8.34%</span></h3>
+                            <h3 class="font-size-24">{{ $totalAdmin }}</h3>
                             <p class="text-muted mb-0">Total Admins</p>
                         </div><!-- end card-body -->
 
@@ -58,8 +57,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <h3 class="font-size-24">{{ $totalManager }}<span
-                                    class="text-success fw-normal font-size-14 ms-2">+8.34%</span></h3>
+                            <h3 class="font-size-24">{{ $totalManager }}</h3>
                             <p class="text-muted mb-0">Total Managers </p>
                         </div><!-- end card-body -->
 
@@ -79,8 +77,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <h3 class="font-size-24">{{ $totalUser }} <span
-                                    class="text-success fw-normal font-size-14 ms-2">+8.34%</span></h3>
+                            <h3 class="font-size-24">{{ $totalUser }} </h3>
                             <p class="text-muted mb-0">Total Users login to website</p>
                         </div><!-- end card-body -->
 
@@ -93,7 +90,7 @@
                     <div class="card overflow-hidden card-h-100">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h5 class="font-size-15 text-uppercase mb-0">Profit</h5>
+                                <h5 class="font-size-15 text-uppercase mb-0">Income</h5>
                                 <div class="avatar-xs">
                                     <span class="avatar-title rounded bg-soft-success font-size-20 mini-stat-icon">
                                         <i class="ri-wallet-3-line text-success"></i>
@@ -103,7 +100,7 @@
                             <h3 class="font-size-24">46,562
                                 <span class="text-danger fw-normal font-size-14 ms-2">+3.16%</span>
                             </h3>
-                            <p class="text-muted mb-0">Total Users World wide</p>
+                            <p class="text-muted mb-0">Total income </p>
                         </div><!-- end card-body -->
 
                         <!-- user chart -->

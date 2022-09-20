@@ -12,10 +12,10 @@
                         <div class="page-title-box d-flex align-items-center justify-content-between">
                             <h3 class="mb-0">List All User</h3>
                             <div class="float-end">
-                                {{-- <a href="{{ route('user.create') }}">
+                                <a href="{{ route('user.create') }}">
                                     <button type="button" class="btn btn-primary btn-sm-rounded waves-effect waves-light">
                                         Add New User</button>
-                                </a> --}}
+                                </a>
                             </div>
                         </div>
                         @if ($message = Session::get('success'))
@@ -23,10 +23,10 @@
                                 <p>{{ $message }}</p>
                             </div>
                         @endif
-                        <table id="selection-datatable" class="table dt-responsive nowrap w-100 ">
+                        <table id="myTable" class="table dt-responsive nowrap w-100 ">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Id</th>
+                                    {{-- <th>Id</th> --}}
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
@@ -38,7 +38,7 @@
                             <tbody>
                                 @foreach ($users as $key => $user)
                                     <tr>
-                                        <th scope="row">{{ ++$key }}</th>
+                                        {{-- <th scope="row">{{ ++$key }}</th> --}}
 
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
