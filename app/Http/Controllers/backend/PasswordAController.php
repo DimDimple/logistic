@@ -1,19 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\backend;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class PasswordController extends Controller
+class PasswordAController extends Controller
 {
-    public function changePwd(){
-        return view('frontend.profile.changePassword');
+    public function changePwdA(){
+        return view('backend.admin.profile.changePassword');
     }
 
-    public function updatePwd(Request $request){
+    public function updatePwdA(Request $request){
         # Validation
+        // dd($request);
         $request->validate([
             'old_password' => 'required|min:8|',
             'new_password' => 'required|min:8|confirmed',
@@ -37,4 +39,3 @@ class PasswordController extends Controller
         return back()->with("message", "Password changed successfully :) !");
     }
 }
-

@@ -47,7 +47,7 @@ class PositionController extends Controller
 
         return redirect()->route('position.index')
 
-            ->with('success', 'Position created successfully.');
+            ->with('message', 'Position created successfully.');
     }
 
     /**
@@ -101,7 +101,7 @@ class PositionController extends Controller
         $position->update($request->all());
 
         return redirect()->route('position.index')
-            ->with('succees', 'Employee updated successfully');
+            ->with('message', 'Employee updated successfully');
     }
 
     /**
@@ -115,6 +115,6 @@ class PositionController extends Controller
         // $employees = Employee::where('type_id', '=', $position->id)->get();
         $position->delete();
         return redirect()->route('position.index')
-            ->with('success', 'Position deleted successfully');
+            ->with('message', 'Position deleted successfully');
     }
 }

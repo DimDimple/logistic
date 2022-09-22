@@ -26,6 +26,21 @@
 
     <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 
+    <!--Edit and changepwd-->
+    <link rel="stylesheet" href={{ asset('css/backend/editprofile.css') }}>
+    <link rel="stylesheet" href={{ asset('css/backend/profile.css') }}>
+
+
+    <!-- alert message -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0- 
+     alpha/css/bootstrap.css"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
 </head>
 
 <body data-topbar="light">
@@ -82,7 +97,40 @@
     <div class="rightbar-overlay"></div>
 
     <!-- JAVASCRIPT -->
+    <!-- Alert message-->
+    <script>
+        @if (Session::has('message'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.success("{{ session('message') }}");
+        @endif
 
+        @if (Session::has('error'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.error("{{ session('error') }}");
+        @endif
+
+        @if (Session::has('info'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.info("{{ session('info') }}");
+        @endif
+
+        @if (Session::has('warning'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.warning("{{ session('warning') }}");
+        @endif
+    </script>
     <!--get value when we complete form user and send to summary.-->
     <script>
         function getInputValue() {
@@ -99,7 +147,7 @@
     <script src={{ asset('assets/libs/simplebar/simplebar.min.js') }}></script>
     <script src={{ asset('assets/libs/node-waves/waves.min.js') }}></script>
 
-    {{-- datatable search--}}
+    {{-- datatable search --}}
     <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
     <!-- apexcharts -->

@@ -29,20 +29,23 @@ class EmployeeController extends Controller
         // $employees = Employee::latest()->paginate(5);
         // dd($employees);
 
-         $search = $request->q;
+        //  $search = $request->q;
 
-        if($search!=""){
-            $employees = Employee::where(function ($query) use ($search){
-                $query->where('firstname', 'like', '%'.$search.'%')->orwhere('lastname','like','%'.$search.'%')
-                    ->orWhere('email', 'like', '%'.$search.'%');
-            })
-            ->paginate(5);
-            $employees->appends(['q' => $search]);
-            // dd($employees);
-        }
-        else{
-            $employees = Employee::latest()->paginate(5);
-        }
+        // if($search!=""){
+        //     $employees = Employee::where(function ($query) use ($search){
+        //         $query->where('firstname', 'like', '%'.$search.'%')->orwhere('lastname','like','%'.$search.'%')
+        //             ->orWhere('email', 'like', '%'.$search.'%')
+        //             ->orWhere('gender', 'like', '%'.$search.'%')
+        //             ->orWhere('address', 'like', '%'.$search.'%')
+        //             ->orWhere('phone', 'like', '%'.$search.'%');
+        //     })
+        //     ->paginate(5);
+        //     $employees->appends(['q' => $search]);
+        //     // dd($employees);
+        // }
+        // else{
+        //     $employees = Employee::latest()->paginate(5);
+        // }
 
         return view('backend.manager.page.employeeBranch.index', compact('employees', 'branch_id'));
     }
@@ -103,7 +106,7 @@ class EmployeeController extends Controller
         // $employees = EmployeeBranch::latest()->paginate(5);
 
         return redirect()->route('employeebranch.index', compact('employees'))
-            ->with('success', 'Employee created successfully.');
+            ->with('message', 'Employee created successfully.');
     }
 
     /**
@@ -203,7 +206,7 @@ class EmployeeController extends Controller
 
 
         return redirect()->route('employeebranch.index')
-            ->with('succees', 'Employee updated successfully');
+            ->with('message', 'Employee updated successfully');
     }
 
 
@@ -247,7 +250,7 @@ class EmployeeController extends Controller
         $writer->save('report/EmployeeReport.xlsx');
 
         return redirect()->route('employeebranch.index')
-            ->with('success', 'Excel exported successfully.');
+            ->with('message', 'Excel exported successfully.');
     }
 
     /**
@@ -263,6 +266,6 @@ class EmployeeController extends Controller
         $employee->delete();
 
         return redirect()->route('employeebranch.index')
-            ->with('success', 'Package deleted successfully');
+            ->with('message', 'Package deleted successfully');
     }
 }

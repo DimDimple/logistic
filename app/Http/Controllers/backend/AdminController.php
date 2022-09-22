@@ -66,7 +66,7 @@ class AdminController extends Controller
         }
 
         return redirect()->route('admin.index')
-        ->with('success', 'Admin created successfully.');
+        ->with('message', 'Admin created successfully.');
     }
 
     /**
@@ -121,7 +121,7 @@ class AdminController extends Controller
         //save data to database
         $admin->save();
         return redirect()->route('admin.index')
-        ->with('succees', 'Admin updated successfully');
+        ->with('message', 'Admin updated successfully');
     }
 
     /**
@@ -136,6 +136,6 @@ class AdminController extends Controller
         $admin = User::find($id);
         $admin->delete();
         return redirect()->route('admin.index')
-        ->with('success', 'Admin deleted successfully');
+        ->with('message', 'Admin deleted successfully');
     }
 }

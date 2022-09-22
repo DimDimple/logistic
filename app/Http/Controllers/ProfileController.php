@@ -113,7 +113,7 @@ class ProfileController extends Controller
             ]);
         }
 
-        return redirect()->route('profile.edit',array('user' => Auth::user()))->with('success', 'Profile updated successfully');
+        return redirect()->route('profile.edit',array('user' => Auth::user()))->with('message', 'Profile updated successfully');
     }
 
     /**

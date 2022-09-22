@@ -1,4 +1,4 @@
-@extends('backend.manager.layouts.dashboard')
+@extends('layouts.newapp')
 
 @section('content')
     <div class="row">
@@ -67,7 +67,7 @@
                                     <div class="col">
                                         <div class="form-outline">
                                             <input type="text" id="package_price" class="form-control"
-                                                name="package_price" value="" />
+                                                name="package_price" value=" " />
                                             <label class="form-label" for="form7Example1">Package Price</label>
                                         </div>
                                     </div>
@@ -93,7 +93,7 @@
                                     <div class="col">
                                         <div class="form-outline mb-4">
                                             <input type="text" id="fee" class="form-control" name="fee"
-                                                value="" />
+                                                value=" " />
                                             <label class="form-label" for="form7Example2">Fee</label>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
                                             <option selected id="g_status"></option>
                                             <option value="Pending">Pending</option>
                                             <option value="Processing">Processing</option>
-                                            <option value="Shipped">Shipped</option>
+                                            <option value="Decline">Decline</option>
                                             <option value="Completed" id="completed">Completed</option>
                                         </select>
                                     </div>
@@ -150,9 +150,9 @@
                             <input type="hidden" id="branch" name="branch" value="{{ $branch_id }}">
                             {{-- <input type="hidden" id="goodId" name="goodId" value="{{ $good->id }}"> --}}
                             <td>{{ $good->reference_number }}</td>
-                            <td>{{ $good->package_price }}</td>
+                            <td>{{ $good->package_price }} </td>
                             <td>{{ $good->ptype->package_type }}</td>
-                            <td>{{ $good->fee }}</td>
+                            <td>{{ $good->fee }} </td>
                             <td>{{ $good->message }}</td>
 
                             <td>{{ $good->status }}</td>
@@ -182,9 +182,12 @@
                 <h6 class="text-center"> {{ $package->pay_status }}</h6>
             </div>
 
+
+
             <div style="width: 50%; margin-left:20px">
                 <h5 class="card-title p-3 mb-2 bg-primary text-white">TOTAL ITEMS</h5>
                 <h6 class="text-center">{{ $package->total_item }}</h6>
+
             </div>
 
             <div style="width: 50%; margin-left:20px">
@@ -229,14 +232,14 @@
                 // $('#goodId').val(data[0]);
                 $('#package_price').val(data[1]);
                 //in select option have two type to do (val and text)
-                $('#p_type').val(data[2]);
+                $('#p_type').val(good_id);
                 //display(use only select)
                 $('#p_type').text(data[2]);
                 $('#fee').val(data[3]);
 
                 // $('#total_fee').val(data[4]);
                 $('#message').val(data[4]);
-                $('#g_status').val(data[5]);
+                $('#g_status').val(good_id);
                 //display(use only select)
                 $('#g_status').text(data[5]);
             })
@@ -246,18 +249,16 @@
         $('#editFormID').on('submit', function(e) {
             //
             e.preventDefault();
-        //    alert($('#editFormID').serialize());
-        //    alert(good_id);
-            // create variable get data from hidden fields
+            console.log($('#editFormID').serialize());
+            //create variable get data from hidden fields
             // var good_id = $("#goodId").val();
-            // request/response from controller
+            //request/response from controller
             $.ajax({
-                //route controller // connect to controller
                 url: `/manager/goods/update/${good_id}`,
                 type: "PUT",
                 data: $("#editFormID").serialize(),
                 //serialize() = $request from controller
-
+               
                 success: function(res) {
                     // window.location = window.
                     // location.reload();

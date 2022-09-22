@@ -46,7 +46,7 @@ class LocationController extends Controller
         Location::create($request->all());
         
         return redirect()->route('location.index')
-            ->with('success', 'Location created successfully.');
+            ->with('message', 'Location created successfully.');
     }
 
     /**
@@ -93,6 +93,6 @@ class LocationController extends Controller
     {
         $location->delete();
         return redirect()->route('location.index')
-                        ->with('success','Location deleted successfully');
+                        ->with('message','Location deleted successfully');
     }
 }

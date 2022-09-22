@@ -19,9 +19,13 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
+                
                 <div class="card-body">
+                    <a href="{{ route('employeebranch.create') }}">
+                        <button type="button" class="btn btn-primary waves-effect waves-light"
+                            style="margin-left: 88%;margin-top:-1%">Create New Employee</button></a>
                     <h1 class="card-title">List Employee in Branch</h1>
-                    <form action="{{ route('searchEmployee') }}" method="POST">
+                    {{-- <form action="{{ route('searchEmployee') }}" method="POST">
                         @csrf
                         <div class="form-outline">
                             <input type="text" name="q" placeholder="Search name and email..."
@@ -31,37 +35,32 @@
                                 Search </button>
                         </div>
 
-                    </form>
-                    <a href="{{ route('employeebranch.create') }}">
-                        <button type="button" class="btn btn-primary waves-effect waves-light"
-                            style="margin-left: 88%;margin-top:-3%">Create New Employee</button></a>
+                    </form> --}}
+                   
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">
                             <p>{{ $message }}</p>
                         </div>
                     @endif
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap"
-                        style="border-collapse: collapse; border-spacing: 0; width: 100%;margin-top:2%">
+                    <table id="myTable" class="table table-bordered dt-responsive nowrap "
+                        style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
                         <thead>
-                            <tr class="text-center">
-                                <th>No</th>
-                                <th>Full Name</th>
-                                <th>Email</th>
-                                <th>Position</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th>Joined</th>
-                                <th>Action</th>
+                            <tr >
+                                <th class="text-center">Full Name</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Position</th>
+                                <th class="text-center">Phone</th>
+                                <th class="text-center">Address</th>
+                                <th class="text-center">Joined</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($employees as $key => $emp)
                                 {{-- @if ($employee->branch_id == $branch_id) --}}
                                 <tr class="text-center">
-                                    <th scope="row">
-                                        {{ ($employees->currentPage() - 1) * $employees->links()->paginator->perPage() + $key + 1 }}
-                                    </th>
+
                                     <td>{{ $emp->firstname }} {{ $emp->lastname }}</td>
                                     <td>{{ $emp->email }}</td>
                                     <td>
@@ -92,7 +91,7 @@
                                 </tr>
                                 {{-- @endif --}}
                             @endforeach
-                            @if (!isset($employees[0]->email))
+                            {{-- @if (!isset($employees[0]->email))
                                 <tr class="text-center">
                                     <td>null</td>
                                     <td>null</td>
@@ -103,10 +102,10 @@
                                     <td>null</td>
 
                                 </tr>
-                            @endif
+                            @endif --}}
                         </tbody>
                     </table>
-                    {{ $employees->links('vendor.pagination.custom') }}
+                    {{-- {{ $employees->links('vendor.pagination.custom') }} --}}
 
                 </div>
             </div>

@@ -28,7 +28,21 @@
     <link href={{ asset('assets/css/icons.min.css') }} rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href={{ asset('assets/css/app.min.css') }} id="app-style" rel="stylesheet" type="text/css" />
+    <!--Css tables search-->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <!--Edit and changepwd-->
+    <link rel="stylesheet" href={{ asset('css/backend/profile.css') }}>
+    <link rel="stylesheet" href={{ asset('css/backend/editprofile.css') }}>
 
+
+    <!-- alert message -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0- 
+    alpha/css/bootstrap.css"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 </head>
 
@@ -125,9 +139,46 @@
     <!-- App js -->
     <script src={{ asset('assets/js/app.js') }}></script>
 
+    <!-- alert meesage toastr  -->
+    <script>
+        @if (Session::has('message'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.success("{{ session('message') }}");
+        @endif
+
+        @if (Session::has('error'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.error("{{ session('error') }}");
+        @endif
+
+        @if (Session::has('info'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.info("{{ session('info') }}");
+        @endif
+
+        @if (Session::has('warning'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.warning("{{ session('warning') }}");
+        @endif
+    </script>
+
     {{-- Sweet Alert --}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+    
 
 
     <script type="text/javascript">
@@ -175,7 +226,15 @@
         })
     </script>
 
-    
+    {{-- datatable search --}}
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+
     {{-- <script>
         $(document).ready(function() {
             $("#myInput").on("keyup", function() {

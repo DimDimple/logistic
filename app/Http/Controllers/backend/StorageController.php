@@ -46,18 +46,18 @@ class StorageController extends Controller
 
         }
 
-        $search = $request->q;
+        // $search = $request->q;
 
-        if($search!=""){
-            $goods = Goods::where(function ($query) use ($search){
-                $query->where('reference_number', 'like', '%'.$search.'%');
-            })
-            ->paginate(5);
-            $goods->appends(['q' => $search]);
-        }
-        else{
-            $goods = Goods::latest()->paginate(5);
-        }
+        // if($search!=""){
+        //     $goods = Goods::where(function ($query) use ($search){
+        //         $query->where('reference_number', 'like', '%'.$search.'%');
+        //     })
+        //     ->paginate(5);
+        //     $goods->appends(['q' => $search]);
+        // }
+        // else{
+        //     $goods = Goods::latest()->paginate(5);
+        // }
     //    dd($goods);
         return view('backend.manager.page.goods.index', compact('goods'));
     }
@@ -196,12 +196,43 @@ class StorageController extends Controller
     {
         // return $request;
         $good = Goods::find($id);
-        $good->package_price = $request->package_price;
-        $good->ptype_id = $request->package_type;
-        $good->fee = $request->fee;
-        $good->status = $request->status;
-        $good->message = $request->message;
-        $good->save();
+        // $good->package_price = $request->package_price;
+        // $good->ptype_id = $request->package_type;
+        // $good->fee = $request->fee;
+        // $good->status = $request->status;
+        // $good->message = $request->message;
+        // $good->reference_number = $good->reference_number;
+        //  if(isset($request->package_price)){
+        //     $good->package_price = $request->package_price;
+        //  }
+        //  if(isset($request->package_type)){
+        //     $good->ptype_id = $request->package_type;
+        //  }
+        //  if(isset($request->fee)){
+        //     $good->fee = $request->fee;
+        //  }
+        //  if(isset($request->status)){
+        //     $good->status = $request->status;
+        //  }
+        //  if(isset($request->message)){
+        //     $good->message = $request->message;
+        //  }
+        //  if(isset($good->reference_number)){
+        //     $good->reference_number = $good->reference_number;
+        //  }
+
+        $request->validate([
+            'package_price' => 'required',
+            'package_type' => 'required',
+            // 'status' => 'required',
+            'status' => 'required',
+            'fee' => 'required',
+            'message' => 'required',
+
+        ]);
+        // $good->ptype_id = $request->package_type;
+        // $good->save();
+        $good->update($request->all());
 
         //update total fee in package
         $package = Package::find($good->package_id);
@@ -216,6 +247,8 @@ class StorageController extends Controller
         $package->total_fee = $total_fee;
         $package->save();
         return $id;
+        // return redirect()->route('goods.index')
+        //     ->with('message', 'Goods updated successfully');
 
         //     $branches = Branch::get();
         //     $user_id = Auth::user()->id;
