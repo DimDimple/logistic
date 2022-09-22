@@ -27,7 +27,7 @@
     <div class="menu">
         <ul>
             <li><a href="/home">Home</a></li>
-            <li><a href="/track">Track&Trace</a></li>
+            <li><a href="/tracking">Track&Trace</a></li>
             <li><a href="/information">Information</a></li>
             <li><a href="/contact">Contact us</a></li>
         </ul>

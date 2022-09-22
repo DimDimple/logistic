@@ -47,7 +47,7 @@ class PTypesController extends Controller
 
         return redirect()->route('packageType.index')
 
-        ->with('success', 'Package Type created successfully.');
+        ->with('message', 'Package Type created successfully.');
 
 
     }
@@ -94,7 +94,7 @@ class PTypesController extends Controller
          $package_types->save();
        
          return redirect()->route('packageType.index')
-         ->with('succees', 'Package type updated successfully');
+         ->with('message', 'Package type updated successfully');
 
 
     }
@@ -110,6 +110,6 @@ class PTypesController extends Controller
         $pType = PType::find($id);
         $pType->delete();
         return redirect()->route('packageType.index')
-                        ->with('success','Package Type deleted successfully');
+                        ->with('message','Package Type deleted successfully');
     }
 }

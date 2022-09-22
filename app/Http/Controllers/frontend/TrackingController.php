@@ -28,15 +28,15 @@ class TrackingController extends Controller
         $departure = "";
         $destination = "";
 
-        foreach ($trackNumber as $trackNum) {
-            $departure = Branch::find($trackNum->departure_id)->b_name;
-            $destination = Branch::find($trackNum->destination_id)->b_name;
-        }
+        // foreach ($trackNumber as $trackNum) {
+        //     $departure = Branch::find($trackNum->departure_id)->b_name;
+        //     $destination = Branch::find($trackNum->destination_id)->b_name;
+        // }
         //  dd($departure);
         //         dd($destination);
         // dd($trackNumber);
 
-        return view('frontend.track', compact('trackNumber', 'departure', 'destination'))
+        return view('frontend.track.track', compact('trackNumber', 'departure', 'destination'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

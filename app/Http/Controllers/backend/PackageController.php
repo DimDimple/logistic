@@ -40,20 +40,20 @@ class PackageController extends Controller
         //    @dd($packages);
         // if employee->branch_id==branch_id
         
-        $search = $request->q;
+        // $search = $request->q;
 
-        if($search!=""){
-            $packages = Package::where(function ($query) use ($search){
-                $query->where('sender_phone', 'like', '%'.$search.'%')
-                    ->orWhere('receiver_phone', 'like', '%'.$search.'%');
+        // if($search!=""){
+        //     $packages = Package::where(function ($query) use ($search){
+        //         $query->where('sender_phone', 'like', '%'.$search.'%')
+        //             ->orWhere('receiver_phone', 'like', '%'.$search.'%');
                    
-            })
-            ->paginate(5);
-            $packages->appends(['q' => $search]);
-        }
-        else{
-            $packages = Package::latest()->paginate(5);
-        }
+        //     })
+        //     ->paginate(5);
+        //     $packages->appends(['q' => $search]);
+        // }
+        // else{
+        //     $packages = Package::latest()->paginate(5);
+        // }
 
         return view('backend.manager.page.packages.index', compact('packages', 'branch_id', 'departure_id', 'branch'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -215,10 +215,10 @@ class PackageController extends Controller
         //select option get data connect to view
         //
         $package_types = PType::get();
-        // @dd($package);
+      
         $goods = Goods::where('package_id', '=', $package->id)->get();
 
-
+//   dd($goods);
         // @dd($goods);
         //    @dd($package->branch);
 
@@ -280,7 +280,7 @@ class PackageController extends Controller
         $package->update($request->all());
         // return ('Package updated successfully.');
         return redirect()->route('packages.index')
-            ->with('success', 'Package updated successfully.');
+            ->with('message', 'Package updated successfully.');
     }
 
 
@@ -347,7 +347,7 @@ class PackageController extends Controller
         $writer->save('report/PackageReport.xlsx');
 
         return redirect()->route('packages.index')
-            ->with('success', 'Excel exported successfully.');
+            ->with('message', 'Excel exported successfully.');
     }
 
 
@@ -366,7 +366,7 @@ class PackageController extends Controller
         $package->delete();
 
         return redirect()->route('packages.index')
-            ->with('success', 'Package deleted successfully');
+            ->with('message', 'Package deleted successfully');
     }
 
     // public function updateStatus(Request $request)

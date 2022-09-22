@@ -119,7 +119,7 @@ class BranchController extends Controller
         // }
 
         return redirect()->route('branch.index')
-            ->with('success', 'Branch created successfully.');
+            ->with('message', 'Branch created successfully.');
     }
 
     /**
@@ -182,7 +182,7 @@ class BranchController extends Controller
         // $branch->update($request->all());
         // dd( $branch);
         return redirect()->route('branch.index')
-            ->with('succees', 'Branch updated successfully');
+            ->with('message', 'Branch updated successfully');
     }
 
     /**
@@ -199,7 +199,7 @@ class BranchController extends Controller
         //3.delete branch
         $branch->delete();
         return redirect()->route('branch.index')
-            ->with('success', 'Branch deleted successfully');
+            ->with('message', 'Branch deleted successfully');
     }
 
     /**

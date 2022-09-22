@@ -34,9 +34,9 @@ class ContactController extends Controller
 
         ]);
 
-        Toastr::success('Your message was sent successfully :)','Success');
+        // Toastr::success('Your message was sent successfully :)','Success');
         return redirect()->back()
-        ->with("error");
+        ->with('message', 'Your message was sent successfully ');
     }
 
     public function show($id)
@@ -51,6 +51,6 @@ class ContactController extends Controller
         $contact->delete();
 
         return redirect()->back()
-            ->with('success', 'Message was deleted successfully');
+            ->with('message', 'Message was deleted successfully');
     }
 }

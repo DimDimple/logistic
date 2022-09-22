@@ -35,7 +35,7 @@
                         <input type="text" name="q" class="form-control"  style=" margin-top:3%"
                             placeholder="Search package by id or sender phone number">
                     </div> --}}
-                    <form action="{{ route('searchPackage') }}" method="POST">
+                    {{-- <form action="{{ route('searchPackage') }}" method="POST">
                         @csrf
                         <div class="form-outline" >
                             <input type="text" name="q" placeholder="Search sender and receiver phone number..."
@@ -43,20 +43,20 @@
                             <button type="submit" style="height:39px; margin-left:3px; border:1px solid rgb(219, 219, 219); border-radius:5px; background-color:rgb(109, 109, 246);color:#fff;padding:0 10px"> Search </button>
                         </div>
 
-                    </form>
+                    </form> --}}
 
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap"
-                        style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
-                        <thead>
-                            <tr class="text-center">
-                                <th>No</th>
-                                <th>Sender Phone Number</th>
-                                <th>Receiver Phone Number</th>
-                                <th>Total Items</th>
-                                <th>Total Fee</th>
-                                <th>Payment Status</th>
-                                <th>Action</th>
+                    <table id="myTable" class="table table-bordered dt-responsive nowrap"
+                    style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
+                    <thead >
+                            <tr >
+                                <th class="text-center">No</th>
+                                <th class="text-center">Sender Phone Number</th>
+                                <th class="text-center">Receiver Phone Number</th>
+                                <th class="text-center">Total Items</th>
+                                <th class="text-center">Total Fee</th>
+                                <th class="text-center">Payment Status</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -121,7 +121,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $packages->links() }}
+                    {{-- {{ $packages->links() }} --}}
                 </div>
             </div>
         </div> <!-- end col -->

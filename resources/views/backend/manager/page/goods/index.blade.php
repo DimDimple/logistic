@@ -29,7 +29,7 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <form action="{{ route('searchGoods') }}" method="POST">
+                    {{-- <form action="{{ route('searchGoods') }}" method="POST">
                         @csrf
                         <div class="form-outline">
                             <input type="text" name="q" placeholder="Search sender and receiver phone number..."
@@ -38,23 +38,23 @@
                                 style="height:39px; margin-left:3px; border:1px solid rgb(219, 219, 219); border-radius:5px; background-color:rgb(109, 109, 246);color:#fff;padding:0 10px">
                                 Search </button>
                         </div>
-                    </form>
+                    </form> --}}
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap"
+                    <table id="myTable" class="table table-bordered dt-responsive nowrap"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
-                        <thead>
-                            <tr class="text-center">
-                                <th>Package ID</th>
-                                <th>Reference Number</th>
-                                <th>Package Price</th>
-                                <th>Package Type</th>
-                                <th>Fee</th>
-                                <th>Messages</th>
-                                <th>Status</th>
+                        <thead >
+                            <tr >
+                                <th class="text-center">Package ID</th>
+                                <th class="text-center">Reference Number</th>
+                                <th class="text-center">Package Price</th>
+                                <th class="text-center">Package Type</th>
+                                <th class="text-center">Fee</th>
+                                <th class="text-center">Messages</th>
+                                <th class="text-center">Status</th>
 
                             </tr>
                         </thead>
-                        <tbody id="myTable">
+                        <tbody >
                             @csrf
                             @foreach ($goods as $good)
                                 <!--two dimension array-->
@@ -72,7 +72,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $goods->links() }}
+                  
                 </div>
             </div>
         </div> <!-- end col -->

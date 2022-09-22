@@ -1,7 +1,7 @@
 @extends('layouts.newapp')
 
 @section('content')
-    {!! Toastr::message() !!}
+    {{-- {!! Toastr::message() !!} --}}
     <div class="contact-container">
         <div class="contact-header">
             <h3>CONTACT US</h3>
@@ -20,11 +20,12 @@
                 <p>If you have any problems, Please let's us know.</p>
 
                 <form method="post" action="{{ route('contact.store') }}">
+               
                     @csrf
-                    <input class="input_name" type="text" id="name" name="name" placeholder="Name">
-                    <input class="input_phone" type="text" id="phone" name="phone" placeholder="Phone"><br>
-                    <input class="input_email" type="email" id="email" name="email" placeholder="Email">
-                    <textarea class="input_message" rows="5" type="text" name="message" id="message" placeholder=" Message"></textarea>
+                    <input class="input_name" type="text" id="name" name="name" placeholder="Name" required>
+                    <input class="input_phone" type="text" id="phone" name="phone" placeholder="Phone" required><br>
+                    <input class="input_email" type="email" id="email" name="email" placeholder="Email" required>
+                    <textarea class="input_message" rows="5" type="text" name="message" id="message" placeholder=" Message" required></textarea>
                     <button type="submit" class="input_submit"> Send Message</button>
                 </form>
             </div>

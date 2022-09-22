@@ -5,19 +5,19 @@
             <div class="navbar-brand-box">
                 <a href="index.html" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="images/logo1removebg.png" alt="" height="22">
+                        <img src="#" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="images/logo1removebg.png" alt="" height="20">
+                        <img src="#" alt="" height="20">
                     </span>
                 </a>
 
                 <a href="index.html" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="images/preview.png" alt="" height="22">
+                        <img src="#" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="images/preview.png" alt="" height="20">
+                        <img src="#" alt="" height="20">
                     </span>
                 </a>
             </div>
@@ -109,8 +109,7 @@
                         <a href="#" class="text-reset notification-item">
                             <div class="d-flex align-items-center">
                                 <div class="mt-1">
-                                    <img src="assets/images/users/avatar-3.jpg"
-                                        class="me-3 rounded-circle avatar-xs mt-1" alt="user-pic">
+                                    <img src="#" class="me-3 rounded-circle avatar-xs mt-1" alt="user-pic">
                                     <div class="noti-top-icon">
                                         <i class="mdi mdi-circle text-white bg-success"></i>
                                     </div>
@@ -144,8 +143,7 @@
                         <a href="#" class="text-reset notification-item">
                             <div class="d-flex align-items-center">
                                 <div class="mt-1">
-                                    <img src="assets/images/users/avatar-4.jpg" class="me-3 rounded-circle avatar-xs"
-                                        alt="user-pic">
+                                    <img src="#" class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                     <div class="noti-top-icon">
                                         <i class="mdi mdi-heart text-white bg-danger"></i>
                                     </div>
@@ -162,8 +160,7 @@
 
                         <a href="#" class="text-reset notification-item">
                             <div class="d-flex align-items-center">
-                                <img src="assets/images/users/avatar-6.jpg" class="me-3 rounded-circle avatar-xs"
-                                    alt="user-pic">
+                                <img src="#" class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                 <div class="flex-grow-1 text-truncate">
                                     <h6 class="mt-0 mb-1">Jonathon Joseph <span
                                             class="mb-1 text-muted fw-normal">Friend of mine occidental.</span>
@@ -187,8 +184,8 @@
             <div class="dropdown d-inline-block user-dropdown">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="{{ asset('assets/images/users/549.JPG') }}"
-                        alt="Header Avatar">
+                    <img class="rounded-circle header-profile-user"
+                        src="{{ asset('/storage/images/' . Auth::user()->image) }}" alt="Header Avatar">
                 </button>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <div class="p-4">
@@ -204,9 +201,9 @@
                             </div>
                         </div>
                     </div>
-                    <div data-simplebar style="max-height: 230px;">
+                    <div data-simplebar style="max-height: 230px; ">
                         <!-- item-->
-                        <a href="#" class="text-reset notification-item">
+                        <a href="/editprofilea" class="text-reset notification-item">
                             <div class="d-flex align-items-center">
                                 <div class="avatar-xs me-3 mt-1">
                                     <span class="avatar-title bg-soft-primary rounded-circle font-size-16">
@@ -215,12 +212,12 @@
                                 </div>
                                 <div class="flex-grow-1 text-truncate">
                                     <h6 class="mb-1">Profile</h6>
-                                    <p class="mb-0 font-size-12">View personal profile details.</p>
+                                    <p class="mb-1 font-size-12">Modify your personal details.</p>
                                 </div>
                             </div>
                         </a>
                         <!-- item-->
-                        <a href="#" class="text-reset notification-item">
+                        {{-- <a href="/changepassworda" class="text-reset notification-item">
                             <div class="d-flex align-items-center">
                                 <div class="avatar-xs me-3 mt-1">
                                     <span class="avatar-title bg-soft-warning rounded-circle font-size-16">
@@ -228,40 +225,12 @@
                                     </span>
                                 </div>
                                 <div class="flex-grow-1 text-truncate">
-                                    <h6 class="mb-1">My Wallet</h6>
-                                    <p class="mb-0 font-size-12">Modify your personal details.</p>
+                                    <h6 class="mb-1">Change Password</h6>
+                                    <p class="mb-1 font-size-12">Modify your password.</p>
                                 </div>
                             </div>
-                        </a>
-                        <!-- item-->
-                        <a href="#" class="text-reset notification-item">
-                            <div class="d-flex align-items-center">
-                                <div class="avatar-xs me-3 mt-1">
-                                    <span class="avatar-title bg-soft-secondary rounded-circle font-size-16">
-                                        <i class="ri-settings-2-line text-secondary"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-grow-1 text-truncate">
-                                    <h6 class="mb-1">Settings <span
-                                            class="badge bg-success float-end mt-1">11</span></h6>
-                                    <p class="mb-0 font-size-12">Manage your account parameters.</p>
-                                </div>
-                            </div>
-                        </a>
-                        <!-- item-->
-                        <a href="#" class="text-reset notification-item">
-                            <div class="d-flex align-items-center">
-                                <div class="avatar-xs me-3 mt-1">
-                                    <span class="avatar-title bg-soft-primary rounded-circle font-size-16">
-                                        <i class="ri-lock-unlock-line text-primary"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-grow-1 text-truncate">
-                                    <h6 class="mb-1">Lock screen </h6>
-                                    <p class="mb-0 font-size-12">Control your privacy parameters..</p>
-                                </div>
-                            </div>
-                        </a>
+                        </a> --}}
+
                     </div>
                     <!-- item-->
                     <div class="account-dropdown__footer">

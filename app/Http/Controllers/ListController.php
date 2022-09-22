@@ -43,21 +43,21 @@ class ListController extends Controller
         // ->select('comments.comments', 'profile.last_name', 'profile.first_name')
 
 
-    $lists = DB::table('goods') ->join('p_types','goods.ptype_id', '=', 'p_types.id')
-                                ->join('packages', 'goods.package_id', '=', 'packages.id')
-                                      -> where('packages.sender_phone', '=', $user_phone)
-                                      -> get();
+        $lists = DB::table('goods')->join('p_types', 'goods.ptype_id', '=', 'p_types.id')
+            ->join('packages', 'goods.package_id', '=', 'packages.id')
+            ->where('packages.sender_phone', '=', $user_phone)
+            ->get();
 
-    $branches = DB::table('branches')->join('locations','branches.location_id', '=', 'locations.id')
-                                    -> get();
+        $branches = DB::table('branches')->join('locations', 'branches.location_id', '=', 'locations.id')
+            ->get();
 
-    // $p_types = DB::table('goods')->join('packages', 'goods.package_id', '=', 'packages.id')
-    //                              ->join('p_types','goods.ptype_id', '=', 'p_types.id')
-    //                             ->get();
-    // dd($lists);
+        // $p_types = DB::table('goods')->join('packages', 'goods.package_id', '=', 'packages.id')
+        //                              ->join('p_types','goods.ptype_id', '=', 'p_types.id')
+        //                             ->get();
+        // dd($lists);
 
-                                    // ->join('branches as des', 'packages.departure_id', '=', 'des.id')
-                                    // ->join('locations as loc_des', 'des.location_id', '=', 'loc_des.id')
+        // ->join('branches as des', 'packages.departure_id', '=', 'des.id')
+        // ->join('locations as loc_des', 'des.location_id', '=', 'loc_des.id')
 
         // $lists = DB::table('goods')->join('packages', 'goods.package_id', '=', 'packages.id')
         // ->join('branches as depa', 'packages.departure_id', '=', 'depa.id')
@@ -69,7 +69,7 @@ class ListController extends Controller
 
         //dd($lists);
 
-                                    // ->join('locations', 'branches.location_id', '=', 'locations.id')
+        // ->join('locations', 'branches.location_id', '=', 'locations.id')
 
 
         // $lists_destination = DB::table('goods')->join('packages', 'goods.package_id', '=', 'packages.id')
@@ -84,16 +84,15 @@ class ListController extends Controller
 
 
 
-    //  dd($lists_departure);
+        //  dd($lists_departure);
 
         //$lists = Goods::get();
-           //  dd(count($lists));
-        if(count($lists)==0) {
+        //  dd(count($lists));
+        if (count($lists) == 0) {
 
             return view('frontend.profile.emptylist');
         }
-        return view('frontend.profile.orderlist',compact('lists', 'branches'));
-
+        return view('frontend.profile.orderlist', compact('lists', 'branches'));
     }
 
     /**

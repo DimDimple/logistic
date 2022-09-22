@@ -3,51 +3,42 @@
 @section('content')
     <div class="thumb track">
         <h2 style="margin: 10px; color: #fff">Dmgo Express</h2>
-        <img src="{{ asset('images/52460.jpg') }}" alt="">
+        <img src={{ asset('images/52460.jpg') }} alt="">
+        {{-- <div class="footer_bg_one"></div>
+        <div class="footer_bg_two"></div> --}}
     </div>
-    <div class="card_1 card-3" style="margin-top:-100px;">
+    <div class="card_1 card-3" style="margin-top:-120px;">
         <h1><b>Track Your Package !</b></h1>
-        <div class="container">
-            <div class="search-box">
-                <input type="text" class="search-input" placeholder="Type Search.....">
+        <form class="col-md-8" action="{{ route('tracking') }}">
+            <div class="container">
+                <div class="search-box">
+                    <input type="text" id="datatable-search-input" class="search-input"  name="reference_number" placeholder="Search reference number.....">
 
-                <button class="search-button">
-                    <i class='bx bx-search' style='color: #DE8F1F; margin-top:-1px'></i>
-                </button>
+                    <button class="search-button">
+                        <i class='bx bx-search' style='color: #DE8F1F; margin-top:-1px'></i>
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 
-    <div class="wrapper-1" style="width: 100%; height:5vh;">
-
-    </div>
-
-    <div class="container padding-bottom-3x mb-1">
+    <div class="container padding-bottom-3x mb-5" style="margin-top: 50px">
         @foreach ($trackNumber as $trackNum)
-            <div class="card mb-3 shadow-lg p-3 mb-5 bg-white rounded">
-                <div class="p-4 text-center text-white text-lg bg-dark rounded-top"><span class="text-uppercase">Tracking
+            <div class="card mb-3 shadow-lg p-3 mb-5 ">
+                <div class="p-4 text-center text-dark text-lg bg-light rounded-top"><span class="text-uppercase">Tracking
                         Order
                         No - </span><span class="text-medium">{{ $trackNum->reference_number }}</span></div>
-                <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-white">
-                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Sender Phone Number:</span>
-                        <p class="text-primary">{{ $trackNum->sender_phone }}</p>
-                    </div>
-                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Receiver Phone Number:</span>
-                        <p class="text-danger">{{ $trackNum->receiver_phone }}</p>
-                    </div>
-                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Departure:</span>
-                        <p class="text-warning">{{ $departure }}</p>
-                    </div>
-
-                </div>
                 <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
-                    <div class="w-100 text-center py-1 px-2"><span class="text-medium text-danger">Destination:</span>
-                        {{ $destination }}</div>
+                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Package Price:</span>
+                        <p class="text-primary">{{ $trackNum->package_price }}</p>
+                    </div>
                     <div class="w-100 text-center py-1 px-2"><span class="text-medium">Status:</span>
-                        {{ $trackNum->status }}</div>
+                        <p class="text-danger">{{ $trackNum->status }}</p>
+                    </div>
                     <div class="w-100 text-center py-1 px-2"><span class="text-medium">Accepted Date:</span>
                         {{ $trackNum->created_at->toDateString() }}
                     </div>
+
                 </div>
                 <div class="card-body">
                     <!--Status = pending-->
@@ -64,21 +55,21 @@
                             </div>
                             <div class="step">
                                 <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
+                                    <div class="step-icon" style="border-color: #0d6efd; background-color"><i
                                             class='bx bx-loader-circle' style='color:#07833a'></i></div>
                                 </div>
                                 <h4 class="step-title">Processing</h4>
                             </div>
                             <div class="step">
                                 <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
+                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"><i
                                             class='bx bxs-truck' style='color:#0b60f1'></i></div>
                                 </div>
                                 <h4 class="step-title">Shipped</h4>
                             </div>
                             <div class="step">
                                 <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
+                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"> <i
                                             class='bx bx-check-shield' style='color:#8813b7'></i></div>
                                 </div>
                                 <h4 class="step-title">Completed</h4>
@@ -104,14 +95,14 @@
                             </div>
                             <div class="step">
                                 <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
+                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"><i
                                             class='bx bxs-truck' style='color:#0b60f1'></i></div>
                                 </div>
                                 <h4 class="step-title">Shipped</h4>
                             </div>
                             <div class="step">
                                 <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
+                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"> <i
                                             class='bx bx-check-shield' style='color:#8813b7'></i></div>
                                 </div>
                                 <h4 class="step-title">Completed</h4>
@@ -145,7 +136,7 @@
                             </div>
                             <div class="step">
                                 <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
+                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"> <i
                                             class='bx bx-check-shield' style='color:#8813b7'></i></div>
                                 </div>
                                 <h4 class="step-title">Completed</h4>
@@ -195,11 +186,12 @@
                     <input class="custom-control-input" type="checkbox" id="notify_me" checked="">
                     <label class="custom-control-label" for="notify_me">Notify me when order is delivered</label>
                 </div>
-                <div class="text-left text-sm-right"><a class="btn btn-outline-primary btn-rounded btn-sm" href="#"
-                        data-toggle="modal" data-target="#orderDetails">View Order Details</a></div>
+                <div class="text-left text-sm-right"><a class="btn btn-outline-warning btn-rounded btn-sm"
+                        href="#">View Order Details</a></div>
             </div>
         @endforeach
     </div>
+
     <style>
         body {
             margin-top: 20px;

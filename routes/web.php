@@ -14,10 +14,14 @@ use App\Http\Controllers\backend\ShippedController;
 use App\Http\Controllers\backend\PendingController;
 use App\Http\Controllers\backend\CompletedController;
 use App\Http\Controllers\backend\DashbaordController;
+use App\Http\Controllers\backend\PasswordAController;
+use App\Http\Controllers\backend\PasswordAMController;
 use App\Http\Controllers\backend\StorageController;
 use App\Http\Controllers\backend\PTypesController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\PositionController;
+use App\Http\Controllers\backend\ProfileAController;
+use App\Http\Controllers\backend\ProfileAMController;
 use App\Http\Controllers\backend\TrackController;
 // use App\Http\Controllers\backend\TrackController;
 use App\Http\Controllers\frontend\EditProfileController;
@@ -28,6 +32,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\frontend\TrackingController;
+use App\Http\Controllers\frontend\PackageTrackControlle;
+use App\Http\Controllers\frontend\PackageTrackController;
 
 // use App\Http\Controllers\ManagerController;
 
@@ -56,14 +62,17 @@ Route::get('/', function () {
 // Route::get('/track', function () {
 //     return view('frontend.track');
 // });
-Route::get('/track', [TrackingController::class, 'track']);
+// Route::get('/track', [TrackingController::class, 'track']);
+Route::get('/tracking', [TrackingController::class, 'track'])->name('tracking');
+
+Route::resource('/packages', PackageTrackController::class);
 
 
 Route::get('/contact', function () {
     return view('frontend.contactUs');
 });
 
-Route::post('/contact/store',[ContactController::class, 'store'])->name('contact.store');
+
 
 Route::get('/information', function () {
     return view('frontend.information.faq');
@@ -85,7 +94,7 @@ Route::get('/information/privacy', function () {
 // Route::get('/orderlist', function () {
 //     return view('frontend.profile.orderList');
 // });
-
+// Route::get('/loginfirst', [::class,'index']);
 
 Auth::routes();
 
@@ -107,9 +116,10 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
     Route::post('/editprofile', [ProfileController::class, 'upload'])->name('profile.upload');
 
-    Route::get('/orderlist',[ListController::class, 'index']);
-    Route::get('/emptylist',[ListController::class, 'index']);
-
+    Route::get('/orderlist', [ListController::class, 'index']);
+    Route::get('/emptylist', [ListController::class, 'index']);
+    Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
+  
 });
 
 
@@ -123,6 +133,18 @@ All Admin Routes List
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::get('/admin/dashboard', [DashbaordController::class, 'adminHome'])->name('admin');
+
+    Route::get('/changepassworda', [PasswordAController::class, 'changePwdA'])->name('changePwdA');
+    Route::post('/updatepasswora', [PasswordAController::class, 'updatePwdA'])->name('updatePwdA');
+
+    Route::get('/editprofilea', [ProfileAController::class, 'edit'])->name('editProfile.admin');
+
+    Route::put('/editprofilea', [ProfileAController::class, 'update'])->name('updateProfileA.update');
+
+    Route::post('/editprofilea', [ProfileAController::class, 'upload'])->name('uploadProfileA.upload');
+
+
+
     Route::resource('/new/admin', AdminController::class);
     Route::resource('/admin/user', UserController::class);
     // Route::resource('/admin/employee', EmployeeController::class);
@@ -133,9 +155,9 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     // Route::post('admin/contact',[ContactController::class,'store'])->name('contact.store');
 
-    Route::get('admin/contact',[ContactController::class,'index'])->name('contact.index');
-    Route::get('admin/show/{id}',[ContactController::class,'show'])->name('contact.show');
-    Route::delete('admin/delete/{id}',[ContactController::class,'destroy'])->name('contact.destroy');
+    Route::get('admin/contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::get('admin/show/{id}', [ContactController::class, 'show'])->name('contact.show');
+    Route::delete('admin/delete/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
     // Route::resource('admin/contact',[ContactController::class]);
 
 });
@@ -154,8 +176,19 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     // Route::get('/manager', function () {
     //     return view('backend.manager.manager');
     // });
+
+
+    Route::get('/changepasswordm', [PasswordAMController::class, 'changePwdM'])->name('changePwdM');
+    Route::post('/updatepassworm', [PasswordAMController::class, 'updatePwdM'])->name('updatePwdM');
+
+    Route::get('/editprofilem', [ProfileAMController::class, 'edit'])->name('editProfile.manager');
+
+    Route::put('/editprofilem', [ProfileAMController::class, 'update'])->name('updateProfile.update');
+
+    Route::post('/editprofilem', [ProfileAMController::class, 'upload'])->name('uploadProfile.upload');
+
     Route::resource('/manager/packages', PackageController::class);
-    Route::post('/manager/packages/search', [PackageController::class,'index'])->name('searchPackage');
+    // Route::post('/manager/packages/search', [PackageController::class,'index'])->name('searchPackage');
     Route::resource('/manager/shipped', ShippedController::class);
     Route::resource('/manager/process', ProcessController::class);
     Route::resource('/manager/completed', CompletedController::class);
@@ -163,7 +196,7 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     // Route::resource('/manager/packageType', PackageTypeController::class);
 
     Route::get('/manager/packages/paystatus/{id}', [PackageController::class, 'updatePayStatus'])->name('updatepaystatus');
-    Route::put('/manager/goods/status/update/{id}', [StorageController::class, 'updateStatus'])->name('updatestatus');
+    // Route::put('/manager/goods/status/update/{id}', [StorageController::class, 'updateStatus'])->name('updatestatus');
     //Route::post('/manager/packages/status/update', 'PackageController@updateStatus');
 
     // Route::resource('/manager/user', UserController::class);
@@ -171,12 +204,12 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     Route::resource('/manager/position', PositionController::class);
     Route::resource('/manager/employeebranch', EmployeeController::class);
     Route::resource('/manager/storage', StorageController::class);
-    Route::post('/manager/goods/search', [StorageController::class,'index'])->name('searchGoods');
+    // Route::post('/manager/goods/search', [StorageController::class,'index'])->name('searchGoods');
     Route::resource('/manager/goods', StorageController::class);
     Route::put('/manager/goods/update/{id}', [StorageController::class, 'update'])->name('update');
     Route::get('/manager/tracking', [TrackController::class, 'track'])->name('track');
     Route::get('/manager/export/excel', [EmployeeController::class, 'excel'])->name('employee.export');
-    Route::post('/manager/employees/search', [EmployeeController::class,'index'])->name('searchEmployee');
+    // Route::post('/manager/employees/search', [EmployeeController::class,'index'])->name('searchEmployee');
     Route::get('/manager/package/export/excel', [PackageController::class, 'excel'])->name('package.export');
     // Route::get('/manager/create',function(){
     //         return view('backend.manager.page.packages.create');
