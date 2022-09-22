@@ -22,19 +22,20 @@ class Package extends Model
 
     public function goods()
     {
-        return $this->hasMany(Goods::class);
+        return $this->hasMany(Goods::class, 'package_id', 'id');
     }
     // public function branch()
     // {
     //     return $this->hasMany(Branch::class);
     // }
 
-    public function province_departure(){
-        return $this->hasOne(Location::class, 'id', 'departure_id');
+
+    public function branch_departure(){
+        return $this->hasOne(Branch::class, 'id', 'departure_id');
     }
 
-    public function province_destination(){
-        return $this->hasOne(Location::class, 'id', 'destination_id');
+    public function branch_destination(){
+        return $this->hasOne(Branch::class, 'id', 'destination_id');
     }
 
 }

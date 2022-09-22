@@ -70,6 +70,22 @@ nav .menu li a {
     display: inline-block;
     text-decoration: none;
 }
+/* nav .menu li a
+{
+    padding: 10px;
+    background-color:
+} */
+nav .menu li >a:hover {
+    color:rgb(116, 107, 74);
+    padding: 10px;
+    background-color:rgb(237, 186, 90);
+    border-radius: 10px;
+    color: black;
+}
+
+nav .menu li> a.active {
+    color: black;
+}
 
 nav .logo a {
     padding: 0 10px;

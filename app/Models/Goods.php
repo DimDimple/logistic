@@ -10,7 +10,7 @@ class Goods extends Model
 {
     use HasFactory;
     protected $fillable=[
-        
+
         'package_price',
         'quantity',
         'ptype_id',

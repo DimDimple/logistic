@@ -22,78 +22,28 @@ class ListController extends Controller
     public function index()
     {
 
-        // $d = Goods::first()->created_at->format('dd/mm/Y'); //returns a Carbon instance via Eloquent
-        // dd( $d );
         $id = Auth::user()->id;
         $user_phone = Auth::user()->phone;
-        // dd(Auth::user()->phone);
-        // $lists = User::where('user_id','=', $user_id)->last();
-        // $branch = Branch::where('user_id', '=', $user_id)->first();
-        // $lasts=User::select()
-        // ->whereHas('user', function($query) use ($id){
-        //     if ($id){
-        //         $query->where('user_id', $id);
-        //     }
-        // })
 
-        // ->latest()->get();
-        // $data = Package::get();
-
-        // $mydata = DB::table('goods')->join('packages', 'goods.package_id', '=', 'packages.id')->get();
-        // ->select('comments.comments', 'profile.last_name', 'profile.first_name')
+        // $lists = Goods::with(['package', 'ptype', 'package.branch_departure', 'package.branch_destination', 'package.branch_departure.location', 'package.branch_destination.location'])->get()->toArray();
 
 
-    $lists = DB::table('goods') ->join('p_types','goods.ptype_id', '=', 'p_types.id')
-                                ->join('packages', 'goods.package_id', '=', 'packages.id')
-                                      -> where('packages.sender_phone', '=', $user_phone)
-                                      -> get();
-
-    $branches = DB::table('branches')->join('locations','branches.location_id', '=', 'locations.id')
-                                    -> get();
-
-    // $p_types = DB::table('goods')->join('packages', 'goods.package_id', '=', 'packages.id')
-    //                              ->join('p_types','goods.ptype_id', '=', 'p_types.id')
-    //                             ->get();
-    // dd($lists);
-
-                                    // ->join('branches as des', 'packages.departure_id', '=', 'des.id')
-                                    // ->join('locations as loc_des', 'des.location_id', '=', 'loc_des.id')
-
-        // $lists = DB::table('goods')->join('packages', 'goods.package_id', '=', 'packages.id')
-        // ->join('branches as depa', 'packages.departure_id', '=', 'depa.id')
-        // ->join('locations as loc_depa', 'depa.location_id', '=', 'loc_depa.id')
-        // ->join('branches as des', 'packages.departure_id', '=', 'des.id')
-        // ->join('locations as loc_des', 'des.location_id', '=', 'loc_des.id')
-        // ->where('packages.sender_phone', '=', $user_phone)
-        //  ->get();
-
-        //dd($lists);
-
-                                    // ->join('locations', 'branches.location_id', '=', 'locations.id')
+        $lists = Package::with(['goods', 'goods.ptype', 'branch_departure',
+                              'branch_destination','branch_departure.location',
+                              'branch_destination.location'])
+        ->where('sender_phone',$user_phone)
+        ->get()->toArray();
+        // dd($lists);
 
 
-        // $lists_destination = DB::table('goods')->join('packages', 'goods.package_id', '=', 'packages.id')
-        //                           ->join('branches', 'packages.destination_id', '=', 'branches.id')
-        //                           ->join('locations', 'branches.location_id', '=', 'locations.id')
-        //                           -> where('packages.sender_phone', '=', $user_phone)
-        //                           ->get();
-
-        // for ($i = 0 ; $i < count($lists) ; $i++){
-        //     $lists[$i] = ...$lists[$i], 'dd':'ddd';
-        // }
+        // $collection = collection($lists)->join()
 
 
-
-    //  dd($lists_departure);
-
-        //$lists = Goods::get();
-           //  dd(count($lists));
-        if(count($lists)==0) {
+        if(count($lists) == 0) {
 
             return view('frontend.profile.emptylist');
         }
-        return view('frontend.profile.orderlist',compact('lists', 'branches'));
-
+        return view('frontend.profile.orderlist', compact('lists','id'));
     }
 
     /**

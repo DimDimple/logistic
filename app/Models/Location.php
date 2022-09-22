@@ -14,6 +14,6 @@ class Location extends Model
     ];
 
     public function branches(){
-        return $this->hasOne (Branch::class);
+        return $this->hasOne(Branch::class, 'location_id', 'id');
     }
 }

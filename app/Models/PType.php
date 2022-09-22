@@ -11,10 +11,10 @@ class PType extends Model
     protected $fillable=[
         'package_type',
     ];
-    
+
     public function goods()
     {
-        return $this->hasOne(Goods::class);
+        return $this->hasOne(Goods::class, 'ptype_id', 'id');
     }
 
 }

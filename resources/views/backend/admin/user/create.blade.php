@@ -12,8 +12,7 @@
                         <div class=" row mb-3">
                             <label for="b_name" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" id="name" name="name"
-                                    placeholder="name">
+                                <input class="form-control" type="text" id="name" name="name" placeholder="name">
                             </div>
                         </div>
 
@@ -26,11 +25,11 @@
                         </div>
                         <div class=" row mb-3">
                             <label for="password" class="col-sm-2 col-form-label">Password</label>
-
                             <div class="col-sm-10">
                                 <div class="input-group">
-
-                                    <input type="password" name="password" id="password" autocomplete="off"
+                                    <input id="password" type="password"
+                                        class="form-control @error('password') is-invalid @enderror" name="password"
+                                        required autocomplete="current-password"
                                         placeholder="Must have at least 8 characters" class="form-control height-35 f-14">
                                     <div class="input-group-append">
                                         <button onclick="copyPassword()" data-toggle="tooltip"
@@ -45,7 +44,7 @@
                                     </div>
 
                                     <div class="input-group-append">
-                                        <button  onclick="showPassword('password')" data-toggle="tooltip"
+                                        <span onclick="showPassword('password')" data-toggle="tooltip" id="toggle_password"
                                             data-original-title="Show/Hide Value"
                                             class="btn btn-outline-secondary border-grey height-35 toggle-password"><svg
                                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -54,12 +53,12 @@
                                                 <path
                                                     d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
                                             </svg>
-                                        </button>
+                                        </span>
                                     </div>
 
 
                                     <div class="input-group-append">
-                                        <button onclick="genPassword()" id="random_password" type="button"
+                                        <span onclick="genPassword('password')" id="random_password" type="button"
                                             data-toggle="tooltip" data-original-title="Generate Random Password"
                                             class="btn btn-outline-secondary border-grey height-35">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -69,23 +68,30 @@
                                                 <path
                                                     d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z" />
                                             </svg>
-                                        </button>
+                                        </span>
                                     </div>
 
                                 </div>
-
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
+
                         </div>
 
                         <div class=" row mb-3">
-                            <label for="password-confirm" class="col-sm-2 col-form-label"> Confirm Password </label>
+                            <label for="password" class="col-sm-2 col-form-label"> Confirm Password </label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="password-confirm" required
-                                        parsley-type="password" name="password" placeholder="Enter a valid password" />
-                                    <div class="input-group-append">
-                                        <button  onclick="showPassword('password-confirm')" id="toggle_password2" data-toggle="tooltip"
-                                            data-original-title="Show/Hide Value"
+                                    <input id="password" type="password"
+                                        class="form-control @error('password') is-invalid @enderror"
+                                        name="password_confirmation" required autocomplete="current-password"
+                                        parsley-type="password" placeholder="Enter a valid password" />
+                                    {{-- <div class="input-group-append">
+                                        <span onclick="showPassword('password')" id="toggle_password2"
+                                            data-toggle="tooltip" data-original-title="Show/Hide Value"
                                             class="btn btn-outline-secondary border-grey height-35 toggle-password"><svg
                                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
@@ -93,13 +99,19 @@
                                                 <path
                                                     d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
                                             </svg>
-                                        </button>
-                                    </div>
+                                        </span>
+
+
+                                    </div> --}}
                                 </div>
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
-
-
                         </div>
+
                         <div class=" row mb-3">
                             <label for="phone" class="col-sm-2 col-form-label">Phone Number</label>
                             <div class="col-sm-10">

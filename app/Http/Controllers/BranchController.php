@@ -23,10 +23,10 @@ class BranchController extends Controller
     public function index()
     {
 
-        // $Branches = Branch::get();
+        $branches = Branch::get();
         // $id = Auth::user()->id;
         // $password = Hash::make('password');
-        $branches = Branch::paginate(5);
+        // $branches = Branch::paginate(5);
         // $branch = Branch::find(3);
         // dd($branches->user);
         return view('backend.admin.branches.index', compact('branches'));
@@ -57,13 +57,13 @@ class BranchController extends Controller
 
         //$userType = Auth::user()->type;
         //admin create manager
-        $type=2;
+        $type = 2;
 
         $request->validate([
 
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required',
+            'password' => 'required|min:8|confirmed',
             'phone' => 'required',
 
         ]);
@@ -145,7 +145,7 @@ class BranchController extends Controller
         $user = User::find($branch->user_id);
         $locations = Location::get();
 
-        return view('backend.admin.branches.edit', compact('branch','locations','user'));
+        return view('backend.admin.branches.edit', compact('branch', 'locations', 'user'));
     }
 
     /**
@@ -155,19 +155,40 @@ class BranchController extends Controller
      * @param  \App\Models\Branch  $branch
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
+
+        // dd($request->password);
 
         $branch = Branch::find($id);
         $user = User::find($branch->user_id);
 
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-        ]);
-        // $branch->update($user);
-
+        if ($request->password == null) {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'phone' => 'required',
+            ]);
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+            ]);
+            // $branch->update($user);
+        } else {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required|min:8|confirmed',
+                'phone' => 'required|min:7|',
+            ]);
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => Hash::make($request->password),
+            ]);
+        }
         //dd((int)$request->location_id);
         $branch->update(
             [

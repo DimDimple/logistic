@@ -1,35 +1,41 @@
 <nav>
     <div class="logo">
-        <a><img src={{ asset('assets/images/logoDMgo.png') }} alt="" >
+        <a><img src={{ asset('assets/images/logoDMgo.png') }} alt="">
         </a>
 
         @if (Route::has('login'))
 
             <div class="user">
-                @if ( Auth::user() ? Auth::user()->image : '')
+                @if (Auth::user() ? Auth::user()->image : '')
                     <img class="image rounded-circle" src="{{ asset('/storage/images/' . Auth::user()->image) }}"
-                        alt="profile_image" style="width: 50px;height: 50px; border: 3px solid #eee" onclick="menuToggle()">
+                        alt="profile_image" style="width: 50px;height: 50px; border: 3px solid #eee"
+                        onclick="menuToggle()">
                 @endif
                 @auth
-
                 @else
-                    <a href="{{ route('login') }}" class="text-sm text-black-500 dark:text-black-500" style="text-decoration: none; text-align: center;">Log
+                    <a href="{{ route('login') }}" class="text-sm text-black-500 dark:text-black-500"
+                        style="text-decoration: none; text-align: center;">Log
                         in</a>
 
                     @if (Route::has('register'))
                         <a href="{{ route('register') }}" class="ml-4 text-sm text-black-500 dark:text-black-500"
-                            style="text-decoration: none;margin-left:10px" >Register</a>
+                            style="text-decoration: none;margin-left:10px">Register</a>
                     @endif
                 @endauth
             </div>
         @endif
     </div>
     <div class="menu">
+        @php
+            $currentRouteName = request()
+                ->route()
+                ->getName();
+        @endphp
         <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/track">Track&Trace</a></li>
-            <li><a href="/information">Information</a></li>
-            <li><a href="/contact">Contact us</a></li>
+            <li><a href="{{ asset('/home') }}" class="{{ $currentRouteName === 'home' ? 'active' : '' }}">Home</a></li>
+            <li><a href="{{ asset('/track') }}"  class="{{ $currentRouteName === 'track' ? 'active' : '' }}">Track&Trace</a></li>
+            <li><a href="{{ asset('/information') }}" class="{{ $currentRouteName === 'information' ? 'active' : '' }}">Information</a></li>
+            <li><a href="{{ asset('/contact') }}" class="{{ $currentRouteName === 'contact' ? 'active' : '' }}">Contact us</a></li>
         </ul>
     </div>
 </nav>
@@ -56,6 +62,17 @@
 
     </ul>
 </div>
+
+{{-- script active --}}
+{{-- <script>
+    $(document).ready(function() {
+
+        $(".one").click(function() {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+    });
+</script> --}}
+
 
 <script>
     function menuToggle() {

@@ -43,7 +43,7 @@
      <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 </head>
 
-<body class="antialiased">
+<body class="antialiased" style="margin-top: 0px !important;">
 
     @include('layouts.nav')
 

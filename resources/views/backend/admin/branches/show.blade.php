@@ -43,14 +43,6 @@
                                 <hr>
                             </div>
 
-
-                            <div class="col-xs-12 col-sm-12 col-md-12 p-2">
-                                <div class="form-group">
-                                    <strong>Password:</strong>
-                                    {{$branch->user->password}}
-                                </div>
-                                <hr>
-                            </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 p-2">
                                 <div class="form-group">
                                     <strong>Location:</strong>

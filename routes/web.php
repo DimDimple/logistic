@@ -56,18 +56,18 @@ Route::get('/', function () {
 // Route::get('/track', function () {
 //     return view('frontend.track');
 // });
-Route::get('/track', [TrackingController::class, 'track']);
+Route::get('/track', [TrackingController::class, 'track'])->name('track');
 
 
 Route::get('/contact', function () {
     return view('frontend.contactUs');
-});
+})->name('contact');
 
 Route::post('/contact/store',[ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/information', function () {
     return view('frontend.information.faq');
-});
+})->name('information');
 
 Route::get('/information/faq', function () {
     return view('frontend.information.faq');

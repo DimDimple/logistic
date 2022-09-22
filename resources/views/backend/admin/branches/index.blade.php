@@ -22,7 +22,7 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <table id="selection-datatable" class="table dt-responsive nowrap w-100 ">
+                    <table id="myTable" class="table dt-responsive nowrap w-100 ">
                         <thead class="table-light">
                             <tr>
                                 <th>Branch No.</th>

@@ -19,7 +19,7 @@ class AdminController extends Controller
         //find all user admin
         // where need get or first
         $admins = User::where('type', '=', 1)->get();
-       
+
         return view('backend.admin.admin.index', compact('admins'));
     }
 
@@ -49,9 +49,9 @@ class AdminController extends Controller
 
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required',
+            'password' => 'required|min:8|confirmed',
             'phone' => 'required',
-           
+
         ]);
         $savedUser = User::create([
             'name' => $request['name'],
@@ -89,7 +89,7 @@ class AdminController extends Controller
     public function edit($id)
     {
         $admin = User::find($id);
-      
+
         return view('backend.admin.admin.edit', compact('admin'));
     }
 
@@ -102,7 +102,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+
         //find id admin in database
         $admin = User::find($id);
 

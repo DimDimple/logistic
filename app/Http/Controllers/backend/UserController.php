@@ -45,10 +45,14 @@ class UserController extends Controller
 
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required',
+            'password' => 'required|min:8|confirmed',
             'phone' => 'required',
-           
+
         ]);
+        //  #Match The Old Password
+        //  if(Hash::check($request->password !== $request->password)){
+        //     return back()->with("error", "Confirm Password doesn't matches with the password :(");
+        // }
         $savedUser = User::create([
             'name' => $request['name'],
             'email' => $request['email'],
@@ -74,7 +78,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
