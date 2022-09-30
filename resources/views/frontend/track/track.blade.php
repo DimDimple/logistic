@@ -1,196 +1,93 @@
 @extends('layouts.newapp')
 
 @section('content')
-    <div class="thumb track">
-        <h2 style="margin: 10px; color: #fff">Dmgo Express</h2>
-        <img src={{ asset('images/52460.jpg') }} alt="">
-        {{-- <div class="footer_bg_one"></div>
-        <div class="footer_bg_two"></div> --}}
-    </div>
-    <div class="card_1 card-3" style="margin-top:-120px;">
-        <h1><b>Track Your Package !</b></h1>
-        <form class="col-md-8" action="{{ route('tracking') }}">
-            <div class="container">
-                <div class="search-box">
-                    <input type="text" id="datatable-search-input" class="search-input"  name="reference_number" placeholder="Search reference number.....">
+   
+        <div class="thumb track">
+            <h2 style="margin: 10px; color: #fff">Dmgo Express</h2>
+            <img src={{ asset('images/52460.jpg') }} alt="">
 
-                    <button class="search-button">
-                        <i class='bx bx-search' style='color: #DE8F1F; margin-top:-1px'></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
+        </div>
 
-    <div class="container padding-bottom-3x mb-5" style="margin-top: 50px">
-        @foreach ($trackNumber as $trackNum)
-            <div class="card mb-3 shadow-lg p-3 mb-5 ">
-                <div class="p-4 text-center text-dark text-lg bg-light rounded-top"><span class="text-uppercase">Tracking
-                        Order
-                        No - </span><span class="text-medium">{{ $trackNum->reference_number }}</span></div>
-                <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
-                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Package Price:</span>
-                        <p class="text-primary">{{ $trackNum->package_price }}</p>
+        <div class="card_1 card-3" style="margin-top:-120px;">
+            <h1><b>Track Your Package !</b></h1>
+            <form class="col-md-8" action="{{ route('tracking') }}">
+                <div class="container">
+                    <div class="search-box">
+                        <input type="text" id="datatable-search-input" class="search-input" name="reference_number"
+                            placeholder="Search reference number.....">
+
+                        <button class="search-button">
+                            <i class='bx bx-search' style='color: #DE8F1F; margin-top:-1px'></i>
+                        </button>
                     </div>
-                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Status:</span>
-                        <p class="text-danger">{{ $trackNum->status }}</p>
+                </div>
+            </form>
+        </div>
+
+
+
+        <div class="container padding-bottom-3x mb-5" style="margin-top: 50px">
+            @foreach ($trackNumber as $trackNum)
+                <div class="shadow-lg p-3 mb-5 bg-body rounded border border-warning">
+                    <div class="card mb-3 p-3 bg-white ">
+                        <div class="p-3 text-center text-white text-lg " style="background-color:#DE8F1F"><span
+                                class="text-uppercase">Tracking
+                                No - </span><span class="text-medium">{{ $trackNum->reference_number }}</span></div>
+                        <div class="row mt-3">
+                            <div class="col md-3">
+                                <h6 class="text-dark bg-secondary text-uppercase p-2 text-center">
+                                    Sender Information </h6>
+                                <div class="mt-3" style="margin-left:15px">Sender Phone Number:
+                                    {{ $trackNum->sender_phone }}</div>
+                                <div class="mt-3" style="margin-left:15px">Sender Email: {{ $trackNum->sender_email }}
+                                </div>
+                                <div class="mt-3" style="margin-left:15px">Current Branch:
+                                    {{ $trackNum->branch_departure->b_name }}</div>
+
+                            </div>
+                            <div class="col md-3">
+                                <h6 class="text-dark bg-secondary text-uppercase p-2 text-center">Receiver Information</h6>
+                                <div class="mt-3" style="margin-left:15px">Receiver Phone Number:
+                                    {{ $trackNum->receiver_phone }}</div>
+                                <div class="mt-3" style="margin-left:15px">Receiver Email: {{ $trackNum->receiver_email }}
+                                </div>
+                                <div class="mt-3" style="margin-left:15px">Destination Branch:
+                                    {{ $trackNum->branch_departure->b_name }}</div>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Accepted Date:</span>
-                        {{ $trackNum->created_at->toDateString() }}
+                    <div class="card mb-3 p-3 bg-white ">
+                        <div class="p-3 text-center text-white text-lg" style="background-color:#DE8F1F"><span
+                                class="text-uppercase">Tracking History</div>
+                        <div class="row mt-3">
+                            <div class="col md-3">
+                                <h6 class="text-dark bg-secondary text-uppercase p-2 text-center">
+                                    Date </h6>
+                                <div class="mt-3 text-center"> {{ $trackNum->created_at->toDateString() }}</div>
+
+
+                            </div>
+                            <div class="col md-3">
+                                <h6 class="text-dark bg-secondary text-uppercase p-2 text-center">Status</h6>
+                                <div class="mt-3 text-center"> {{ $trackNum->status }}</div>
+
+                            </div>
+                        </div>
+
                     </div>
-
                 </div>
-                <div class="card-body">
-                    <!--Status = pending-->
-                    @if ($trackNum->status == 'Pending')
-                        <div
-                            class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
-                                            class='bx bx-loader-alt' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Pending</h4>
-                            </div>
-                            <div class="step">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color"><i
-                                            class='bx bx-loader-circle' style='color:#07833a'></i></div>
-                                </div>
-                                <h4 class="step-title">Processing</h4>
-                            </div>
-                            <div class="step">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"><i
-                                            class='bx bxs-truck' style='color:#0b60f1'></i></div>
-                                </div>
-                                <h4 class="step-title">Shipped</h4>
-                            </div>
-                            <div class="step">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"> <i
-                                            class='bx bx-check-shield' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Completed</h4>
-                            </div>
-                        </div>
-                    @endif
-                    @if ($trackNum->status == 'Processing')
-                        <div
-                            class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
-                                            class='bx bx-loader-alt' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Pending</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
-                                            class='bx bx-loader-circle' style='color:#07833a'></i></div>
-                                </div>
-                                <h4 class="step-title">Processing</h4>
-                            </div>
-                            <div class="step">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"><i
-                                            class='bx bxs-truck' style='color:#0b60f1'></i></div>
-                                </div>
-                                <h4 class="step-title">Shipped</h4>
-                            </div>
-                            <div class="step">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"> <i
-                                            class='bx bx-check-shield' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Completed</h4>
-                            </div>
-                        </div>
-                    @endif
-                    @if ($trackNum->status == 'Shipped')
-                        <div
-                            class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
-                                            class='bx bx-loader-alt' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Pending</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
-                                            class='bx bx-loader-circle' style='color:#07833a'></i></div>
-                                </div>
-                                <h4 class="step-title">Processing</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
-                                            class='bx bxs-truck' style='color:#0b60f1'></i></div>
-                                </div>
-                                <h4 class="step-title">Shipped</h4>
-                            </div>
-                            <div class="step">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"> <i
-                                            class='bx bx-check-shield' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Completed</h4>
-                            </div>
-                        </div>
-                    @endif
-                    @if ($trackNum->status == 'Completed')
-                        <div
-                            class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
-                                            class='bx bx-loader-alt' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Pending</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
-                                            class='bx bx-loader-circle' style='color:#07833a'></i></div>
-                                </div>
-                                <h4 class="step-title">Processing</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
-                                            class='bx bxs-truck' style='color:#0b60f1'></i></div>
-                                </div>
-                                <h4 class="step-title">Shipped</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
-                                            class='bx bx-check-shield' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Completed</h4>
-                            </div>
-                        </div>
-                    @endif
-
+                <div
+                    class="d-flex flex-wrap flex-md-nowrap justify-content-center justify-content-sm-between align-items-center">
+                    <div class="custom-control custom-checkbox mr-3">
+                        <input class="custom-control-input" type="checkbox" id="notify_me" checked="">
+                        <label class="custom-control-label" for="notify_me">Notify me when order is delivered</label>
+                    </div>
+                    <div class="text-left text-sm-right"><a class="btn btn-outline-primary btn-rounded btn-sm"
+                            href="{{ route('packages.show', $trackNum->id) }}">View Package Details</a></div>
                 </div>
-            </div>
-            <div
-                class="d-flex flex-wrap flex-md-nowrap justify-content-center justify-content-sm-between align-items-center">
-                <div class="custom-control custom-checkbox mr-3">
-                    <input class="custom-control-input" type="checkbox" id="notify_me" checked="">
-                    <label class="custom-control-label" for="notify_me">Notify me when order is delivered</label>
-                </div>
-                <div class="text-left text-sm-right"><a class="btn btn-outline-warning btn-rounded btn-sm"
-                        href="#">View Order Details</a></div>
-            </div>
-        @endforeach
-    </div>
+            @endforeach
+        </div>
 
     <style>
         body {

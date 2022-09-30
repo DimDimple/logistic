@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Models\Goods;
+use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,7 @@ class TrackingController extends Controller
         // $branch = Branch::where('user_id', '=', $user_id)->first();
         // dd('dd');
 
-        $trackNumber = Goods::where('reference_number', '=', $request->reference_number)->get();
+        $trackNumber = Package::where('reference_number', '=', $request->reference_number)->get();
 
         // $departure = Package::where('departure_id', '=', $request->departure_id)->get();
         // $departure_id = $trackNumber->departure_id;
@@ -25,8 +26,8 @@ class TrackingController extends Controller
 
         // $destination = Package::where('reference_number', '=', $request->departure_id)->get();
         //do not have value yet
-        $departure = "";
-        $destination = "";
+        // $departure = "";
+        // $destination = "";
 
         // foreach ($trackNumber as $trackNum) {
         //     $departure = Branch::find($trackNum->departure_id)->b_name;
@@ -36,7 +37,14 @@ class TrackingController extends Controller
         //         dd($destination);
         // dd($trackNumber);
 
-        return view('frontend.track.track', compact('trackNumber', 'departure', 'destination'))
+        // if ($trackNumber != $trackNumber){
+        //     return view('frontend.track.emptytrack');
+        // } 
+        // else{
+        //     return view('frontend.track.track');
+        // }
+
+        return view('frontend.track.track', compact('trackNumber'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

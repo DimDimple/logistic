@@ -44,13 +44,12 @@
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <i class='bx bx-package'></i>
-                        <span class="badge rounded-pill bg-danger float-end">4</span>
+                        <span class="badge rounded-pill bg-danger float-end">3</span>
                         <span>Form Package</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href={{ route('packages.create') }}>Add Package</a></li>
                         <li><a href="/manager/packages">Record</a></li>
-                        <li><a href="/manager/goods">List Goods</a></li>
                         <li><a href="/manager/packageType">Package Type</a></li>
                     </ul>
                 </li>
@@ -88,8 +87,8 @@
                     <ul class="sub-menu" aria-expanded="false">
 
                         <li><a href="/manager/pending">Pending</a></li>
-                        <li><a href="/manager/process">Processing</a></li>
                         <li><a href="/manager/shipped">Shipped</a></li>
+                        <li><a href="/manager/received">Received</a></li>
                         <li><a href="/manager/completed">Completed</a></li>
 
                     </ul>

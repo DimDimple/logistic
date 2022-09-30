@@ -3,25 +3,26 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\HomeController;
+// use App\Http\Controllers\HomeController;
 use App\Http\Controllers\backend\PackageController;
 // use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\EmployeeController;
 use App\Http\Controllers\backend\DashboardController;
-use App\Http\Controllers\backend\ProcessController;
+// use App\Http\Controllers\backend\ProcessController;
 use App\Http\Controllers\backend\ShippedController;
 use App\Http\Controllers\backend\PendingController;
 use App\Http\Controllers\backend\CompletedController;
 use App\Http\Controllers\backend\DashbaordController;
 use App\Http\Controllers\backend\PasswordAController;
 use App\Http\Controllers\backend\PasswordAMController;
-use App\Http\Controllers\backend\StorageController;
+// use App\Http\Controllers\backend\StorageController;
 use App\Http\Controllers\backend\PTypesController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\PositionController;
 use App\Http\Controllers\backend\ProfileAController;
 use App\Http\Controllers\backend\ProfileAMController;
+use App\Http\Controllers\backend\ReceivedController;
 use App\Http\Controllers\backend\TrackController;
 // use App\Http\Controllers\backend\TrackController;
 use App\Http\Controllers\frontend\EditProfileController;
@@ -91,7 +92,7 @@ Route::get('/information/termXcondition', function () {
 Route::get('/information/privacy', function () {
     return view('frontend.information.privacy');
 });
-
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 
 // Route::get('/orderlist', function () {
 //     return view('frontend.profile.orderList');
@@ -120,7 +121,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
     Route::get('/orderlist', [ListController::class, 'index']);
     Route::get('/emptylist', [ListController::class, 'index']);
-    Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
+    
 
 });
 
@@ -192,12 +193,14 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     Route::resource('/manager/packages', PackageController::class);
     // Route::post('/manager/packages/search', [PackageController::class,'index'])->name('searchPackage');
     Route::resource('/manager/shipped', ShippedController::class);
-    Route::resource('/manager/process', ProcessController::class);
+    Route::resource('/manager/received', ReceivedController::class);
     Route::resource('/manager/completed', CompletedController::class);
     Route::resource('/manager/pending', PendingController::class);
     // Route::resource('/manager/packageType', PackageTypeController::class);
-
+    Route::put('/manager/packages/updatestatus/{id}', [PackageController::class, 'updateStatus'])->name('updatestatus');
+    Route::put('/manager/packages/filterstatus/update', [PackageController::class, 'filterupdatestatus'])->name('updatefilterstatus');
     Route::get('/manager/packages/paystatus/{id}', [PackageController::class, 'updatePayStatus'])->name('updatepaystatus');
+    Route::get('/manager/package/export/excel', [PackageController::class, 'excel'])->name('package.export');
     // Route::put('/manager/goods/status/update/{id}', [StorageController::class, 'updateStatus'])->name('updatestatus');
     //Route::post('/manager/packages/status/update', 'PackageController@updateStatus');
 
@@ -205,14 +208,14 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     Route::resource('/manager/packageType', PTypesController::class);
     Route::resource('/manager/position', PositionController::class);
     Route::resource('/manager/employeebranch', EmployeeController::class);
-    Route::resource('/manager/storage', StorageController::class);
+    // Route::resource('/manager/storage', StorageController::class);
     // Route::post('/manager/goods/search', [StorageController::class,'index'])->name('searchGoods');
-    Route::resource('/manager/goods', StorageController::class);
-    Route::put('/manager/goods/update/{id}', [StorageController::class, 'update'])->name('update');
+    // Route::resource('/manager/goods', StorageController::class);
+  
     Route::get('/manager/tracking', [TrackController::class, 'track'])->name('track');
     Route::get('/manager/export/excel', [EmployeeController::class, 'excel'])->name('employee.export');
     // Route::post('/manager/employees/search', [EmployeeController::class,'index'])->name('searchEmployee');
-    Route::get('/manager/package/export/excel', [PackageController::class, 'excel'])->name('package.export');
+   
     // Route::get('/manager/create',function(){
     //         return view('backend.manager.page.packages.create');
     // });

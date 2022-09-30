@@ -13,22 +13,26 @@ class Package extends Model
         'receiver_phone',
         'departure_id',
         'destination_id',
-        // 'status',
+        'status',
         'pay_status',
-        'total_fee',
-        'total_item',
-        // 'reference_number',
+        'sender_email',
+        'receiver_email',
+        'reference_number',
+        'package_price',
+        'ptype_id',
+        'delivery_charge',
+        'product_description',
+        'special_instruction',
+        'weight',
+      
+
+
     ];
 
-    public function goods()
+    public function ptype()
     {
-        return $this->hasMany(Goods::class, 'package_id', 'id');
+        return $this->belongsTo(PType::class);
     }
-    // public function branch()
-    // {
-    //     return $this->hasMany(Branch::class);
-    // }
-
 
     public function branch_departure(){
         return $this->hasOne(Branch::class, 'id', 'departure_id');

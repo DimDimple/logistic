@@ -33,7 +33,7 @@
         @endphp
         <ul>
             <li><a href="{{ asset('/home') }}" class="{{ $currentRouteName === 'home' ? 'active' : '' }}">Home</a></li>
-            <li><a href="{{ asset('/track') }}"  class="{{ $currentRouteName === 'track' ? 'active' : '' }}">Track&Trace</a></li>
+            <li><a href="{{ asset('/tracking') }}"  class="{{ $currentRouteName === 'track' ? 'active' : '' }}">Track&Trace</a></li>
             <li><a href="{{ asset('/information') }}" class="{{ $currentRouteName === 'information' ? 'active' : '' }}">Information</a></li>
             <li><a href="{{ asset('/contact') }}" class="{{ $currentRouteName === 'contact' ? 'active' : '' }}">Contact us</a></li>
         </ul>

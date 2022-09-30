@@ -16,10 +16,10 @@ class Branch extends Model
         // 'user_id'
 
     ];
-    // public function package()
-    // {
-    //     return $this->belongsTo(Package::class);
-    // }
+    public function package()
+    {
+        return $this->belongsTo(Package::class);
+    }
     public function location()
     {
         return $this->belongsTo(Location::class);

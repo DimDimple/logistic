@@ -47,7 +47,7 @@
                                 <input type="hidden" name="_method" value="put">
                                 <div>
                                     @if ($message = Session::get('success'))
-                                        <div class="alert alert-success">
+                                        <div class="alert bg-light text-dark">
                                             <p>{{ $message }}</p>
                                         </div>
                                     @endif

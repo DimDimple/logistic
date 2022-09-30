@@ -38,160 +38,48 @@
     </div>
 
     <div class="container padding-bottom-3x mb-1">
+
         @foreach ($trackNumber as $trackNum)
-            <div class="card mb-3 shadow-lg p-3 mb-5 bg-white rounded">
-                <div class="p-4 text-center text-white text-lg bg-dark rounded-top"><span class="text-uppercase">Tracking
-                        Order
-                        No - </span><span class="text-medium">{{ $trackNum->reference_number }}</span></div>
-                <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
-                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Package Price:</span>
-                        <p class="text-primary">{{ $trackNum->package_price }}</p>
-                    </div>
-                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Status:</span>
-                        <p class="text-danger">{{ $trackNum->status }}</p>
-                    </div>
-                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Accepted Date:</span>
-                        {{ $trackNum->created_at->toDateString() }}
+            <div class="card">
+                <div class="card mb-3 p-3 bg-white rounded">
+                    <div class="p-4 text-center text-white text-lg bg-primary rounded-top"><span
+                            class="text-uppercase">Tracking
+                            No - </span><span class="text-medium">{{ $trackNum->reference_number }}</span></div>
+                    <div class="row mt-3">
+                        <div class="col shadow-lg md-3">
+                            <h6 class="text-dark bg-secondary text-uppercase p-3 text-center">
+                                Sender Information </h6>
+                            <div class="mt-3">Sender Phone Number: {{ $trackNum->sender_phone }}</div>
+                            <div class="mt-3">Sender Email: {{ $trackNum->sender_email }}</div>
+                            <div class="mt-3">Current Branch: {{ $trackNum->branch_departure->b_name }}</div>
+                         
+                        </div>
+                        <div class="col shadow-lg md-3">
+                            <h6 class="text-dark bg-secondary text-uppercase p-3 text-center">Receiver Information</h6>
+                            <div class="mt-3">Receiver Phone Number: {{ $trackNum->receiver_phone }}</div>
+                            <div class="mt-3">Receiver Email: {{ $trackNum->receiver_email }}</div>
+                            <div class="mt-3">Destination Branch: {{ $trackNum->branch_departure->b_name }}</div>
+                        </div>
                     </div>
 
                 </div>
-                <div class="card-body">
-                    <!--Status = pending-->
-                    @if ($trackNum->status == 'Pending')
-                        <div
-                            class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
-                                            class='bx bx-loader-alt' style='color:#8813b7'></i></div>
+                <div class="card mb-3 p-3 bg-white rounded">
+                    <div class="p-4 text-center text-white text-lg bg-primary rounded-top"><span
+                            class="text-uppercase">Tracking History</div>
+                            <div class="row mt-3">
+                                <div class="col shadow-lg md-3">
+                                    <h6 class="text-dark bg-secondary text-uppercase p-3 text-center">
+                                        Date </h6>
+                                    <div class="mt-3 text-center"> {{ $trackNum->created_at->toDateString() }}</div>
+                                   
+                                 
                                 </div>
-                                <h4 class="step-title">Pending</h4>
-                            </div>
-                            <div class="step">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color"><i
-                                            class='bx bx-loader-circle' style='color:#07833a'></i></div>
+                                <div class="col shadow-lg md-3">
+                                    <h6 class="text-dark bg-secondary text-uppercase p-3 text-center">Status</h6>
+                                    <div class="mt-3 text-center"> {{ $trackNum->status }}</div>
+                                   
                                 </div>
-                                <h4 class="step-title">Processing</h4>
                             </div>
-                            <div class="step">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"><i
-                                            class='bx bxs-truck' style='color:#0b60f1'></i></div>
-                                </div>
-                                <h4 class="step-title">Shipped</h4>
-                            </div>
-                            <div class="step">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"> <i
-                                            class='bx bx-check-shield' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Completed</h4>
-                            </div>
-                        </div>
-                    @endif
-                    @if ($trackNum->status == 'Processing')
-                        <div
-                            class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
-                                            class='bx bx-loader-alt' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Pending</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
-                                            class='bx bx-loader-circle' style='color:#07833a'></i></div>
-                                </div>
-                                <h4 class="step-title">Processing</h4>
-                            </div>
-                            <div class="step">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"><i
-                                            class='bx bxs-truck' style='color:#0b60f1'></i></div>
-                                </div>
-                                <h4 class="step-title">Shipped</h4>
-                            </div>
-                            <div class="step">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"> <i
-                                            class='bx bx-check-shield' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Completed</h4>
-                            </div>
-                        </div>
-                    @endif
-                    @if ($trackNum->status == 'Shipped')
-                        <div
-                            class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
-                                            class='bx bx-loader-alt' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Pending</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
-                                            class='bx bx-loader-circle' style='color:#07833a'></i></div>
-                                </div>
-                                <h4 class="step-title">Processing</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
-                                            class='bx bxs-truck' style='color:#0b60f1'></i></div>
-                                </div>
-                                <h4 class="step-title">Shipped</h4>
-                            </div>
-                            <div class="step">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:"> <i
-                                            class='bx bx-check-shield' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Completed</h4>
-                            </div>
-                        </div>
-                    @endif
-                    @if ($trackNum->status == 'Completed')
-                        <div
-                            class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
-                                            class='bx bx-loader-alt' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Pending</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
-                                            class='bx bx-loader-circle' style='color:#07833a'></i></div>
-                                </div>
-                                <h4 class="step-title">Processing</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"><i
-                                            class='bx bxs-truck' style='color:#0b60f1'></i></div>
-                                </div>
-                                <h4 class="step-title">Shipped</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon" style="border-color: #0d6efd; background-color:#ffc107"> <i
-                                            class='bx bx-check-shield' style='color:#8813b7'></i></div>
-                                </div>
-                                <h4 class="step-title">Completed</h4>
-                            </div>
-                        </div>
-                    @endif
 
                 </div>
             </div>
@@ -202,11 +90,11 @@
                     <label class="custom-control-label" for="notify_me">Notify me when order is delivered</label>
                 </div>
                 <div class="text-left text-sm-right"><a class="btn btn-outline-primary btn-rounded btn-sm"
-                        href="{{ route('packages.show', $trackNum->package_id) }}">View Order Details</a></div>
+                       href="{{ route('packages.show', $trackNum->id) }}">View Package Details</a></div>
             </div>
         @endforeach
     </div>
-
+    
     <style>
         body {
             margin-top: 20px;

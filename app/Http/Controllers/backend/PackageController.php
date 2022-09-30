@@ -7,11 +7,12 @@ use App\Models\Package;
 use App\Models\Branch;
 use App\Models\User;
 use App\Models\Location;
-use App\Models\Goods;
+
 use App\Models\PType;
-use App\Models\Storage;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -23,7 +24,7 @@ class PackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Package $package)
     {
         //find branch location of manager
         //find branch id
@@ -32,7 +33,15 @@ class PackageController extends Controller
         $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
         $branch = Branch::where('user_id', '=', $user_id)->first();
         $departure_id = $branch->id;
-        // @dd($departure_id );
+        $branch_id = $departure_id;
+        $destination_id = $package->destination_id;
+        $ends= "";
+        $starts="";
+        $sendmessage="";
+        // $sender = Branch::where('id', '=', $package->departure_id)->get();
+        // $receiver = Branch::where('id', '=', $package->destination_id)->get();
+
+        // @dd($request );
         // $branch = Branch::where("")->branch;
         // @dd($branch);
         // @dd($branch_id);
@@ -55,7 +64,7 @@ class PackageController extends Controller
         //     $packages = Package::latest()->paginate(5);
         // }
 
-        return view('backend.manager.page.packages.index', compact('packages', 'branch_id', 'departure_id', 'branch'))
+        return view('backend.manager.page.packages.index', compact('packages', 'branch_id', 'departure_id', 'branch','starts','ends','sendmessage'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -75,13 +84,7 @@ class PackageController extends Controller
         $branch = Branch::where('user_id', '=', $user_id)->first();
         $departure_id = $branch->id;
 
-
-        //create goods
-        $goods = [];
-        // track data //
-        $num = 0;
-        $total_fee = 0;
-        $total_item = 0;
+       
         // $package_type = PType::get()->first();
         $package_types = PType::get();
       
@@ -97,7 +100,7 @@ class PackageController extends Controller
         // Goods::create($request->all());
         // $num = $request->num;
 
-        return view('backend.manager.page.packages.create', compact('branches', 'departure_id', 'num', 'goods', 'package_types', 'total_fee', 'total_item'));
+        return view('backend.manager.page.packages.create', compact('branches', 'departure_id', 'package_types'));
     }
 
     /**
@@ -108,28 +111,33 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-        $lastId = Storage::get()->last()->id;
+        // // dd($request);
+        // $lastId = Storage::get()->last()->id;
 
-        for ($i = 0; $i < $request->num - 1; $i++) {
-            $array[$i] = $lastId - $i;
-        }
+        // for ($i = 0; $i < $request->num - 1; $i++) {
+        //     $array[$i] = $lastId - $i;
+        // }
 
         //if we have 7iterm before then we input 3 iterm more we get 3 iterms
 
-        $goods = Storage::find($array);
+        // $goods = Storage::find($array);
         //find array in goods
-
+// dd($request);
         $request->validate([
             'sender_phone' => 'required',
             'receiver_phone' => 'required',
             'departure_id' => 'required',
             'destination_id' => 'required',
-            // 'status' => 'required',
+            'status' => 'required',
             'pay_status' => 'required',
-            'total_fee' => 'required',
-            'total_item' => 'required',
-
+            'sender_email' => 'required',
+            'receiver_email' => 'required',
+            'package_price'=> 'required',
+            'ptype_id'=> 'required',
+            'delivery_charge'=> 'required',
+            'product_description'=> 'required',
+            'special_instruction'=> 'required',
+            'weight'=> 'required',
 
         ]);
 
@@ -138,11 +146,17 @@ class PackageController extends Controller
             'receiver_phone' => $request['receiver_phone'],
             'departure_id' => (int)$request['departure_id'],
             'destination_id' => (int)$request['destination_id'],
-            // 'status' => $request['status'],
+            'status' => $request['status'],
             'pay_status' => $request['pay_status'],
-            'total_fee' => (float)$request['total_fee'],
-            'total_item' => (int)$request['total_item'],
-            // 'reference_number' => ("DM" . random_int(1000, 9999)), //random to user // string DM + 4 number
+            'sender_email' => $request['sender_email'],
+            'receiver_email' => $request['receiver_email'],
+            'ptype_id' => (int)$request['ptype_id'],
+            'package_price' => (float)$request['package_price'],
+            'weight' => (float)$request['weight'],
+            'delivery_charge' => (float)$request['delivery_charge'],
+            'product_description' => $request['product_description'],
+            'special_instruction' => $request['special_instruction'],
+            'reference_number' => ("DM" . random_int(1000, 9999)), //random to user // string DM + 4 number
         ]);
 
         //    dd($savedPackage);
@@ -150,23 +164,6 @@ class PackageController extends Controller
         if (!$savedPackage) {
             abort(503);
         }
-
-        // loop goods in array
-        foreach ($goods as $good) {
-            $savedBranch[] = $savedPackage->goods()->create([
-                'package_price' => (float)$good->package_price,
-                'ptype_id' => $good->package_type,
-                'fee' => (float)$good->fee,
-                'message' => $good->message,
-                'package_id' => $savedPackage->id,
-                'status' => $good->status,
-                'reference_number' => ("DM" . random_int(1000, 9999)),
-            ]);
-        }
-        if (!$savedBranch) {
-            abort(503);
-        }
-
 
 
         //find branch location of manager
@@ -177,11 +174,13 @@ class PackageController extends Controller
         // @dd($branch);
         // @dd($branch_id);
         $packages = Package::latest()->paginate(5);
-       
+       $ends="";
+       $starts="";
+       $sendmessage="";
         // unset $request;
         // @dd($request);
 
-        return view('backend.manager.page.packages.index', compact('packages', 'branch_id'))
+        return view('backend.manager.page.packages.index', compact('packages', 'branch_id','ends','starts','sendmessage'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -205,18 +204,15 @@ class PackageController extends Controller
         $receiver = Branch::where('id', '=', $package->destination_id)->get();
         // dd($receiver);
         $destination = Branch::where('id', '=', $destination_id)->first();
-        // track data //
-        $num = 0;
-        $total_fee = 0;
-        $total_item = 0;
-
+     
+    
         $package_type = PType::get()->first();
 
         //select option get data connect to view
         //
         $package_types = PType::get();
       
-        $goods = Goods::where('package_id', '=', $package->id)->get();
+     
 
 //   dd($goods);
         // @dd($goods);
@@ -228,9 +224,61 @@ class PackageController extends Controller
         // $good = $package_id;
 
 
-        return view('backend.manager.page.packages.show', compact('sender','receiver','package', 'branch_id', 'branch', 'goods', 'package_type', 'destination', 'num', 'total_fee', 'total_item', 'package_types'));
+        return view('backend.manager.page.packages.show', compact('sender','receiver','package', 'branch_id', 'branch', 'package_type', 'destination','package_types'));
     }
 
+
+    public function updateStatus(Request $request, $id)
+    {
+        $package = Package::find($id);
+        $package->status = $request->status;
+        $package->save();
+        return redirect()->route('packages.index')
+        ->with('message', 'Status updated successfully.');
+    }
+
+    public function filterupdatestatus(Request $request )
+    {
+        // dd($request);
+        $sendmessage ="";
+       if($request->ends=="" && $request->starts=="" ){
+        $starts = $request->starts_date;
+        $ends = $request->ends_date;
+       }
+       else{
+        $starts = $request->starts;
+        $ends = $request->ends;
+       }
+        $branches = Branch::get();
+        $user_id = Auth::user()->id;
+        $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
+        $branch = Branch::where('user_id', '=', $user_id)->first();
+        $departure_id = $branch->id;
+        $branch_id = $departure_id;
+        $packages = Package::whereDate('created_at', '>=', $starts)
+        ->whereDate('created_at', '<=', $ends)
+        ->get();
+        //  dd($packages);
+        //true or false 
+        //if package has data result true
+        //but package has not data result false
+        if(isset($request->status)) {
+            $sendmessage = "Status update successfully.";
+            foreach($packages as $package){
+                if(($request->status=="Pending" || $request->status=="Shipped") && $package->departure_id==$branch_id){
+                    $package->status=$request->status;
+                    $package->save();
+                }
+                if(($request->status=="Received" || $request->status=="Completed") && $package->destination_id==$branch_id){
+                    $package->status=$request->status;
+                    $package->save();
+                }
+            }
+        }
+
+        return view('backend.manager.page.packages.index', compact('packages','branch_id', 'departure_id', 'branch','starts','ends','sendmessage'));
+
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -239,6 +287,7 @@ class PackageController extends Controller
      */
     public function edit(Package $package)
     {
+        // dd($package->ptype->package_type);
         $branches = Branch::get();
         // if(Auth::users() == )
         // @dd(Auth::user());
@@ -248,12 +297,28 @@ class PackageController extends Controller
         $destination_id = $package->destination_id;
 
         $destination = Branch::where('id', '=', $destination_id)->first();
+        $package_type = PType::get()->first();
 
+        //select option get data connect to view
+        //
+        $package_types = Ptype::get();
         // dd($branches);
         //   dd($destination);
+       $status=[] ;
+            if($departure_id==$package->departure_id){
+                // $status=Package::where('status', '=','Pending')->orWhere('package_type', '=','Shipped');
+                $status[0]="Pending";
+                $status[1]="Shipped";
+            }else{
+                // $status=Package::where('status', '=','Received')->orWhere('package_type', '=','Completed');
+                $status[0]="Received";
+                $status[1]="Completed";
+            }
+        
+
         // $package_types = $package->package_type;
 
-        return view('backend.manager.page.packages.edit', compact('package', 'branches', 'branch', 'departure_id', 'destination_id', 'destination'));
+        return view('backend.manager.page.packages.edit', compact('package', 'branches', 'branch', 'departure_id', 'destination_id', 'destination','package_types','status'));
     }
 
     /**
@@ -269,10 +334,18 @@ class PackageController extends Controller
         $request->validate([
             'sender_phone' => 'required',
             'receiver_phone' => 'required',
-            // 'status' => 'required',
-            'pay_status' => 'required',
             'departure_id' => 'required',
             'destination_id' => 'required',
+            'status' => 'required',
+            'pay_status' => 'required',
+            'sender_email' => 'required',
+            'receiver_email' => 'required',
+            'package_price'=> 'required',
+            'ptype'=> 'required',
+            'delivery_charge'=> 'required',
+            'product_description'=> 'required',
+            'special_instruction'=> 'required',
+            'weight'=> 'required',
 
         ]);
 
@@ -355,13 +428,8 @@ class PackageController extends Controller
 
     public function destroy(Package $package)
     {
-        //find package id in goods Pthen delete
-        //good store package foreign key
-        $goods = Goods::where('package_id', '=', $package->id)->get();
-        // $goods->delete();
-        foreach ($goods as $good) {
-            $good->delete();
-        }
+        // $package=Package::find($id);
+       
         //delete all goods with package ID
         $package->delete();
 

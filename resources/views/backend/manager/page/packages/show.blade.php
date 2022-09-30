@@ -15,186 +15,73 @@
     </div> --}}
     <div style="margin-top: 10px">
 
-        <div class="shadow-lg p-3 mb-5 bg-white rounded" style=" width:70%;margin-left:250px"><strong style="font-size: 20px;"
-                class="d-flex align-items-center justify-content-center">Sender
-                Information</strong>
-            <div class="header-u" style="margin-top:20px;display:flex;margin-left:215px ">
-                <div style="width: 50%">
-                    <h5 class="card-title">Sender Phone Number</h5>
-                    {{ $package->sender_phone }}
-                </div>
-                <div style="width: 50%; margin-left:20px">
-                    <h5 class="card-title">Receiver Phone Number</h5>
-                    {{ $package->receiver_phone }}
-                </div>
-            </div>
-            <div class="header-u" style="margin-top:20px;display:flex;margin-left:215px">
-                @foreach ($sender as $sent)
-                    <div style="width: 50%">
-                        <h5 class="card-title text-warning">Departure</h5>
-                        {{ $sent->b_name }}
+        <div class="card">
+            <div class="card mb-3 p-3 bg-white rounded">
+                <div class="p-4 text-center text-white text-lg bg-primary rounded-top"><span
+                        class="text-uppercase">Tracking
+                        No - </span><span class="text-medium">{{ $package->reference_number }}</span></div>
+                <div class="row mt-3">
+                    <div class="col shadow-lg md-3">
+                        <h6 class="text-dark bg-light text-uppercase p-3 text-center">
+                            Sender Information </h6>
+                        <div class="mt-3">Sender Phone Number: {{ $package->sender_phone }}</div>
+                        <div class="mt-3">Sender Email: {{ $package->sender_email }}</div>
+                        <div class="mt-3">Current Branch: {{ $package->branch_departure->b_name }}</div>
+                     
                     </div>
-                @endforeach
-                @foreach ($receiver as $receiv)
-                    <div style="width: 50%; margin-left:20px">
-                        <h5 class="card-title text-danger">Destination</h5>
-                        {{ $receiv->b_name }}
+                    <div class="col shadow-lg md-3">
+                        <h6 class="text-dark bg-light text-uppercase p-3 text-center">Receiver Information</h6>
+                        <div class="mt-3">Receiver Phone Number: {{ $package->receiver_phone }}</div>
+                        <div class="mt-3">Receiver Email: {{ $package->receiver_email }}</div>
+                        <div class="mt-3">Destination Branch: {{ $package->branch_departure->b_name }}</div>
                     </div>
-                @endforeach
+                </div>
+
             </div>
-
-        </div>
-
-        <!--Edit goods -->
-        <div class="shadow-lg p-3 mb-5 bg-white rounded" style=" width:95%; margin-left:55px"><strong
-                style="font-size: 20px;">Package
-                Information</strong>
-            <div class="modal fade" id="goodEditModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-                tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title " id="exampleModalToggle">Edit Goods</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="card mb-3 p-3 bg-white rounded">
+                <div class="p-4 text-center text-white text-lg bg-primary rounded-top"><span
+                        class="text-uppercase">Tracking History</div>
+                        <div class="row mt-3">
+                            <div class="col shadow-lg md-3">
+                                <h6 class="text-dark bg-light text-uppercase p-3 text-center">
+                                    Pacakge Information </h6>
+                                <div class="mt-3">Package Price: {{ $package->package_price }} $</div>
+                                <div class="mt-3">Package Type: {{ $package->ptype->package_type }}</div>
+                                <div class="mt-3">Weight: {{ $package->weight }} (kg)</div>
+                                <div class="mt-3">Delivery Charges: {{ $package->delivery_charge }} $</div>
+                                <div class="mt-3">Payment Status: {{ $package->pay_status }}</div>
+                             
+                            </div>
+                            <div class="col shadow-lg md-3">
+                                <h6 class="text-dark bg-light text-uppercase p-3 text-center">Message</h6>
+                                <div class="mt-3">Product Description: {{ $package->product_description }}</div>
+                                <div class="mt-3">Special Instruction: {{ $package->special_instruction }}</div>
+                               
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <!--We use ajax so we need id-->
-                            <form id="editFormID" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <!-- price and quantity input -->
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <div class="form-outline">
-                                            <input type="text" id="package_price" class="form-control"
-                                                name="package_price" value="" />
-                                            <label class="form-label" for="form7Example1">Package Price</label>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-outline">
-                                            <select class="form-select" name="package_type" id="package_type"
-                                                aria-label=".form-select-lg example" value="">
-                                                <option selected id="p_type"></option>
-                                                @foreach ($package_types as $package_type)
-                                                    <option value="{{ $package_type->id }}">
-                                                        {{ $package_type->package_type }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--Hidden fields -->
-                                {{-- <input type="hidden" name="num" value="{{ $num = $num + 1 }}">
-                                <input type="hidden" name="total_fee" value="{{ $total_fee }}"> --}}
-                                <!-- Message input -->
-                                <div class="row mb-3" style="margin-top: 5px">
-                                    <div class="col">
-                                        <div class="form-outline mb-4">
-                                            <input type="text" id="fee" class="form-control" name="fee"
-                                                value="" />
-                                            <label class="form-label" for="form7Example2">Fee</label>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <select class="form-select" aria-label="Disabled select example" name="status">
-                                            <option selected id="g_status"></option>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Processing">Processing</option>
-                                            <option value="Shipped">Shipped</option>
-                                            <option value="Completed" id="completed">Completed</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mb-3" style="margin-top: -10px">
-                                    <label for="message-text" class="col-form-label">Message:</label>
-                                    <textarea id="message" class="form-control" name="message" maxlength="225" rows="3"
-                                        placeholder="This message has a limit of 225 chars." value=""></textarea>
-
-                                </div>
-                                <!--hidden fields-->
-                                <input type="hidden" value="" id="goodId" name="id">
-                                <button type="submit" data-bs-dismiss="modal" class="btn btn-info" id="savedBtn"
-                                    style="margin-left: 70%">
-                                    Save
-                                </button>
-
-                                <a class="btn btn-dark" data-bs-dismiss="modal">Close</a>
-                            </form>
+                        <div class="row mt-3">
+                            <div class="col shadow-lg md-3">
+                                <h6 class="text-dark bg-light text-uppercase p-3 text-center">
+                                    Date </h6>
+                                <div class="mt-3 text-center"> {{ $package->created_at->toDateString() }}</div>
+                               
+                             
+                            </div>
+                            <div class="col shadow-lg md-3">
+                                <h6 class="text-dark bg-light text-uppercase p-3 text-center">Status</h6>
+                                <div class="mt-3 text-center"> {{ $package->status }}</div>
+                                
+                               
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <!--End Edit goods-->
-            <table id="datatable" class="table table-bordered dt-responsive nowrap"
-                style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:3%">
-                <thead>
-                    <tr class="text-center">
 
-                        <th>Reference Number</th>
-                        <th>Package Price</th>
-                        <th>Package Type</th>
-                        <th>Fee</th>
-                        <th>Messages</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach ($goods as $good)
-                        <tr class="text-center">
-                            <input type="hidden" id="departure" name="departure"
-                                value="{{ $good->package->departure_id }}">
-                            <input type="hidden" id="branch" name="branch" value="{{ $branch_id }}">
-                            {{-- <input type="hidden" id="goodId" name="goodId" value="{{ $good->id }}"> --}}
-                            <td>{{ $good->reference_number }}</td>
-                            <td>{{ $good->package_price }}</td>
-                            <td>{{ $good->ptype->package_type }}</td>
-                            <td>{{ $good->fee }}</td>
-                            <td>{{ $good->message }}</td>
-
-                            <td>{{ $good->status }}</td>
-
-                            <td>
-                                <a data-toggle="tooltip" title='Edit' role="button" data-bs-toggle="modal"
-                                    class="btn btn-success editbtn btn-sm" onclick="goodID({{ $good->id }})">Edit</a>
-
-                                @csrf
-                                @method('DELETE')
-                                <input name="_method" type="hidden" value="DELETE">
-                                <button type="submit" class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"
-                                    data-toggle="tooltip" title='Delete'>Delete</button>
-
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="shadow-lg p-3 mb-5 bg-white rounded">
-        <div class="text-center" style="margin-top:20px;display:flex">
-
-            <div style="width: 50%; margin-left:20px">
-                <h5 class="card-title p-3 mb-2 bg-warning text-dark">PAYMENT STATUS</h5>
-                <h6 class="text-center"> {{ $package->pay_status }}</h6>
-            </div>
-
-            <div style="width: 50%; margin-left:20px">
-                <h5 class="card-title p-3 mb-2 bg-primary text-white">TOTAL ITEMS</h5>
-                <h6 class="text-center">{{ $package->total_item }}</h6>
-            </div>
-
-            <div style="width: 50%; margin-left:20px">
-                <h5 class="card-title p-3 mb-2 bg-info text-white">TOTAL FEE</h5>
-                <h6 class="text-center"> {{ $package->total_fee }} $</h6>
             </div>
         </div>
+       
     </div>
+    
 
-    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+    {{-- <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
         crossorigin="anonymous"></script>
 
     <script>
@@ -273,5 +160,5 @@
 
             });
         })
-    </script>
+    </script> --}}
 @endsection

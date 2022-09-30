@@ -12,9 +12,9 @@
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <h4 class="mb-0">Dashboard</h4>
                 <i class='bx bx-calendar-week' style="margin-right:10%"></i>
-            <span id="time" style="position:absolute; margin-left:89%"></span>
-                
-               
+                <span id="time" style="position:absolute; margin-left:89%"></span>
+
+
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
                     </div><!-- end card -->
                 </div><!-- end col-->
 
-                <div class="col-md-6 col-xl-3">
+                {{-- <div class="col-md-6 col-xl-3">
                     <div class="card overflow-hidden card-h-100">
                         <a class="card-body" href="{{ route('packages.index') }}">
                             <div class="d-flex justify-content-between">
@@ -59,11 +59,11 @@
 
 
                     </div><!-- end card -->
-                </div><!-- end col-->
+                </div><!-- end col--> --}}
 
                 <div class="col-md-6 col-xl-3">
                     <div class="card overflow-hidden card-h-100">
-                        <div class="card-body" >
+                        <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <h5 class="font-size-15 text-uppercase mb-0">Status</h5>
                                 <div class="avatar-xs">
@@ -129,16 +129,16 @@
                     <div class="card overflow-hidden card-h-100">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h5 class="font-size-15 text-uppercase mb-0">Processing</h5>
+                                <h5 class="font-size-15 text-uppercase mb-0">Shipped</h5>
                                 <div class="avatar-xs">
                                     <span class="avatar-title rounded bg-soft-success font-size-20 mini-stat-icon">
-                                        <i class='bx bx-loader-circle' style='color:#07833a'></i>
+                                        <i class='bx bxs-truck' style='color:#0b60f1'></i>
                                     </span>
                                 </div>
                             </div>
                             <h3 class="font-size-24 d-flex justify-content-center align-items-center"
-                                style="font-weight: 900; font-size:30px">{{ $countProcess }}</h3>
-                            <p class="text-muted mb-0">Total Process</p>
+                                style="font-weight: 900; font-size:30px">{{ $countShipped }}</h3>
+                            <p class="text-muted mb-0">Total Shipped</p>
                         </div><!-- end card-body -->
 
 
@@ -149,16 +149,17 @@
                     <div class="card overflow-hidden card-h-100">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h5 class="font-size-15 text-uppercase mb-0">Shipped</h5>
+                                <h5 class="font-size-15 text-uppercase mb-0">Received</h5>
                                 <div class="avatar-xs">
                                     <span class="avatar-title rounded bg-soft-danger font-size-20 mini-stat-icon">
-                                        <i class='bx bxs-truck' style='color:#0b60f1'></i>
+
+                                        <i class='bx bx-clipboard' style='color:#0b60f1'></i>
                                     </span>
                                 </div>
                             </div>
                             <h3 class="font-size-24 d-flex justify-content-center align-items-center"
-                                style="font-weight: 900; font-size:30px">{{ $countShipped }}</h3>
-                            <p class="text-muted mb-0">Total Shipped</p>
+                                style="font-weight: 900; font-size:30px">{{ $countReceived }}</h3>
+                            <p class="text-muted mb-0">Total Received</p>
                         </div><!-- end card-body -->
 
 
@@ -202,42 +203,47 @@
                             placeholder="Search">
                     </div>
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap"
+                    <table id="myTable" class="table table-bordered dt-responsive nowrap"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
                         <thead>
-                            <tr class="text-center">
-                               <th>No</th>
-                                <th>Sender Phone Number</th>
-                                <th>Receiver Phone Number</th>
-                                <th>Total Items</th>
-                                <th>Total Fee</th>
+                            <tr>
+
+                                <th>Tracking No</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Sender Detail</th>
+                                <th>Receiver Detail</th>
+                                <th>Shipment Detail</th>
+                                <th>Payments</th>
                                 <th>Payment Status</th>
 
                             </tr>
                         </thead>
-                        <tbody id="myTable">
+                        <tbody>
                             @csrf
                             @foreach ($packages as $key => $package)
                                 @if ($package->departure_id == $branch_id || $package->destination_id == $branch_id)
-                                    <tr class="text-center">
-                                        <td>{{ ++$key }}</td>
-                                        <td>{{ $package->sender_phone }}</td>
-                                        <td>{{ $package->receiver_phone }}</td>
-                                        <td>{{ $package->total_item }}</td>
-                                        <td>{{ $package->total_fee }} $</td>
+                                    <tr>
 
-                                        {{-- <td>
 
-                                            <select class="form-select" aria-label="Disabled select example"
-                                                name="status" data-package-id="{{ $package->id }}">
-                                                <option selected>{{ $package->status }}</option>
-                                                <option value="Pending">Pending</option>
-                                                <option value="Processing">Processing</option>
-                                                <option value="Decline">Decline</option>
-                                                <option value="Completed">Completed</option>
-                                            </select>
-
-                                        </td> --}}
+                                        <td>{{ $package->reference_number }}</td>
+                                        <td>{{ $package->created_at->toDateString() }}</td>
+                                        <td> {{ Carbon\Carbon::parse($package->time)->format('h:m:a') }}</td>
+                                        <td>Phone: {{ $package->sender_phone }}
+                                            <div>Email: {{ $package->sender_email }}</div>
+                                        </td>
+                                        <td>Phone: {{ $package->receiver_phone }}
+                                            <div>Email: {{ $package->receiver_email }}</div>
+                                        </td>
+                                        <td>Current Branch: {{ $package->branch_departure->b_name }}
+                                            <div>Destination Branch: {{ $package->branch_destination->b_name }}</div>
+                                            <div>Package Price: {{ $package->package_price }} $</div>
+                                            <div>Package Type: {{ $package->ptype->package_type }}</div>
+                                            <div>Weight: {{ $package->weight }} (kg)</div>
+                                            <div>Product Description: {{ $package->product_description }}</div>
+                                            <div>Special Instruction: {{ $package->special_instruction }}</div>
+                                        </td>
+                                        <td>{{ $package->delivery_charge }} $</td>
                                         @if ($package->pay_status == 'Paid')
                                             <td>
                                                 <a href="{{ route('updatepaystatus', $package->id) }}"

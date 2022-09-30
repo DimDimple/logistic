@@ -12,7 +12,7 @@
         <div class="footer-middle">
             <a>UseFul Link</a>
             <ul>
-                <li><a href="/">Home</a></li>
+                <li><a href="/home">Home</a></li>
                 <li><a href="/track">Track&Trace</a></li>
                 <li><a href="/information">Information</a></li>
                 <li><a href="/contact">Contact Us</a></li>

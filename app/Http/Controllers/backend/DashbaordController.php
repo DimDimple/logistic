@@ -4,9 +4,8 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Package;
-use App\Models\Goods;
+
 use App\Models\Branch;
-use App\Models\Storage;
 use App\Models\Position;
 use App\Models\Employee;
 use App\Models\User;
@@ -33,7 +32,7 @@ class DashbaordController extends Controller
     public function index()
     {
 
-        $goods = Goods::get()->count();
+       
         $branches = Branch::get();
         $user_id = Auth::user()->id;
         $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
@@ -47,46 +46,18 @@ class DashbaordController extends Controller
         $packageNumber =  $countDeparture + $countDestination;
 
 
-        //get package by branch
-        $packages = Package::where('departure_id', '=', $branch_id)->orWhere('destination_id', '=', $branch_id)->get();
-        //    dd($packages);
-        //let goods are array
-        // integer
-        $goodNumber = 0;
-        $goods = [];
+        $packages = Package::latest()->paginate(5);
+        //    @dd($packages);     
+        // if employee->branch_id==branch_id
 
-
-        foreach ($packages as $package) {
-            //loop find goods by package id 
-            $goodNumber = $goodNumber + Goods::where('package_id', '=', $package->id)->get()->count();
-            $goods[] = Goods::where('package_id', '=', $package->id)->get();
-        }
-
-        //default value let all variable are integer
-        $countPending = 0;
-        $countProcess = 0;
-        $countShipped = 0;
-        $countCompleted = 0;
-
-        foreach ($goods as $goodData) {
-            foreach ($goodData as $good){
-                if ($good->status == 'Pending') {
-                    $countPending = $countPending + 1;
-                } elseif ($good->status == 'Processing') {
-                    $countProcess = $countProcess + 1;
-                } elseif ($good->status == 'Shipped') {
-                    $countShipped = $countShipped + 1;
-                } elseif ($good->status == 'Completed') {
-                    $countCompleted = $countCompleted + 1;
-                }
-            }
-        }
-
-        // dd($countPending);
-
-        $countEmployees = Employee::where('branch_id', '=', $branch_id)->get()->count();
-
-        return view('backend.manager.manager', compact('packageNumber', 'packages', 'branch_id', 'departure_id', 'branch', 'goodNumber', 'countEmployees', 'countPending', 'countProcess', 'countShipped', 'countCompleted'));
+      
+        $countEmployees = Employee::get()->count();
+        $countPending = Package::where('status','=','Pending')->get()->count();
+        $countReceived = Package::where('status','=','Process')->get()->count();
+        $countShipped = Package::where('status','=','Shipped')->get()->count();
+        $countCompleted = Package::where('status','=','Completed')->get()->count();
+        
+        return view('backend.manager.manager', compact('packageNumber', 'packages', 'branch_id', 'departure_id', 'branch','countEmployees','countPending','countReceived','countShipped','countCompleted'));
     }
 
     /**

@@ -12,9 +12,13 @@ class PType extends Model
         'package_type',
     ];
 
-    public function goods()
+    // public function goods()
+    // {
+    //     return $this->hasOne(Goods::class, 'ptype_id', 'id');
+    // }
+    public function package()
     {
-        return $this->hasOne(Goods::class, 'ptype_id', 'id');
+        return $this->hasOne(Package::class);
     }
 
 }
