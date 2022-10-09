@@ -52,7 +52,7 @@
                             <div class="mt-3">Sender Phone Number: {{ $trackNum->sender_phone }}</div>
                             <div class="mt-3">Sender Email: {{ $trackNum->sender_email }}</div>
                             <div class="mt-3">Current Branch: {{ $trackNum->branch_departure->b_name }}</div>
-                         
+
                         </div>
                         <div class="col shadow-lg md-3">
                             <h6 class="text-dark bg-secondary text-uppercase p-3 text-center">Receiver Information</h6>
@@ -66,20 +66,20 @@
                 <div class="card mb-3 p-3 bg-white rounded">
                     <div class="p-4 text-center text-white text-lg bg-primary rounded-top"><span
                             class="text-uppercase">Tracking History</div>
-                            <div class="row mt-3">
-                                <div class="col shadow-lg md-3">
-                                    <h6 class="text-dark bg-secondary text-uppercase p-3 text-center">
-                                        Date </h6>
-                                    <div class="mt-3 text-center"> {{ $trackNum->created_at->toDateString() }}</div>
-                                   
-                                 
-                                </div>
-                                <div class="col shadow-lg md-3">
-                                    <h6 class="text-dark bg-secondary text-uppercase p-3 text-center">Status</h6>
-                                    <div class="mt-3 text-center"> {{ $trackNum->status }}</div>
-                                   
-                                </div>
-                            </div>
+                    <div class="row mt-3">
+                        <div class="col shadow-lg md-3">
+                            <h6 class="text-dark bg-secondary text-uppercase p-3 text-center">
+                                Date </h6>
+                            <div class="mt-3 text-center"> {{ $trackNum->created_at->toDateString() }}</div>
+
+
+                        </div>
+                        <div class="col shadow-lg md-3">
+                            <h6 class="text-dark bg-secondary text-uppercase p-3 text-center">Status</h6>
+                            <div class="mt-3 text-center"> {{ $trackNum->status }}</div>
+
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -90,11 +90,11 @@
                     <label class="custom-control-label" for="notify_me">Notify me when order is delivered</label>
                 </div>
                 <div class="text-left text-sm-right"><a class="btn btn-outline-primary btn-rounded btn-sm"
-                       href="{{ route('packages.show', $trackNum->id) }}">View Package Details</a></div>
+                        href="{{ route('packages.show', $trackNum->id) }}">View Package Details</a></div>
             </div>
         @endforeach
     </div>
-    
+
     <style>
         body {
             margin-top: 20px;

@@ -45,17 +45,20 @@
 
             <img src={{ asset('images/bg.png') }} alt="">
         </div>
-        <div style="margin-top:-80px" class="card_1 card-3">
-            <h1>Track Your Package !</h1>
-            <div class="container">
-                <div class="search-box">
-                    <input type="text" class="search-input" placeholder="Type Search.....">
-
-                    <button class="search-button">
-                        <i class='bx bx-search' style='color:#DE8F1F'></i>
-                    </button>
+        <div class="card_1 card-3" style="margin-top:-120px;">
+            <h1><b>Track Your Package !</b></h1>
+            <form class="col-md-8" action="{{ route('tracking') }}">
+                <div class="container">
+                    <div class="search-box">
+                        <input type="text" id="datatable-search-input" class="search-input" name="reference_number"
+                            placeholder="Search reference number.....">
+    
+                        <button class="search-button">
+                            <i class='bx bx-search' style='color: #DE8F1F; margin-top:-1px'></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     <div class="wrapper-1" style="margin-top: 180px">
