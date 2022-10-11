@@ -40,8 +40,17 @@ class DashbaordController extends Controller
 
        
         $departure_id = $branch->id;
+        $currentBranch = $branch->b_name;
         $countDeparture = Package::where('departure_id', '=', $branch_id)->get()->count();
         $countDestination = Package::where('destination_id', '=', $branch_id)->get()->count();
+        $totalPaid = Package::where('pay_status', '=', 'Paid')->get()->count(); 
+        $totalUnpaid = Package::where('pay_status', '=', 'Unpaid')->get()->count(); 
+        $totalDelivery = Package::where('pay_status', '=','Paid')->get();
+        $totalDeliveryCharge = 0;
+
+        foreach($totalDelivery as $delivery){
+            $totalDeliveryCharge = $totalDeliveryCharge + $delivery->delivery_charge;
+        }
 
         $packageNumber =  $countDeparture + $countDestination;
 
@@ -57,7 +66,7 @@ class DashbaordController extends Controller
         $countShipped = Package::where('status','=','Shipped')->get()->count();
         $countCompleted = Package::where('status','=','Completed')->get()->count();
         
-        return view('backend.manager.manager', compact('packageNumber', 'packages', 'branch_id', 'departure_id', 'branch','countEmployees','countPending','countReceived','countShipped','countCompleted'));
+        return view('backend.manager.manager', compact('packageNumber', 'packages', 'branch_id', 'departure_id', 'branch','countEmployees','countPending','countReceived','countShipped','countCompleted','totalDeliveryCharge','totalPaid','totalUnpaid','currentBranch'));
     }
 
     /**

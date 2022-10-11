@@ -33,6 +33,7 @@ class PackageController extends Controller
         $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
         $branch = Branch::where('user_id', '=', $user_id)->first();
         $departure_id = $branch->id;
+        $currentBranch = $branch->b_name;
         $branch_id = $departure_id;
         $destination_id = $package->destination_id;
         $ends = "";
@@ -64,7 +65,7 @@ class PackageController extends Controller
         //     $packages = Package::latest()->paginate(5);
         // }
 
-        return view('backend.manager.page.packages.index', compact('packages', 'branch_id', 'departure_id', 'branch', 'starts', 'ends', 'sendmessage'))
+        return view('backend.manager.page.packages.index', compact('packages', 'branch_id', 'departure_id', 'branch','starts','ends','sendmessage','currentBranch'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

@@ -17,8 +17,8 @@
                         <a href="http://dmgo.express/informationUser">form</a>
                     </ol>
                 </div> --}}
-                <i class='bx bx-calendar-week' style="margin-right:10%"></i>
-                <span id="time" style="position:absolute; margin-left:89%"></span>
+                <i class='bx bx-calendar-week' style="margin-right:20%"></i>
+                <span id="time" style="position:absolute; margin-left:80%"></span>
             </div>
         </div>
     </div>
@@ -156,112 +156,7 @@
         </div><!-- end col-->
     </div><!-- end row-->
 
-    <div class="row">
-        <div class="col-xl-8">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Sales Analytics</h4>
-
-                    <div class="row align-items-center">
-                        <div class="col-xl-8">
-                            <div id="analytics-chart" class="apex-charts"></div>
-                        </div><!-- end col -->
-
-                        <div class="col-xl-4">
-                            <h3 class="mt-2">$3,536.65</h3>
-                            <p class="text-muted">Curabitur lacinia eleifend justo eget
-                                lobortis ipsum feugiat ornare.
-                            </p>
-                            <div class="mt-3">
-                                <div class="border-bottom py-3">
-                                    <div class="d-flex align-items-center">
-                                        <div id="mini-1" class="apex-charts"></div>
-                                        <div class="flex-grow-1 ms-2">
-                                            <h4 class="mb-1 font-size-17">24,523</h4>
-                                            <span class="text-muted font-size-14">Total User</span>
-                                        </div>
-
-                                        <div class="flex-shrink-0 text-end">
-                                            <span
-                                                class="badge rounded-pill badge-soft-success font-size-12 fw-medium mb-1"><i
-                                                    class="mdi mdi-arrow-up-bold me-2"></i>2.65%</span>
-                                            <p class="text-muted font-size-14 mb-0">June 2021</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="border-bottom py-3">
-                                    <div class="d-flex align-items-center">
-                                        <div id="mini-2" class="apex-charts"></div>
-                                        <div class="flex-grow-1 ms-2">
-                                            <h4 class="mb-1 font-size-17">235M</h4>
-                                            <span class="text-muted font-size-14">Avarage sale</span>
-                                        </div>
-
-                                        <div class="flex-shrink-0 text-end">
-                                            <span
-                                                class="badge rounded-pill badge-soft-success font-size-12 fw-medium mb-1"><i
-                                                    class="mdi mdi-arrow-up-bold me-2"></i>350k</span>
-                                            <p class="text-muted font-size-14 mb-0">June 2021</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="py-3">
-                                    <div class="d-flex align-items-center">
-                                        <div id="mini-3" class="apex-charts"></div>
-                                        <div class="flex-grow-1 ms-1">
-                                            <h4 class="mb-1 font-size-17">7,854</h4>
-                                            <span class="text-muted font-size-14">Annual income</span>
-                                        </div>
-
-                                        <div class="flex-shrink-0 text-end">
-                                            <span
-                                                class="badge rounded-pill badge-soft-danger font-size-12 fw-medium mb-1"><i
-                                                    class="mdi mdi-arrow-down-bold me-2"></i>$38,580</span>
-                                            <p class="text-muted font-size-14 mb-0">June 2021</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- end col -->
-                    </div><!-- end row -->
-                </div><!-- end card-body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
-
-        <div class="col-xl-4">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Sales Reports</h4>
-                    <div class="mt-3">
-                        <div id="sales-reports" class="apex-carts"></div>
-                    </div>
-
-                    <div class="row mt-1">
-                        <div class="col border-end">
-                            <div class="text-center py-2">
-                                <p class="text-uppercase mb-0 text-muted"><i
-                                        class="mdi mdi-circle align-middle font-size-10 me-2 text-primary"></i>Online
-                                    Sales
-                                </p>
-                                <h4 class="mt-2 mb-0">65M</h4>
-                            </div>
-                        </div><!-- end col -->
-                        <div class="col">
-                            <div class="text-center py-2">
-                                <p class="text-uppercase mb-0 text-muted"><i
-                                        class="mdi mdi-circle align-middle font-size-10 me-2 text-danger"></i>Offline
-                                    Sales
-                                </p>
-                                <h4 class="mt-2 mb-0">125K</h4>
-                            </div>
-                        </div><!-- end col -->
-                    </div><!-- end row -->
-                </div><!-- end card-body -->
-            </div><!-- end card -->
-
-        </div><!-- end col -->
-    </div><!-- end row -->
-
+    
 
 
     <!-- end row -->

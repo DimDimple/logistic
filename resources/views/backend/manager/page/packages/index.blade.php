@@ -5,13 +5,14 @@
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <h4 class="mb-0">Package</h4>
-                <i class='bx bx-calendar-week' style="margin-right:60%"></i>
-                <span id="time" style=" position:absolute; margin-left:40%"></span>
+                <h4 class="mb-0">{{ $currentBranch }}</h4>
+                <i class='bx bx-calendar-week' style="margin-right:10%"></i>
+                <span id="time" style="position:absolute; margin-left:89%"></span>
             </div>
-            <a href="{{ route('package.export') }}">
+            {{-- <a href="{{ route('package.export') }}">
                 <button type="button" class="btn btn-secondary" style="margin-left: 90%;margin-top:-3%">Export
                     Excel</button>
-            </a>
+            </a> --}}
 
         </div>
     </div>
@@ -120,8 +121,20 @@
                                         <td>{{ $package->reference_number }}</td>
                                         <td>{{ $package->sender_phone }}</td>
                                         <td>{{ $package->receiver_phone }}</td>
-                                        <td> {{ $package->branch_departure->b_name }}</td>
-                                        <td> {{ $package->branch_destination->b_name }}</td>
+                                        <td>
+                                            @if ($package->departure_id == $branch_id)
+                                            <button type="button" style="background-color: white; border-radius: 15px; border: 1px solid green; color: green">{{ $package->branch_departure->b_name }}</button>
+                                            @else
+                                            <button type="button" style="background-color: white; border-radius: 15px; border: 1px solid purple; color: purple">{{ $package->branch_departure->b_name }}</button>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($package->destination_id == $branch_id)
+                                            <button type="button" style="background-color: white; border-radius: 15px; border: 1px solid green; color: green">{{ $package->branch_destination->b_name }}</button>
+                                            @else
+                                            <button type="button" style="background-color: white; border-radius: 15px; border: 1px solid purple; color: purple">{{ $package->branch_destination->b_name }}</button>
+                                            @endif
+                                            </td>
                                         <td>{{ $package->weight }} kg</td>
                                         <td>{{ $package->delivery_charge }} $</td>
                                         <td>{{ $package->status }}</td>

@@ -11,9 +11,9 @@
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <h4 class="mb-0">Dashboard</h4>
+                <h4 class="mb-0">{{ $currentBranch }}</h4>
                 <i class='bx bx-calendar-week' style="margin-right:10%"></i>
                 <span id="time" style="position:absolute; margin-left:89%"></span>
-
 
             </div>
         </div>
@@ -41,25 +41,26 @@
                     </div><!-- end card -->
                 </div><!-- end col-->
 
-                {{-- <div class="col-md-6 col-xl-3">
+                <div class="col-md-6 col-xl-3">
                     <div class="card overflow-hidden card-h-100">
                         <a class="card-body" href="{{ route('packages.index') }}">
                             <div class="d-flex justify-content-between">
-                                <h5 class="font-size-15 text-uppercase mb-0">Goods</h5>
+                                <h5 class="font-size-15 text-uppercase mb-0">Delivery Charge</h5>
                                 <div class="avatar-xs">
                                     <span class="avatar-title rounded bg-soft-success font-size-20 mini-stat-icon">
-                                        <i class='bx bxs-package' style='color:#43f517'></i>
+                                      
+                                        <i class='bx bx-money-withdraw' undefined style='color:#43f517'></i>
                                     </span>
                                 </div>
                             </div>
                             <h3 class="font-size-24 d-flex justify-content-center align-items-center"
-                                style="font-weight: 900; font-size:30px">{{ $goodNumber }}</h3>
-                            <p class="text-muted mb-0">Total Goods</p>
+                                style="font-weight: 900; font-size:30px">{{ $totalDeliveryCharge }}</h3>
+                            <p class="text-muted mb-0">Total delivery charges</p>
                         </a><!-- end card-body -->
 
 
                     </div><!-- end card -->
-                </div><!-- end col--> --}}
+                </div><!-- end col-->
 
                 <div class="col-md-6 col-xl-3">
                     <div class="card overflow-hidden card-h-100">
@@ -198,10 +199,10 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <div class="form-outline" style="width:20%; display:flex">
+                    {{-- <div class="form-outline" style="width:20%; display:flex">
                         <input type="search" class="form-control" id="myInput" style=" margin-top:3%"
                             placeholder="Search">
-                    </div>
+                    </div> --}}
 
                     <table id="myTable" class="table table-bordered dt-responsive nowrap"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
