@@ -11,12 +11,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href={{ asset('css/editprofile.css') }}>
     <link rel="stylesheet" href={{ asset('css/topsidebar.css') }}>
     <link rel="stylesheet" href={{ asset('css/profile.css') }}>
     <link rel="stylesheet" href={{ asset('css/style.css') }}>
     <link rel="stylesheet" href={{ asset('css/list.css') }}>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
     <!-- Font Awesome -->
     {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <!-- Google Fonts -->

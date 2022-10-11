@@ -24,7 +24,7 @@ class Package extends Model
         'product_description',
         'special_instruction',
         'weight',
-      
+
 
 
     ];
@@ -42,4 +42,5 @@ class Package extends Model
         return $this->hasOne(Branch::class, 'id', 'destination_id');
     }
 
+    
 }

@@ -120,7 +120,7 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('user.index')
-        ->with('message', 'User updated successfully');
+            ->with('message', 'User updated successfully');
     }
 
     /**
@@ -135,6 +135,29 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
         return redirect()->route('user.index')
-        ->with('message', 'User deleted successfully');
+                ->with('message', 'User deleted successfully');
+    }
+
+    public function resetPassword($id){
+        $user = User::find($id);
+        return view('backend.admin.user.reset', compact('user'));
+    }
+    public function setPassword(Request $request, $id){
+
+
+        // dd($user);
+        $request->validate([
+            'password'=>'required|min:8|confirmed'
+
+        ]);
+
+        User::whereId($id)->update([
+            'password'=> Hash::make($request->password)
+        ]);
+
+
+
+        return redirect()->route('user.index')
+            ->with('message', 'User reset password successfully');
     }
 }
