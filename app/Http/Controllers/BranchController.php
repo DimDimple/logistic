@@ -163,32 +163,32 @@ class BranchController extends Controller
         $branch = Branch::find($id);
         $user = User::find($branch->user_id);
 
-        if ($request->password == null) {
-            $request->validate([
-                'name' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
-            ]);
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-            ]);
-            // $branch->update($user);
-        } else {
-            $request->validate([
-                'name' => 'required',
-                'email' => 'required',
-                'password' => 'required|min:8|confirmed',
-                'phone' => 'required|min:7|',
-            ]);
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'password' => Hash::make($request->password),
-            ]);
-        }
+        // if ($request->password == null) {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+        ]);
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ]);
+        // $branch->update($user);
+        // } else {
+        // $request->validate([
+        //     'name' => 'required',
+        //     'email' => 'required',
+        //     'password' => 'required|min:8|confirmed',
+        //     'phone' => 'required|min:7|',
+        // ]);
+        //     $user->update([
+        //         'name' => $request->name,
+        //         'email' => $request->email,
+        //         'phone' => $request->phone,
+        //         'password' => Hash::make($request->password),
+        //     ]);
+        // }
         //dd((int)$request->location_id);
         $branch->update(
             [
@@ -242,5 +242,29 @@ class BranchController extends Controller
             return redirect()->route('branch.index');
         }
         return redirect()->route('branch.index');
+    }
+
+    public function resetPassword($id)
+    {
+        $user = User::find($id);
+        return view('backend.admin.branches.reset', compact('user'));
+    }
+
+    public function setPassword(Request $request, $id)
+    {
+        // dd($request);
+        $request->validate([
+            'password' => 'required|min:8|confirmed'
+
+        ]);
+
+        User::whereId($id)->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+
+
+        return redirect()->route('branch.index')
+            ->with('message', 'User reset password successfully');
     }
 }

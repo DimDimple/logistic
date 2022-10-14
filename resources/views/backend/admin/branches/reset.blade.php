@@ -2,27 +2,29 @@
 
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-9 mt-4">
+        <div class="col-6 mt-4">
+            <div class=" ">
+                <h3>Reset account password</h3>
+                <p>Enter a new password for {{  $user->email }} </p>
+            </div>
+
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">ADD NEW USER</h4><br>
 
-                    <form action="{{ route('user.store') }}" class="custom-validation" method="POST">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <strong>Oops!</strong> There were some problems with your input.<br><br>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form action="{{ route('branch.setPassword', $user->id) }}" class="custom-validation" method="POST">
                         @csrf
-                        <div class=" row mb-3">
-                            <label for="b_name" class="col-sm-2 col-form-label">Name</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" id="name" name="name" placeholder="name">
-                            </div>
-                        </div>
+                        @method('PUT')
 
-                        <div class=" row mb-3">
-                            <label for="email" class="col-sm-2 col-form-label">E-mail</label>
-                            <div class="col-sm-10">
-                                <input type="email" class="form-control" id="email" required parsley-type="email"
-                                    name="email" placeholder="Enter a valid e-mail" />
-                            </div>
-                        </div>
                         <div class=" row mb-3">
                             <label for="password" class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-10">
@@ -32,7 +34,7 @@
                                         required autocomplete="current-password"
                                         placeholder="Must have at least 8 characters" class="form-control height-35 f-14">
                                     <div class="input-group-append">
-                                        <span onclick="copyPassword()" data-toggle="tooltip"
+                                        <button onclick="copyPassword()" data-toggle="tooltip"
                                             data-original-title="Show/Hide Value"
                                             class="btn btn-outline-secondary border-grey height-35 toggle-password">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -40,7 +42,7 @@
                                                 <path
                                                     d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z" />
                                             </svg>
-                                        </span>
+                                        </button>
                                     </div>
 
                                     <div class="input-group-append">
@@ -72,11 +74,13 @@
                                     </div>
 
                                 </div>
+                                <small class="form-text text-muted">Leave blank to keep current password.</small>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+
                             </div>
 
                         </div>
@@ -90,20 +94,21 @@
                                         name="password_confirmation" required autocomplete="current-password"
                                         parsley-type="password" placeholder="Enter a valid password" />
                                     {{-- <div class="input-group-append">
-                                        <span onclick="showPassword('password')" id="toggle_password2"
-                                            data-toggle="tooltip" data-original-title="Show/Hide Value"
-                                            class="btn btn-outline-secondary border-grey height-35 toggle-password"><svg
-                                                xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                                                <path
-                                                    d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-                                            </svg>
-                                        </span>
+                                    <span onclick="showPassword('password')" id="toggle_password2"
+                                        data-toggle="tooltip" data-original-title="Show/Hide Value"
+                                        class="btn btn-outline-secondary border-grey height-35 toggle-password"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                            <path
+                                                d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                        </svg>
+                                    </span>
 
 
-                                    </div> --}}
+                                </div> --}}
                                 </div>
+                                <small class="form-text text-muted">Confirm Password should match current password.</small>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -112,21 +117,13 @@
                             </div>
                         </div>
 
-                        <div class=" row mb-3">
-                            <label for="phone" class="col-sm-2 col-form-label">Phone Number</label>
-                            <div class="col-sm-10">
-                                <input type="number" class="form-control" id="phone" required parsley-type="phone"
-                                    name="phone" placeholder="Enter a valid phone number" />
-                            </div>
-                        </div>
-
                         <div class="mb-0 float-end">
                             <div>
                                 <button type="submit" class="btn btn-primary waves-effect waves-light me-1">
-                                    Submit
+                                    Reset password
                                 </button>
-                                <a class="btn btn-secondary " href="{{ route('user.index') }}"> Back</a>
-                                {{-- <a class="btn btn-secondary" href="{{ route('employees.index') }}"> Back</a> --}}
+                                <a class="btn btn-secondary " href="{{ route('branch.index') }}"> Back</a>
+                                {{-- <a class="btn btn-secondary" href="{{ route('employees.index') }}"> Back</a> {{ $branch->location_id == $location->id ? "selected" : "true" }} --}}
 
                             </div>
                         </div>
@@ -135,5 +132,6 @@
 
                 </div>
             </div>
-        </div> <!-- end col -->
-    @endsection
+        </div>
+    </div> <!-- end col -->
+@endsection

@@ -119,9 +119,12 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
     Route::post('/editprofile', [ProfileController::class, 'upload'])->name('profile.upload');
 
-    Route::get('/orderlist', [ListController::class, 'index']);
+    Route::get('/orderlist', [ListController::class, 'index'])->name('orderlist');
     Route::get('/emptylist', [ListController::class, 'index']);
-    
+    Route::get('/orderlist/process', [ListController::class, 'orderProcess'])->name('orderProcess');
+    Route::get('/orderlist/completed', [ListController::class, 'orderCompleted'])->name('orderCompleted');
+
+
 
 });
 
@@ -138,7 +141,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/dashboard', [DashbaordController::class, 'adminHome'])->name('admin');
 
     Route::get('/changepassworda', [PasswordAController::class, 'changePwdA'])->name('changePwdA');
-    Route::post('/updatepasswora', [PasswordAController::class, 'updatePwdA'])->name('updatePwdA');
+    Route::post('/updatepassworda', [PasswordAController::class, 'updatePwdA'])->name('updatePwdA');
 
     Route::get('/editprofilea', [ProfileAController::class, 'edit'])->name('editProfile.admin');
 
@@ -147,12 +150,19 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::post('/editprofilea', [ProfileAController::class, 'upload'])->name('uploadProfileA.upload');
 
 
-
+    Route::get('/admin/user/resetpassword/{id}',[UserController::class,'resetPassword'])->name('user.resetPassword');
+    Route::put('/admin/user/setpassword/{id}',[UserController::class,'setPassword'])->name('user.setPassword');
+    
     Route::resource('/new/admin', AdminController::class);
     Route::resource('/admin/user', UserController::class);
+
+
+
     // Route::resource('/admin/employee', EmployeeController::class);
     Route::resource('/admin/location', LocationController::class);
     Route::get('admin/branch/updatestatus/{id}', [BranchController::class, 'updateStatus'])->name('updateBranchStatus');
+    Route::get('/admin/branch/resetpassword/{id}',[BranchController::class,'resetPassword'])->name('branch.resetPassword');
+    Route::put('/admin/branch/setpassword/{id}',[BranchController::class,'setPassword'])->name('branch.setPassword');
     Route::resource('/admin/branch', BranchController::class);
     // Route::resource('/admin/manager', ManagerController::class);
 
@@ -211,11 +221,11 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     // Route::resource('/manager/storage', StorageController::class);
     // Route::post('/manager/goods/search', [StorageController::class,'index'])->name('searchGoods');
     // Route::resource('/manager/goods', StorageController::class);
-  
+
     Route::get('/manager/tracking', [TrackController::class, 'track'])->name('track');
     Route::get('/manager/export/excel', [EmployeeController::class, 'excel'])->name('employee.export');
     // Route::post('/manager/employees/search', [EmployeeController::class,'index'])->name('searchEmployee');
-   
+
     // Route::get('/manager/create',function(){
     //         return view('backend.manager.page.packages.create');
     // });
