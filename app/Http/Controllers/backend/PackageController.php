@@ -112,18 +112,7 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        // // dd($request);
-        // $lastId = Storage::get()->last()->id;
-
-        // for ($i = 0; $i < $request->num - 1; $i++) {
-        //     $array[$i] = $lastId - $i;
-        // }
-
-        //if we have 7iterm before then we input 3 iterm more we get 3 iterms
-
-        // $goods = Storage::find($array);
-        //find array in goods
-// dd($request);
+      
         $request->validate([
             'sender_phone' => 'required',
             'receiver_phone' => 'required',
