@@ -9,7 +9,7 @@ use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -212,6 +212,15 @@ class EmployeeController extends Controller
 
     public function excel()
     {
+        $user_id = Auth::user()->id;
+        $branch = Branch::where('user_id', '=', $user_id)->first()->b_name;
+        $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
+        // dd($branch_id);
+
+        if(File::exists(public_path('report/EmployeeReport-' . $branch . '.xlsx'))){
+            File::delete(public_path('report/EmployeeReport-' . $branch . '.xlsx'));
+        }
+
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -227,7 +236,8 @@ class EmployeeController extends Controller
         $sheet->setCellValue('J1', 'pob');
 
 
-        $employees = Employee::get();
+        $employees = Employee::where('branch_id', '=', $branch_id)->get();
+        // dd($employees);
         $rows = 2;
 
         foreach ($employees as $employee) {
@@ -247,7 +257,7 @@ class EmployeeController extends Controller
         }
 
         $writer = new Xlsx($spreadsheet);
-        $writer->save('report/EmployeeReport.xlsx');
+        $writer->save('report/EmployeeReport-' . $branch . '.xlsx');
 
         return redirect()->route('employeebranch.index')
             ->with('message', 'Excel exported successfully.');

@@ -9,10 +9,10 @@
                 <i class='bx bx-calendar-week' style="margin-right:10%"></i>
                 <span id="time" style="position:absolute; margin-left:89%"></span>
             </div>
-            {{-- <a href="{{ route('package.export') }}">
+            <a href="{{ route('package.export') }}">
                 <button type="button" class="btn btn-secondary" style="margin-left: 90%;margin-top:-3%">Export
                     Excel</button>
-            </a> --}}
+            </a>
 
         </div>
     </div>

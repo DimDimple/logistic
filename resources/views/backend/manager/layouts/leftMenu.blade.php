@@ -92,12 +92,12 @@
                         <li><a href="/manager/completed">Completed</a></li>
                     </ul>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="/manager/reports" class="waves-effect">
                         <i class='bx bxs-report' ></i>
                         <span>Reports</span>
                     </a>
-                </li>
+                </li> --}}
 
             </ul>
         </div>

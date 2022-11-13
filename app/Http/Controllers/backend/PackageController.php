@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
+use File;
 class PackageController extends Controller
 {
     /**
@@ -114,8 +114,7 @@ class PackageController extends Controller
     {
 
 
-
-        // // dd($request);
+        // dd($request);
         // $lastId = Storage::get()->last()->id;
 
         // for ($i = 0; $i < $request->num - 1; $i++) {
@@ -140,8 +139,8 @@ class PackageController extends Controller
             'package_price' => 'required',
             'ptype_id' => 'required',
             'delivery_charge' => 'required',
-            'product_description' => 'required',
-            'special_instruction' => 'required',
+            // 'product_description' => 'required',
+            // 'special_instruction' => 'required',
             'weight' => 'required',
 
         ]);
@@ -348,8 +347,8 @@ class PackageController extends Controller
             'package_price' => 'required',
             'ptype' => 'required',
             'delivery_charge' => 'required',
-            'product_description' => 'required',
-            'special_instruction' => 'required',
+            // 'product_description' => 'required',
+            // 'special_instruction' => 'required',
             'weight' => 'required',
 
         ]);
@@ -380,6 +379,16 @@ class PackageController extends Controller
 
     public function excel()
     {
+        $user_id = Auth::user()->id;
+        $branch_name = Branch::where('user_id', '=', $user_id)->first()->b_name;
+        $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
+
+
+        if(File::exists(public_path('report/PackageReport-' . $branch_name . '.xlsx'))){
+            File::delete(public_path('report/PackageReport-' . $branch_name . '.xlsx'));
+        }
+
+
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -394,10 +403,10 @@ class PackageController extends Controller
         $sheet->setCellValue('G1', 'total_fee');
         $sheet->setCellValue('H1', 'total_items');
 
-        $packages = Package::get();
+        $packages = Package::where('departure_id','=',$branch_id)->orWhere('destination_id','=',$branch_id)->get();
         $rows = 2;
 
-        $user_id = Auth::user()->id;
+
         $branch = Branch::where('user_id', '=', $user_id)->first();
 
         foreach ($packages as $package) {
@@ -422,7 +431,7 @@ class PackageController extends Controller
 
 
         $writer = new Xlsx($spreadsheet);
-        $writer->save('report/PackageReport.xlsx');
+        $writer->save('report/PackageReport-' . $branch_name . '.xlsx');
 
         return redirect()->route('packages.index')
             ->with('message', 'Excel exported successfully.');

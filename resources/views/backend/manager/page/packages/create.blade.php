@@ -19,8 +19,6 @@
     <div class="row ">
         <div class="col">
             <div class="card">
-
-
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -31,8 +29,6 @@
                         </ul>
                     </div>
                 @endif
-
-
 
                 <form action="{{ route('packages.store') }}" method="POST">
                     @csrf
@@ -46,9 +42,10 @@
                                 <div class="row mb-4">
                                     <div class="col">
                                         <div class="form-outline">
-                                            <label class="form-label" for="form7Example1">Sender Phone Number</label>
+                                            <label class="form-label" for="form7Example1">Sender Phone Number *</label>
                                             <input type="number" id="form7Example1" class="form-control"
-                                                name="sender_phone" />
+                                                name="sender_phone" required />
+
 
                                         </div>
                                     </div>
@@ -90,9 +87,9 @@
                                 <div class="row mb-4">
                                     <div class="col">
                                         <div class="form-outline">
-                                            <label class="form-label" for="form7Example1">Receiver Phone Number</label>
+                                            <label class="form-label" for="form7Example1">Receiver Phone Number *</label>
                                             <input type="number" id="form7Example1" class="form-control"
-                                                name="receiver_phone" />
+                                                name="receiver_phone" required/>
 
                                         </div>
                                     </div>
@@ -111,9 +108,9 @@
 
                                 <div class="row mb-5">
                                     <div class="col">
-                                        <label class="form-label" for="form7Example2">Destination Branch</label>
+                                        <label class="form-label" for="form7Example2">Destination Branch *</label>
                                         <select class="form-select" aria-label="Disabled select example"
-                                            name="destination_id">
+                                            name="destination_id" required>
                                             <option selected>Destination</option>
                                             @foreach ($branches as $branchOne)
                                                 @if ($branchOne->id !== $departure_id)
@@ -133,17 +130,17 @@
                                 <div class="row mb-4">
                                     <div class="col">
                                         <div class="form-outline">
-                                            <label class="form-label" for="form7Example1">Package Price</label>
+                                            <label class="form-label" for="form7Example1">Package Price *</label>
                                             <input type="text" id="form7Example1" class="form-control"
-                                                name="package_price" />
+                                                name="package_price" required/>
 
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-outline">
-                                            <label class="form-label" for="form7Example1">Package types</label>
+                                            <label class="form-label" for="form7Example1">Package types *</label>
                                             <select class="form-select" name="ptype_id"
-                                                aria-label=".form-select-lg example">
+                                                aria-label=".form-select-lg example" required>
                                                 <option selected>Package Type</option>
                                                 @foreach ($package_types as $package_type)
                                                     <option value="{{ $package_type->id }}">
@@ -154,23 +151,24 @@
                                     </div>
                                     <div class="col">
                                         <div class="form-outline">
-                                            <label class="form-label" for="form7Example2">Weight(kg)</label>
+                                            <label class="form-label" for="form7Example2">Weight(kg) *</label>
                                             <input type="text" id="form7Example2" class="form-control"
-                                                name="weight" />
+                                                name="weight" required />
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-outline">
-                                            <label class="form-label" for="form7Example2">Delivery Charges</label>
+                                            <label class="form-label" for="form7Example2">Delivery Charges *</label>
                                             <input type="text" id="form7Example2" class="form-control"
-                                                name="delivery_charge" />
+                                                name="delivery_charge" required/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col">
+                                        <label class="form-label" for="form7Example2">Payment Status *</label>
                                         <select class="form-select" aria-label="Disabled select example"
-                                            name="pay_status">
+                                            name="pay_status" required>
                                             <option selected>Payment Status</option>
                                             <option value="Paid">Paid</option>
                                             <option value="Unpaid">Unpaid</option>
@@ -179,11 +177,11 @@
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <label class="form-label" for="form7Example2">Status</label>
-                                        <select class="form-select" aria-label="Disabled select example" name="status">
+                                        <label class="form-label" for="form7Example2">Status *</label>
+                                        <select class="form-select" aria-label="Disabled select example" name="status" required>
                                             <option selected>Status</option>
                                             <option value="Pending">Pending</option>
-                                          
+
                                         </select>
                                     </div>
                                 </div>
@@ -217,6 +215,5 @@
             </div>
         </div>
     </div>
-
 
 @endsection

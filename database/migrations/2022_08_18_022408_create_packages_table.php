@@ -25,8 +25,8 @@ return new class extends Migration
             $table->float('package_price', 8,2);
             $table->unsignedBigInteger('ptype_id');
             $table->float('delivery_charge',8,2);
-            $table->string('product_description');
-            $table->string('special_instruction');
+            $table->string('product_description')->nullable();
+            $table->string('special_instruction')->nullable();
             $table->string('status');
             $table->float('weight', 8,2);
             // $table->string('status');
