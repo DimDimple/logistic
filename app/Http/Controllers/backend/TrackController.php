@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class TrackController extends Controller
 {
-   
+
     public function track(Request $request)
     {
 
@@ -23,10 +23,18 @@ class TrackController extends Controller
 
         $trackNumber = Package::where('reference_number', '=', $request->reference_number)->get();
 
-   
-       
-        
-        return view('backend.manager.page.track.index', compact('trackNumber'))
+
+        $track="";
+        //check condition true or false
+        //$trackNumber->isEmpty() is a function check array that have data or not
+        //isset($request->reference_number) check if user input reference number or not
+
+        $not_exist = 0;//false
+        if($trackNumber->isEmpty() && isset($request->reference_number)) {
+            $not_exist = 1;//true
+        }
+
+        return view('backend.manager.page.track.index', compact('trackNumber','not_exist'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

@@ -51,7 +51,7 @@
                 <div class="container">
                     <div class="search-box">
                         <input type="text" id="datatable-search-input" class="search-input" name="reference_number"
-                            placeholder="Search reference number.....">
+                            placeholder="Search reference number....." >
     
                         <button class="search-button">
                             <i class='bx bx-search' style='color: #DE8F1F; margin-top:-1px'></i>

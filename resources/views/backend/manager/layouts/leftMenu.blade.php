@@ -80,7 +80,7 @@
 
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
-                        <i class='bx bxs-user-account'></i>
+                        <i class='bx bx-list-check' ></i>
                         <span class="badge rounded-pill bg-danger float-end">4</span>
                         <span>Packages</span>
                     </a>
@@ -90,8 +90,13 @@
                         <li><a href="/manager/shipped">Shipped</a></li>
                         <li><a href="/manager/received">Received</a></li>
                         <li><a href="/manager/completed">Completed</a></li>
-
                     </ul>
+                </li>
+                <li>
+                    <a href="/manager/reports" class="waves-effect">
+                        <i class='bx bxs-report' ></i>
+                        <span>Reports</span>
+                    </a>
                 </li>
 
             </ul>

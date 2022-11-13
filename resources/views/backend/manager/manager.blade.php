@@ -189,7 +189,7 @@
         </div><!-- end col -->
     </div><!-- end row-->
     <div class="row">
-        <div class="col-12">
+        <div class="col-xl-10">
             <div class="card">
                 <div class="card-body">
                     <h1 class="card-title">List Package</h1>
@@ -216,7 +216,7 @@
                                 <th>Receiver Detail</th>
                                 <th>Shipment Detail</th>
                                 <th>Payments</th>
-                                <th>Payment Status</th>
+                                <th>Pay Status</th>
 
                             </tr>
                         </thead>
@@ -268,5 +268,35 @@
                 </div>
             </div>
         </div> <!-- end col -->
+        <div class="col-xl-2">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Total Payment status</h4>
+                    <div class="mt-3">
+                        <div id="sales-reports" class="apex-carts"></div>
+                    </div>
+
+                    <div class="row mt-1">
+                        <div class="col border-end">
+                            <div class="text-center py-2">
+                                <p class="text-uppercase mb-0 text-muted"><i
+                                        class="mdi mdi-circle align-middle font-size-10 me-2 text-primary"></i>Paid
+                                </p>
+                                <h4 class="mt-2 mb-0">{{ $totalPaid }}</h4>
+                            </div>
+                        </div><!-- end col -->
+                        <div class="col">
+                            <div class="text-center py-2">
+                                <p class="text-uppercase mb-0 text-muted"><i
+                                        class="mdi mdi-circle align-middle font-size-10 me-2 text-danger"></i>Unpaid
+                                </p>
+                                <h4 class="mt-2 mb-0">{{ $totalUnpaid }}</h4>
+                            </div>
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+                </div><!-- end card-body -->
+            </div><!-- end card -->
+
+        </div><!-- end col -->
     </div> <!-- end row -->
 @endsection

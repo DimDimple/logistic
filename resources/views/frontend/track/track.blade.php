@@ -13,7 +13,7 @@
             <div class="container">
                 <div class="search-box">
                     <input type="text" id="datatable-search-input" class="search-input" name="reference_number"
-                        placeholder="Search reference number.....">
+                        placeholder="Search reference number....." value="{{ $track }}">
 
                     <button class="search-button">
                         <i class='bx bx-search' style='color: #DE8F1F; margin-top:-1px'></i>
@@ -26,7 +26,16 @@
 
 
     <div class="container padding-bottom-3x mb-5" style="margin-top: 50px">
+
+            @if ($not_exist == 1)
+                <div class="card mb-3 p-3 bg-white ">
+                    <div class="p-3 text-center text-black text-lg " style="background-color:#DE8F1F">
+                        <span class="text-uppercase" style="font-size: 30px; font-weight:500" >Package Not Found</span>
+                    </div>
+                </div>
+            @endif
         @foreach ($trackNumber as $trackNum)
+
             <div class="shadow-lg p-3 mb-5 bg-body rounded border border-warning">
                 <div class="card mb-3 p-3 bg-white ">
                     <div class="p-3 text-center text-white text-lg " style="background-color:#DE8F1F"><span
@@ -76,7 +85,7 @@
 
                 </div>
             </div>
-            <div
+            {{-- <div
                 class="d-flex flex-wrap flex-md-nowrap justify-content-center justify-content-sm-between align-items-center">
                 <div class="custom-control custom-checkbox mr-3">
                     <input class="custom-control-input" type="checkbox" id="notify_me" checked="">
@@ -84,7 +93,7 @@
                 </div>
                 <div class="text-left text-sm-right"><a class="btn btn-outline-primary btn-rounded btn-sm"
                         href="{{ route('packages.show', $trackNum->id) }}">View Package Details</a></div>
-            </div>
+            </div> --}}
         @endforeach
     </div>
 

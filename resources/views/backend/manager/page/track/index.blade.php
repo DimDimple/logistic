@@ -17,7 +17,7 @@
     </div>
     <div class="card text-center">
         <div class="card-body">
-            <h2 class="card-title">Tracking Your Package</h2>
+            <h2 class="card-title" style="font-size: 20px; font-weight:500">Tracking Your Package</h2>
             <div class="row height d-flex justify-content-center align-items-center">
 
                 <form class="col-md-8" action="{{ route('track') }}">
@@ -37,13 +37,23 @@
 
     </div>
 
+    @if ($not_exist == 1)
+            <div style="display:flex; align-items:center; justify-content:center">
+                <div class="card mb-3 p-3 bg-white" style="width: 50%">
+                    <div class="p-4 text-center text-white text-lg bg-primary rounded-top" >
+                        <span class="text-uppercase" style="font-size: 20px; font-weight:500">Package Not Found</span>
+                    </div>
+                </div>
+            </div>
+        @endif
     <div class="container padding-bottom-3x mb-1">
+
 
         @foreach ($trackNumber as $trackNum)
             <div class="card">
                 <div class="card mb-3 p-3 bg-white rounded">
                     <div class="p-4 text-center text-white text-lg bg-primary rounded-top"><span
-                            class="text-uppercase">Tracking
+                            class="text-uppercase"  >Tracking
                             No - </span><span class="text-medium">{{ $trackNum->reference_number }}</span></div>
                     <div class="row mt-3">
                         <div class="col shadow-lg md-3">

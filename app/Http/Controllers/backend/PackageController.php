@@ -84,7 +84,7 @@ class PackageController extends Controller
         $user_id = Auth::user()->id;
         $branch = Branch::where('user_id', '=', $user_id)->first();
         $departure_id = $branch->id;
-
+        $currentBranch = $branch->b_name;
 
         // $package_type = PType::get()->first();
         $package_types = PType::get();
@@ -101,7 +101,7 @@ class PackageController extends Controller
         // Goods::create($request->all());
         // $num = $request->num;
 
-        return view('backend.manager.page.packages.create', compact('branches', 'departure_id', 'package_types'));
+        return view('backend.manager.page.packages.create', compact('branches', 'departure_id', 'package_types','currentBranch'));
     }
 
     /**
@@ -113,7 +113,7 @@ class PackageController extends Controller
     public function store(Request $request)
     {
 
-      
+
 
         // // dd($request);
         // $lastId = Storage::get()->last()->id;
@@ -161,7 +161,7 @@ class PackageController extends Controller
             'delivery_charge' => (float)$request['delivery_charge'],
             'product_description' => $request['product_description'],
             'special_instruction' => $request['special_instruction'],
-            'reference_number' => ("DM" . random_int(1000, 9999)), //random to user // string DM + 4 number
+            'reference_number' => ("DM" . random_int(100000, 999999)), //random to user // string DM + 4 number
         ]);
 
         //    dd($savedPackage);
@@ -174,6 +174,8 @@ class PackageController extends Controller
         //find branch location of manager
         $user_id = Auth::user()->id;
         $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
+        $branch = Branch::where('user_id', '=', $user_id)->first();
+        $currentBranch = $branch->b_name;
 
         // $branch = Branch::where("")->branch;
         // @dd($branch);
@@ -185,7 +187,7 @@ class PackageController extends Controller
         // unset $request;
         // @dd($request);
 
-        return view('backend.manager.page.packages.index', compact('packages', 'branch_id', 'ends', 'starts', 'sendmessage'))
+        return view('backend.manager.page.packages.index', compact('packages', 'branch_id', 'ends', 'starts', 'sendmessage','currentBranch'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -341,8 +343,8 @@ class PackageController extends Controller
             'destination_id' => 'required',
             'status' => 'required',
             'pay_status' => 'required',
-            'sender_email' => 'required',
-            'receiver_email' => 'required',
+            // 'sender_email' => 'required',
+            // 'receiver_email' => 'required',
             'package_price' => 'required',
             'ptype' => 'required',
             'delivery_charge' => 'required',

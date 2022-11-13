@@ -19,6 +19,7 @@ class TrackingController extends Controller
         // dd('dd');
 
         $trackNumber = Package::where('reference_number', '=', $request->reference_number)->get();
+        // dd($trackNumber);
 
         // $departure = Package::where('departure_id', '=', $request->departure_id)->get();
         // $departure_id = $trackNumber->departure_id;
@@ -39,12 +40,19 @@ class TrackingController extends Controller
 
         // if ($trackNumber != $trackNumber){
         //     return view('frontend.track.emptytrack');
-        // } 
+        // }
         // else{
         //     return view('frontend.track.track');
         // }
 
-        return view('frontend.track.track', compact('trackNumber'))
+        $track="";
+
+        $not_exist = 0;
+        if($trackNumber->isEmpty() && isset($request->reference_number)) {
+            $not_exist = 1;
+        }
+
+        return view('frontend.track.track', compact('trackNumber','track', 'not_exist'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
