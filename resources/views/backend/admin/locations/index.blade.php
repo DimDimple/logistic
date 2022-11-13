@@ -44,13 +44,15 @@
                         <tbody>
                             @foreach ($locations as $key => $location)
                                 <tr>
-                                    
+
                                     <th scope="row">{{ ++$key }}</th>
                                     {{-- <td>{{ $location->id }}</td> --}}
                                     <td>{{ $location->province }}</td>
                                     <td>{{ $location->address }}</td>
                                     <td>
                                         <form action="{{ route('location.destroy', $location->id) }}" method="POST">
+                                            <a class="btn btn-warning btn-sm-rounded btn-sm waves-effect waves-light"
+                                            href="{{ route('location.edit',$location->id ) }}" title='Edit'>Edit</a>
 
                                             @csrf
                                             @method('DELETE')

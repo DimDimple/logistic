@@ -46,6 +46,11 @@ class TrackingController extends Controller
         // }
 
         $track="";
+        if($trackNumber != "" ){
+            foreach($trackNumber as $tracks){
+                $track = $tracks->reference_number;
+            }
+        }
 
         $not_exist = 0;
         if($trackNumber->isEmpty() && isset($request->reference_number)) {

@@ -90,17 +90,17 @@
                     <div class="card overflow-hidden card-h-100">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h5 class="font-size-15 text-uppercase mb-0">Income</h5>
+                                <h5 class="font-size-15 text-uppercase mb-0">Total Branches</h5>
                                 <div class="avatar-xs">
                                     <span class="avatar-title rounded bg-soft-success font-size-20 mini-stat-icon">
-                                        <i class="ri-wallet-3-line text-success"></i>
+                                        <i class='bx bxs-group' ></i>
                                     </span>
                                 </div>
                             </div>
-                            <h3 class="font-size-24">$ 600
+                            <h3 class="font-size-24">{{ $totalBranches }}
                                 {{-- <span class="text-danger fw-normal font-size-14 ms-2">+3.16%</span> --}}
                             </h3>
-                            <p class="text-muted mb-0">Total income </p>
+                            <p class="text-muted mb-0">Total Branches </p>
                         </div><!-- end card-body -->
 
                         <!-- user chart -->
@@ -111,17 +111,17 @@
                     <div class="card overflow-hidden card-h-100">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h5 class="font-size-15 text-uppercase mb-0">Unpaid Income</h5>
+                                <h5 class="font-size-15 text-uppercase mb-0">Total Fee</h5>
                                 <div class="avatar-xs">
                                     <span class="avatar-title rounded bg-soft-success font-size-20 mini-stat-icon">
                                         <i class="ri-wallet-3-line text-success"></i>
                                     </span>
                                 </div>
                             </div>
-                            <h3 class="font-size-24">$ 62
+                            <h3 class="font-size-24">{{ $totalDeliveryCharge }}
                                 {{-- <span class="text-danger fw-normal font-size-14 ms-2">+3.16%</span> --}}
                             </h3>
-                            <p class="text-muted mb-0">Total unpaid income </p>
+                            <p class="text-muted mb-0">Total Delivery Charges</p>
                         </div><!-- end card-body -->
 
                         <!-- user chart -->
@@ -133,17 +133,17 @@
                     <div class="card overflow-hidden card-h-100">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h5 class="font-size-15 text-uppercase mb-0"> Total Orders</h5>
+                                <h5 class="font-size-15 text-uppercase mb-0"> Total Packages</h5>
                                 <div class="avatar-xs">
                                     <span class="avatar-title rounded bg-soft-danger font-size-20 mini-stat-icon">
                                         <i class="ri-shopping-cart-line text-danger"></i>
                                     </span>
                                 </div>
                             </div>
-                            <h3 class="font-size-24">48
+                            <h3 class="font-size-24">{{ $totalPackages }}
                                 {{-- <span class="text-danger fw-normal font-size-14 ms-2">+3.16%</span> --}}
                             </h3>
-                            <p class="text-muted mb-0">Total customer makes order</p>
+                            <p class="text-muted mb-0">Total packages</p>
                         </div><!-- end card-body -->
 
                         <!-- order chart -->
@@ -249,7 +249,75 @@
 
             </div><!-- end col -->
         </div><!-- end row --> --}}
+
     </div><!-- end row-->
+
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">List Branch</h1>
+                    <table id="myTable" class="table table-bordered dt-responsive nowrap"
+                        style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Branch No.</th>
+                                <th>Branch Name</th>
+                                <th>Manager Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Location</th>
+                                <th>Created Date</th>
+                                <th>Status</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($branches as $key => $branch)
+                                {{-- @php
+                    // dd($branch->users);
+                    $branches = $branch->users()->first();
+
+                @endphp --}}
+                                {{-- @foreach ($branches->users as $user)
+
+                @endforeach --}}
+                                <tr>
+                                    <th scope="row">{{ ++$key }}</th>
+                                    {{-- <th>{{ $branch->branch_id }}</th> --}}
+                                    <td>{{ $branch->b_name }}</td>
+                                    <td>{{ $branch->user->name }}</td>
+                                    <td>{{ $branch->user->email }}</td>
+                                    <td>{{ $branch->user->phone }}</td>
+                                    <td>{{ $branch->location->province }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($branch->created_at)) }}</td>
+                                    {{-- @dd($branch->user->name); --}}
+                                    @if ($branch->status == 'Open')
+                                        <td>
+                                            <a href="{{ route('updateBranchStatus', $branch->id) }}"
+                                                class="badge rounded-pill bg-success"
+                                                style="font-size:1.1em">{{ $branch->status }}</a>
+                                        </td>
+                                    @else
+                                        <td>
+                                            <a href="{{ route('updateBranchStatus', $branch->id) }}"
+                                                class="badge rounded-pill bg-danger"
+                                                style="font-size:1.1em">{{ $branch->status }}</a>
+                                        </td>
+                                    @endif
+
+                                </tr>
+                            @endforeach
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

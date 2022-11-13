@@ -23,7 +23,7 @@
                 <form class="col-md-8" action="{{ route('track') }}">
                     <div class="form-outline" style="width:100%; display:flex">
                         <input type="text" class="form-control" id="datatable-search-input" name="reference_number"
-                            style="margin-left:10%" placeholder="Search Tracking Number.........">
+                            style="margin-left:10%" placeholder="Search Tracking Number........." value="{{ $track }}">
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-search"></i>
                         </button>

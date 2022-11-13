@@ -8,10 +8,7 @@
                 <span id="time" style=" position:absolute; margin-left:40%"></span>
             </div>
 
-            <a href="{{ route('employee.export') }}">
-                <button type="button" class="btn btn-secondary" style="margin-left: 90%;margin-top:-3%">Export
-                    Excel</button>
-            </a>
+
 
         </div>
     </div>
@@ -19,12 +16,17 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                
+
                 <div class="card-body">
                     <a href="{{ route('employeebranch.create') }}">
                         <button type="button" class="btn btn-primary waves-effect waves-light"
-                            style="margin-left: 88%;margin-top:-1%">Create New Employee</button></a>
+                            style="margin-left: 88%;margin-top:-4%">Create New Employee</button></a>
+                    <a href="{{ route('employee.export') }}">
+                        <button type="button" class="btn btn-success" style="margin-left: 93%;margin-top:-1%">Export
+                            Excel</button>
+                    </a>
                     <h1 class="card-title">List Employee in Branch</h1>
+
                     {{-- <form action="{{ route('searchEmployee') }}" method="POST">
                         @csrf
                         <div class="form-outline">
@@ -36,7 +38,7 @@
                         </div>
 
                     </form> --}}
-                   
+
                     @if ($message = Session::get('success'))
                         <div class="alert bg-light text-dark">
                             <p>{{ $message }}</p>
@@ -45,8 +47,10 @@
 
                     <table id="myTable" class="table table-bordered dt-responsive nowrap "
                         style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
+
                         <thead>
-                            <tr >
+
+                            <tr>
                                 <th class="text-center">Full Name</th>
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Position</th>

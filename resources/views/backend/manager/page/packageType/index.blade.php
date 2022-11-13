@@ -32,8 +32,9 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <table id="selection-datatable" class="table dt-responsive nowrap w-100 ">
-                        <thead class="table-light">
+                    <table id="myTable" class="table table-bordered dt-responsive nowrap"
+                    style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
+                        <thead >
                             <tr>
                                 <th>No</th>
                                 <th>Package Type</th>
@@ -79,5 +80,5 @@
         </div><!-- end col-->
 
     </div>
-    
+
 @endsection

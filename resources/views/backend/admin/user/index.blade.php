@@ -16,7 +16,7 @@
                                     <button type="button" class="btn btn-primary btn-sm-rounded waves-effect waves-light">
                                         Add New User</button>
                                 </a>
-                                
+
                             </div>
                         </div>
                         @if ($message = Session::get('success'))
@@ -24,7 +24,8 @@
                                 <p>{{ $message }}</p>
                             </div>
                         @endif
-                        <table id="myTable" class="table dt-responsive nowrap w-100 ">
+                        <table id="myTable" class="table table-bordered dt-responsive nowrap"
+                        style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
                             <thead class="table-light">
                                 <tr>
                                     {{-- <th>Id</th> --}}

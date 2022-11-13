@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Locale;
 
 class LocationController extends Controller
 {
@@ -15,7 +16,7 @@ class LocationController extends Controller
     {
 
         $locations = Location::latest()->paginate(5);
-     
+
         return view('backend.admin.locations.index', compact('locations'));
     }
 
@@ -25,8 +26,8 @@ class LocationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    { 
-       
+    {
+
         return view('backend.admin.locations.index');
     }
 
@@ -44,7 +45,7 @@ class LocationController extends Controller
         ]);
 
         Location::create($request->all());
-        
+
         return redirect()->route('location.index')
             ->with('message', 'Location created successfully.');
     }
@@ -68,7 +69,9 @@ class LocationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $locations = Location::find($id);
+
+         return view('backend.admin.locations.edit', compact('locations'));
     }
 
     /**
@@ -78,9 +81,27 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Location $location)
+    public function update(Request $request,Location $locations,$id)
     {
 
+        // $request->validate([
+        //     'province' => 'required',
+        //     'address' => 'required',
+        // ]);
+
+        // $locations->update($request->all());
+        $locations = Location::find($id);
+        if(isset($request->province)){
+            $locations->province = $request->province;
+         }
+         if(isset($request->address)){
+            $locations->address = $request->address;
+         }
+
+         $locations->save();
+
+         return redirect()->route('location.index')
+         ->with('message', 'Location updated successfully');
     }
 
     /**

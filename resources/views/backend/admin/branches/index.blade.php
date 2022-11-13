@@ -2,8 +2,14 @@
 
 @section('content')
     <div class="row justify-content-center ">
-        <div class="col-10 mt-4">
 
+        <div class="col-10 mt-4">
+            <div class="float-end" style="margin-top:-3%">
+                <a href="{{ route('branch.create') }}">
+                    <button type="button" class="btn btn-primary btn-sm-rounded waves-effect waves-light">
+                        Add New Branch</button>
+                </a>
+            </div>
             <div class="card">
 
                 <div class="card-body">
@@ -11,9 +17,10 @@
                     <div class="page-title-box d-flex align-items-center justify-content-between">
                         <h3 class="mb-0">Manage Branch</h3>
                         <div class="float-end">
-                            <a href="{{ route('branch.create') }}">
-                                <button type="button" class="btn btn-primary btn-sm-rounded waves-effect waves-light">
-                                    Add New Branch</button>
+
+                            <a href="{{ route('branch.export') }}">
+                                <button type="button" class="btn btn-success" style="margin-top:-1%">Export
+                                    Excel</button>
                             </a>
                         </div>
                     </div>
@@ -22,8 +29,10 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <table id="myTable" class="table dt-responsive nowrap w-100 ">
+                    <table id="myTable" class="table table-bordered dt-responsive nowrap"
+                        style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
                         <thead class="table-light">
+
                             <tr>
                                 <th>Branch No.</th>
                                 <th>Branch Name</th>
@@ -73,7 +82,7 @@
                                     <td>
                                         <form action="{{ route('branch.destroy', $branch->id) }}" method="POST">
                                             <a class="btn btn-info btn-sm-rounded btn-sm waves-effect waves-light"
-                                            href="{{ route('branch.show', $branch->id) }}">Show</a>
+                                                href="{{ route('branch.show', $branch->id) }}">Show</a>
 
                                             <a class="btn btn-warning btn-sm-rounded btn-sm waves-effect waves-light"
                                                 href="{{ route('branch.edit', $branch->id) }}">Edit</a>

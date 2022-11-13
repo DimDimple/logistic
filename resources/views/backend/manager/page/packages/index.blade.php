@@ -9,10 +9,6 @@
                 <i class='bx bx-calendar-week' style="margin-right:10%"></i>
                 <span id="time" style="position:absolute; margin-left:89%"></span>
             </div>
-            <a href="{{ route('package.export') }}">
-                <button type="button" class="btn btn-secondary" style="margin-left: 90%;margin-top:-3%">Export
-                    Excel</button>
-            </a>
 
         </div>
     </div>
@@ -28,7 +24,7 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    @if ($sendmessage !="")
+                    @if ($sendmessage != '')
                         <div class="alert bg-light text-dark" style="height:45px">
                             <p>{{ $sendmessage }}</p>
                         </div>
@@ -64,6 +60,7 @@
                                             </button></a>
 
                                     </div>
+
                                     @if ($ends != '' && $starts != '')
                                         <div class="row mb-3" style="margin-left:25px">
                                             <label class="form-label" for="form7Example1">Status</label>
@@ -87,9 +84,12 @@
 
                                         </div>
                                     @endif
+
+
                                 </div>
 
                             </div>
+
 
                         </div>
                     </form>
@@ -97,7 +97,13 @@
 
                     <table id="myTable" class="table table-bordered dt-responsive nowrap"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
+
                         <thead>
+                            <a href="{{ route('package.export') }}">
+                                <button type="button" class="btn btn-success"
+                                    style="margin-left: 93%;margin-top:-2%">Export
+                                    Excel</button>
+                            </a>
                             <tr>
                                 <th class="text-center">Date</th>
                                 <th class="text-center">Tracking No</th>
@@ -123,18 +129,22 @@
                                         <td>{{ $package->receiver_phone }}</td>
                                         <td>
                                             @if ($package->departure_id == $branch_id)
-                                            <button type="button" style="background-color: white; border-radius: 15px; border: 1px solid green; color: green">{{ $package->branch_departure->b_name }}</button>
+                                                <button type="button"
+                                                    style="background-color: white; border-radius: 15px; border: 1px solid green; color: green">{{ $package->branch_departure->b_name }}</button>
                                             @else
-                                            <button type="button" style="background-color: white; border-radius: 15px; border: 1px solid purple; color: purple">{{ $package->branch_departure->b_name }}</button>
+                                                <button type="button"
+                                                    style="background-color: white; border-radius: 15px; border: 1px solid purple; color: purple">{{ $package->branch_departure->b_name }}</button>
                                             @endif
                                         </td>
                                         <td>
                                             @if ($package->destination_id == $branch_id)
-                                            <button type="button" style="background-color: white; border-radius: 15px; border: 1px solid green; color: green">{{ $package->branch_destination->b_name }}</button>
+                                                <button type="button"
+                                                    style="background-color: white; border-radius: 15px; border: 1px solid green; color: green">{{ $package->branch_destination->b_name }}</button>
                                             @else
-                                            <button type="button" style="background-color: white; border-radius: 15px; border: 1px solid purple; color: purple">{{ $package->branch_destination->b_name }}</button>
+                                                <button type="button"
+                                                    style="background-color: white; border-radius: 15px; border: 1px solid purple; color: purple">{{ $package->branch_destination->b_name }}</button>
                                             @endif
-                                            </td>
+                                        </td>
                                         <td>{{ $package->weight }} kg</td>
                                         <td>{{ $package->delivery_charge }} $</td>
                                         <td>{{ $package->status }}</td>

@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use File;
 
 class BranchController extends Controller
 {
@@ -48,7 +50,7 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         //admin create manager
         $type = 2;
 
@@ -180,6 +182,47 @@ class BranchController extends Controller
         // dd( $branch);
         return redirect()->route('branch.index')
             ->with('message', 'Branch updated successfully');
+    }
+
+    public function excel()
+    {
+        // dd($branch_id);
+
+        if(File::exists(public_path('report/BranchReport-.xlsx'))){
+            File::delete(public_path('report/BranchReport-.xlsx'));
+        }
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'id');
+        $sheet->setCellValue('B1', 'b_name');
+        $sheet->setCellValue('C1', 'user_id');
+        $sheet->setCellValue('D1', 'location_id');
+        $sheet->setCellValue('E1', 'status');
+
+
+
+        $branches= Branch::get();
+        // dd($employees);
+        $rows = 2;
+
+        foreach ($branches as $branch) {
+
+            $sheet->setCellValue('A' . $rows, $branch['id']);
+            $sheet->setCellValue('B' . $rows, $branch['b_name']);
+            $sheet->setCellValue('C' . $rows, $branch['user_id']);
+            $sheet->setCellValue('D' . $rows, $branch['location_id']);
+            $sheet->setCellValue('E' . $rows, $branch['status']);
+
+            $rows++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('report/BranchReport-.xlsx');
+
+        return redirect()->route('branch.index')
+            ->with('message', 'Excel exported successfully.');
     }
 
     /**

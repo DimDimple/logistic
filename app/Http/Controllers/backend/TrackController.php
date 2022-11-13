@@ -25,6 +25,12 @@ class TrackController extends Controller
 
 
         $track="";
+        $track="";
+        if($trackNumber != "" ){
+            foreach($trackNumber as $tracks){
+                $track = $tracks->reference_number;
+            }
+        }
         //check condition true or false
         //$trackNumber->isEmpty() is a function check array that have data or not
         //isset($request->reference_number) check if user input reference number or not
@@ -34,7 +40,7 @@ class TrackController extends Controller
             $not_exist = 1;//true
         }
 
-        return view('backend.manager.page.track.index', compact('trackNumber','not_exist'))
+        return view('backend.manager.page.track.index', compact('trackNumber','not_exist','track'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

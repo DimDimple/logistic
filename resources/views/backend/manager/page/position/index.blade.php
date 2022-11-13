@@ -30,8 +30,9 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <table id="selection-datatable" class="table dt-responsive nowrap w-100 ">
-                        <thead class="table-light">
+                    <table id="myTable" class="table table-bordered dt-responsive nowrap"
+                    style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
+                        <thead >
                             <tr>
                                 <th>No</th>
                                 <th>Position</th>
@@ -52,8 +53,8 @@
                                     <td>{{ $type->updated_at->toDateString() }}</td>
                                     <td>
                                         <form action="{{ route('position.destroy', $type->id) }}" method="POST">
-                                        
-                                            <a 
+
+                                            <a
                                                 href="{{ route('position.edit',$type->id ) }}" data-toggle="tooltip" title='Edit'><i class='bx bx-edit' style='color:#0f07e6;font-size:20px'  ></i></a>
                                             @csrf
                                             @method('DELETE')

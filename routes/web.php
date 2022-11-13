@@ -150,9 +150,11 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::post('/editprofilea', [ProfileAController::class, 'upload'])->name('uploadProfileA.upload');
 
 
+    Route::get('/admin/branch/export/excel', [BranchController::class, 'excel'])->name('branch.export');
+
     Route::get('/admin/user/resetpassword/{id}',[UserController::class,'resetPassword'])->name('user.resetPassword');
     Route::put('/admin/user/setpassword/{id}',[UserController::class,'setPassword'])->name('user.setPassword');
-    
+
     Route::resource('/new/admin', AdminController::class);
     Route::resource('/admin/user', UserController::class);
 

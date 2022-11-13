@@ -393,15 +393,17 @@ class PackageController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
 
         // $sheet->setCellValue('A1', 'reference_number');
-        $sheet->setCellValue('A1', 'id');
+        $sheet->setCellValue('A1', 'reference_number');
         $sheet->setCellValue('B1', 'sender_phone');
         $sheet->setCellValue('C1', 'receiver_phone');
         $sheet->setCellValue('D1', 'departure');
         $sheet->setCellValue('E1', 'destination');
+        $sheet->setCellValue('F1', 'sender_email');
+        $sheet->setCellValue('G1', 'receiver_email');
         // $sheet->setCellValue('F1', 'status');
-        $sheet->setCellValue('F1', 'pay_status');
-        $sheet->setCellValue('G1', 'total_fee');
-        $sheet->setCellValue('H1', 'total_items');
+        $sheet->setCellValue('H1', 'weight');
+        $sheet->setCellValue('I1', 'delivery_charge');
+        $sheet->setCellValue('J1', 'pay_status');
 
         $packages = Package::where('departure_id','=',$branch_id)->orWhere('destination_id','=',$branch_id)->get();
         $rows = 2;
@@ -416,15 +418,18 @@ class PackageController extends Controller
             $destination = Branch::where('id', '=', $destination_id)->first();
 
             // $sheet->setCellValue('A' . $rows, $package['reference_number']);
-            $sheet->setCellValue('A' . $rows, $package['id']);
+            $sheet->setCellValue('A' . $rows, $package['reference_number']);
             $sheet->setCellValue('B' . $rows, $package['sender_phone']);
             $sheet->setCellValue('C' . $rows, $package['receiver_phone']);
             $sheet->setCellValue('D' . $rows, $branch->b_name);
             $sheet->setCellValue('E' . $rows, $destination->b_name);
+
             // $sheet->setCellValue('F' . $rows, $package['status']);
-            $sheet->setCellValue('F' . $rows, $package['pay_status']);
-            $sheet->setCellValue('G' . $rows, $package['total_fee']);
-            $sheet->setCellValue('H' . $rows, $package['total_item']);
+            $sheet->setCellValue('F' . $rows, $package['sender_email']);
+            $sheet->setCellValue('G' . $rows, $package['receiver_email']);
+            $sheet->setCellValue('H' . $rows, $package['weight']);
+            $sheet->setCellValue('I' . $rows, $package['delivery_charge']);
+            $sheet->setCellValue('J' . $rows, $package['pay_status']);
 
             $rows++;
         }
