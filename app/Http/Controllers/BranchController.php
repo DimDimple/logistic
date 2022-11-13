@@ -24,11 +24,6 @@ class BranchController extends Controller
     {
 
         $branches = Branch::get();
-        // $id = Auth::user()->id;
-        // $password = Hash::make('password');
-        // $branches = Branch::paginate(5);
-        // $branch = Branch::find(3);
-        // dd($branches->user);
         return view('backend.admin.branches.index', compact('branches'));
     }
 
@@ -53,9 +48,7 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-        //user
-
-        //$userType = Auth::user()->type;
+        
         //admin create manager
         $type = 2;
 
@@ -92,7 +85,8 @@ class BranchController extends Controller
             abort(503);
         }
 
-
+        return redirect()->route('branch.index')
+        ->with('message', 'Branch created successfully.');
 
         // $savedBranch = Branch::create([
         //     'b_name' => $request->b_name,
@@ -118,8 +112,7 @@ class BranchController extends Controller
         //     abort(503);
         // }
 
-        return redirect()->route('branch.index')
-            ->with('message', 'Branch created successfully.');
+
     }
 
     /**
@@ -174,22 +167,7 @@ class BranchController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
         ]);
-        // $branch->update($user);
-        // } else {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required',
-        //     'password' => 'required|min:8|confirmed',
-        //     'phone' => 'required|min:7|',
-        // ]);
-        //     $user->update([
-        //         'name' => $request->name,
-        //         'email' => $request->email,
-        //         'phone' => $request->phone,
-        //         'password' => Hash::make($request->password),
-        //     ]);
-        // }
-        //dd((int)$request->location_id);
+
         $branch->update(
             [
                 'b_name' => $request->b_name,
@@ -199,8 +177,6 @@ class BranchController extends Controller
             ]
         );
 
-
-        // $branch->update($request->all());
         // dd( $branch);
         return redirect()->route('branch.index')
             ->with('message', 'Branch updated successfully');

@@ -19,21 +19,9 @@ class ListController extends Controller
      */
     public function index()
     {
-
+        $btnClicked = "all";
         $id = Auth::user()->id;
         $user_phone = Auth::user()->phone;
-        // $lists = Package::get();
-
-        // $lists = DB::table('packages')->join('p_types', 'packages.ptype_id', '=', 'p_types.id')
-        //                         // ->join('packages', 'goods.package_id', '=', 'packages.id')
-        //                         ->where('packages.sender_phone', '=', $user_phone)
-        //                         ->get();
-
-        // $branches = DB::table('branches')->join('locations', 'branches.location_id', '=', 'locations.id')
-        //                                 ->get();
-
-        // $lists = Goods::with(['package', 'ptype', 'package.branch_departure', 'package.branch_destination', 'package.branch_departure.location', 'package.branch_destination.location'])->get()->toArray();
-
 
         $lists = Package::with([
             'ptype', 'branch_departure',
@@ -44,16 +32,13 @@ class ListController extends Controller
             ->get()->toArray();
         // dd($lists);
 
-        $btnClicked = "all";
         // $collection = collection($lists)->join()
-
-
         if (count($lists) == 0) {
 
             return view('frontend.profile.emptylist');
         }
         return view('frontend.profile.orderlist', compact('lists', 'btnClicked'));
-        // return view('frontend.profile.orderlist');
+
     }
 
     public function orderProcess()
