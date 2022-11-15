@@ -14,7 +14,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    
+
 
     <style>
         .text-sm {
@@ -39,7 +39,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a href="/"><img src="{{ asset('assets/images/logoDMgo.png') }}" alt=""
+                <a href="/home"><img src="{{ asset('assets/images/logoDMgo.png') }}" alt=""
                         style="width: 150px; height: 100px">
                 </a>
 

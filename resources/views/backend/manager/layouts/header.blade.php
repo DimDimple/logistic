@@ -27,12 +27,12 @@
             </button>
 
             <!-- App Search-->
-            <form class="app-search d-none d-lg-block">
+            {{-- <form class="app-search d-none d-lg-block">
                 <div class="position-relative">
                     <input type="text" class="form-control" placeholder="Search...">
                     <span class="ri-search-line"></span>
                 </div>
-            </form>
+            </form> --}}
 
         </div>
 
@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-         
+
 
             <div class="dropdown d-none d-lg-inline-block ms-1">
                 <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
@@ -197,7 +197,7 @@
                                 <h5 class="name">
                                     <a href="#">{{ Auth::user()->name }}</a>
                                 </h5>
-                               
+
                             </div>
                             <div class="col-auto">
                                  <span class="email">{{ Auth::user()->email }}</span>
@@ -233,8 +233,8 @@
                                 </div>
                             </div>
                         </a> --}}
-                        
-                       
+
+
                     </div>
                     <!-- item-->
                     <div class="account-dropdown__footer">

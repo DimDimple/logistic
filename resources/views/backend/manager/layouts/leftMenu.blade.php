@@ -6,7 +6,7 @@
 
     <!-- LOGO -->
     <div class="navbar-brand-box">
-        <a href="/home" class="logo logo-dark">
+        <a href="/manager/dashboard" class="logo logo-dark">
             <span class="logo-sm" style="">
                 <img src="{{ asset('images/preview.png') }}" alt="" height="40">
             </span>

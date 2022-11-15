@@ -258,6 +258,7 @@ class PackageController extends Controller
         $user_id = Auth::user()->id;
         $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
         $branch = Branch::where('user_id', '=', $user_id)->first();
+        $currentBranch = $branch->b_name;
         $departure_id = $branch->id;
         $branch_id = $departure_id;
         $packages = Package::whereDate('created_at', '>=', $starts)
@@ -281,7 +282,7 @@ class PackageController extends Controller
             }
         }
 
-        return view('backend.manager.page.packages.index', compact('packages', 'branch_id', 'departure_id', 'branch', 'starts', 'ends', 'sendmessage'));
+        return view('backend.manager.page.packages.index', compact('packages', 'branch_id', 'departure_id', 'branch', 'starts', 'ends', 'sendmessage', 'currentBranch'));
     }
     /**
      * Show the form for editing the specified resource.

@@ -18,12 +18,12 @@
             <div class="card">
 
                 <div class="card-body">
-                    <a href="{{ route('employeebranch.create') }}">
-                        <button type="button" class="btn btn-primary waves-effect waves-light"
-                            style="margin-left: 88%;margin-top:-4%">Create New Employee</button></a>
                     <a href="{{ route('employee.export') }}">
-                        <button type="button" class="btn btn-success" style="margin-left: 93%;margin-top:-1%">Export
-                            Excel</button>
+                        <button type="button" class="btn btn-dark"
+                            style="margin-left: 93%;margin-top:-4%">Export Excel</button></a>
+                    <a href="{{ route('employeebranch.create') }}">
+                        <button type="button" class="btn btn-primary" style="margin-left: 89%;margin-top:-1%">
+                            Create New Employee</button>
                     </a>
                     <h1 class="card-title">List Employee in Branch</h1>
 

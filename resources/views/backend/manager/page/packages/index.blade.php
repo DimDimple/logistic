@@ -54,12 +54,12 @@
                                                 name="ends_date" />
                                         </div>
                                     </div>
-                                    <div class="row mb-3" style="margin-top:29px">
+                                    <div class="row mb-3" style="margin-top:29px; display: flex; flex-direction: column">
                                         <a><button type="submit" class="btn btn-primary">
                                                 Submit
                                             </button></a>
-
                                     </div>
+
 
                                     @if ($ends != '' && $starts != '')
                                         <div class="row mb-3" style="margin-left:25px">
@@ -83,7 +83,26 @@
                                                 </button></a>
 
                                         </div>
+                                        <div class="row mb-3"
+                                            style="margin-top:29px; margin-left: 34vw; display: flex; flex-direction: column">
+                                            <a href="{{ route('package.export') }}">
+                                                <button type="button" class="btn btn-dark"
+                                                   >Export
+                                                    Excel</button>
+                                            </a>
+                                        </div>
+                                    @else
+                                        <div class="row mb-3"
+                                            style="margin-top:29px; margin-left: 51.5vw; display: flex; flex-direction: column">
+                                            <a href="{{ route('package.export') }}">
+                                                <button type="button" class="btn btn-dark"
+                                                    >Export
+                                                    Excel</button>
+                                            </a>
+                                        </div>
                                     @endif
+
+
 
 
                                 </div>
@@ -99,11 +118,7 @@
                         style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
 
                         <thead>
-                            <a href="{{ route('package.export') }}">
-                                <button type="button" class="btn btn-success"
-                                    style="margin-left: 93%;margin-top:-2%">Export
-                                    Excel</button>
-                            </a>
+
                             <tr>
                                 <th class="text-center">Date</th>
                                 <th class="text-center">Tracking No</th>

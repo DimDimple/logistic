@@ -1,14 +1,14 @@
 <nav>
     <div class="logo">
-        <a><img src={{ asset('assets/images/logoDMgo.png') }} alt="">
+        <a href="/home"><img src={{ asset('assets/images/logoDMgo.png') }} alt="">
         </a>
 
         @if (Route::has('login'))
 
             <div class="user">
                 @if (Auth::user() ? Auth::user()->image : '')
-                    <img class="image rounded-circle" src="{{ asset('/storage/images/' . Auth::user()->image) }}"
-                        alt="profile_image" style="width: 50px;height: 50px; border: 3px solid #eee"
+                    <img class="image" src="{{ asset('/storage/images/' . Auth::user()->image) }}"
+                        alt="profile_image" style="width: 50px;height: 50px; border: 3px solid #eee; border-radius: 50% !important;"
                         onclick="menuToggle()">
                 @endif
                 @auth
