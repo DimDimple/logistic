@@ -46,7 +46,11 @@ class PackageController extends Controller
         // $branch = Branch::where("")->branch;
         // @dd($branch);
         // @dd($branch_id);
-        $packages = Package::latest()->paginate(5);
+        $packages = Package::where('departure_id', '=', $branch_id)->orWhere('destination_id', '=', $branch_id)->get();
+
+        // dd($packages);
+
+        // $packages = array_reverse($packages);
         //    @dd($packages);
         // if employee->branch_id==branch_id
 
@@ -179,7 +183,8 @@ class PackageController extends Controller
         // $branch = Branch::where("")->branch;
         // @dd($branch);
         // @dd($branch_id);
-        $packages = Package::latest()->paginate(5);
+        $packages = Package::latest()->paginate(100);
+        // Package::create($request->all());
         $ends = "";
         $starts = "";
         $sendmessage = "";
@@ -247,13 +252,9 @@ class PackageController extends Controller
     {
         // dd($request);
         $sendmessage = "";
-        if ($request->ends == "" && $request->starts == "") {
-            $starts = $request->starts_date;
-            $ends = $request->ends_date;
-        } else {
-            $starts = $request->starts;
-            $ends = $request->ends;
-        }
+        $starts = $request->starts_date;
+        $ends = $request->ends_date;
+
         $branches = Branch::get();
         $user_id = Auth::user()->id;
         $branch_id = Branch::where('user_id', '=', $user_id)->first()->id;
@@ -282,6 +283,8 @@ class PackageController extends Controller
             }
         }
 
+        // dd($starts);
+
         return view('backend.manager.page.packages.index', compact('packages', 'branch_id', 'departure_id', 'branch', 'starts', 'ends', 'sendmessage', 'currentBranch'));
     }
     /**
@@ -292,7 +295,7 @@ class PackageController extends Controller
      */
     public function edit(Package $package)
     {
-        // dd($package->ptype->package_type);
+        // dd($package);
         $branches = Branch::get();
         // if(Auth::users() == )
         // @dd(Auth::user());
@@ -303,6 +306,16 @@ class PackageController extends Controller
 
         $destination = Branch::where('id', '=', $destination_id)->first();
         $package_type = PType::get()->first();
+
+        $send = Branch::where('id', '=', $package->departure_id)->first();
+        $receive = Branch::where('id', '=', $package->destination_id)->first();
+
+        // dd($receive);
+
+        $sender = 0;
+        if($send->id == $departure_id) {
+           $sender = 1;
+        }
 
         //select option get data connect to view
         //
@@ -323,7 +336,7 @@ class PackageController extends Controller
 
         // $package_types = $package->package_type;
 
-        return view('backend.manager.page.packages.edit', compact('package', 'branches', 'branch', 'departure_id', 'destination_id', 'destination', 'package_types', 'status'));
+        return view('backend.manager.page.packages.edit', compact('package', 'branches', 'branch', 'departure_id', 'destination_id', 'destination', 'package_types', 'status', 'sender', 'send', 'receive'));
     }
 
     /**

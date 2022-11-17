@@ -43,15 +43,25 @@
                                     <div class=" row mb-3">
                                         <label class="form-label" for="form7Example1">From</label>
                                         <div class="col-sm-10">
-                                            <input data-parsley-type="date" type="date" class="form-control"
-                                                name="starts_date" />
+                                            @if ($starts != '')
+                                                <input data-parsley-type="date" type="date" class="form-control"
+                                                    name="starts_date" required value={{ $starts }} />
+                                            @else
+                                                <input data-parsley-type="date" type="date" class="form-control"
+                                                    name="starts_date" required />
+                                            @endif
                                         </div>
                                     </div>
                                     <div class=" row mb-3">
                                         <label class="form-label" for="form7Example1">To</label>
                                         <div class="col-sm-10">
-                                            <input data-parsley-type="date" type="date" class="form-control"
-                                                name="ends_date" />
+                                            @if ($ends != '')
+                                                <input data-parsley-type="date" type="date" class="form-control"
+                                                    name="ends_date" required value={{ $ends }} />
+                                            @else
+                                                <input data-parsley-type="date" type="date" class="form-control"
+                                                    name="ends_date" required />
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="row mb-3" style="margin-top:29px; display: flex; flex-direction: column">
@@ -66,7 +76,7 @@
                                             <label class="form-label" for="form7Example1">Status</label>
                                             <div class="col">
                                                 <select class="form-select" aria-label="Disabled select example"
-                                                    name="status">
+                                                    name="status" >
                                                     <option selected>Select Status</option>
                                                     <option value="Pending">Pending</option>
                                                     <option value="Shipped">Shipped</option>
@@ -84,19 +94,17 @@
 
                                         </div>
                                         <div class="row mb-3"
-                                            style="margin-top:29px; margin-left: 34vw; display: flex; flex-direction: column">
+                                            style="margin-top:29px; margin-left: 32.5vw; display: flex; flex-direction: column">
                                             <a href="{{ route('package.export') }}">
-                                                <button type="button" class="btn btn-dark"
-                                                   >Export
+                                                <button type="button" class="btn btn-dark">Export
                                                     Excel</button>
                                             </a>
                                         </div>
                                     @else
                                         <div class="row mb-3"
-                                            style="margin-top:29px; margin-left: 51.5vw; display: flex; flex-direction: column">
+                                            style="margin-top:29px; margin-left: 50vw; display: flex; flex-direction: column">
                                             <a href="{{ route('package.export') }}">
-                                                <button type="button" class="btn btn-dark"
-                                                    >Export
+                                                <button type="button" class="btn btn-dark">Export
                                                     Excel</button>
                                             </a>
                                         </div>
@@ -135,67 +143,65 @@
                         </thead>
                         <tbody>
                             @csrf
-                            @foreach ($packages as $key => $package)
-                                @if ($package->departure_id == $branch_id || $package->destination_id == $branch_id)
-                                    <tr class="text-center">
-                                        <td>{{ $package->created_at->toDateString() }}</td>
-                                        <td>{{ $package->reference_number }}</td>
-                                        <td>{{ $package->sender_phone }}</td>
-                                        <td>{{ $package->receiver_phone }}</td>
-                                        <td>
-                                            @if ($package->departure_id == $branch_id)
-                                                <button type="button"
-                                                    style="background-color: white; border-radius: 15px; border: 1px solid green; color: green">{{ $package->branch_departure->b_name }}</button>
-                                            @else
-                                                <button type="button"
-                                                    style="background-color: white; border-radius: 15px; border: 1px solid purple; color: purple">{{ $package->branch_departure->b_name }}</button>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($package->destination_id == $branch_id)
-                                                <button type="button"
-                                                    style="background-color: white; border-radius: 15px; border: 1px solid green; color: green">{{ $package->branch_destination->b_name }}</button>
-                                            @else
-                                                <button type="button"
-                                                    style="background-color: white; border-radius: 15px; border: 1px solid purple; color: purple">{{ $package->branch_destination->b_name }}</button>
-                                            @endif
-                                        </td>
-                                        <td>{{ $package->weight }} kg</td>
-                                        <td>{{ $package->delivery_charge }} $</td>
-                                        <td>{{ $package->status }}</td>
-                                        @if ($package->pay_status == 'Paid')
-                                            <td>
-                                                <a href="{{ route('updatepaystatus', $package->id) }}"
-                                                    class="badge rounded-pill bg-success"
-                                                    style="font-size:1.1em">{{ $package->pay_status }}</a>
-                                            </td>
+                            @foreach ($packages as $package)
+                                <tr class="text-center">
+                                    <td>{{ $package->created_at->toDateString() }}</td>
+                                    <td>{{ $package->reference_number }}</td>
+                                    <td>{{ $package->sender_phone }}</td>
+                                    <td>{{ $package->receiver_phone }}</td>
+                                    <td>
+                                        @if ($package->departure_id == $branch_id)
+                                            <button type="button"
+                                                style="background-color: white; border-radius: 15px; border: 1px solid green; color: green">{{ $package->branch_departure->b_name }}</button>
                                         @else
-                                            <td>
-                                                <a href="{{ route('updatepaystatus', $package->id) }}"
-                                                    class="badge rounded-pill bg-danger"
-                                                    style="font-size:1.1em">{{ $package->pay_status }}</a>
-                                            </td>
+                                            <button type="button"
+                                                style="background-color: white; border-radius: 15px; border: 1px solid purple; color: purple">{{ $package->branch_departure->b_name }}</button>
                                         @endif
+                                    </td>
+                                    <td>
+                                        @if ($package->destination_id == $branch_id)
+                                            <button type="button"
+                                                style="background-color: white; border-radius: 15px; border: 1px solid green; color: green">{{ $package->branch_destination->b_name }}</button>
+                                        @else
+                                            <button type="button"
+                                                style="background-color: white; border-radius: 15px; border: 1px solid purple; color: purple">{{ $package->branch_destination->b_name }}</button>
+                                        @endif
+                                    </td>
+                                    <td>{{ $package->weight }} kg</td>
+                                    <td>{{ $package->delivery_charge }} $</td>
+                                    <td>{{ $package->status }}</td>
+                                    @if ($package->pay_status == 'Paid')
                                         <td>
-                                            <form action="{{ route('packages.destroy', $package->id) }}" method="POST">
-
-                                                <a class="btn btn-info btn-sm-rounded btn-sm waves-effect waves-light"
-                                                    href="{{ route('packages.show', $package->id) }}">Show</a>
-
-                                                <a class="btn btn-warning btn-sm-rounded btn-sm waves-effect waves-light"
-                                                    href="{{ route('packages.edit', $package->id) }}">Edit</a>
-
-                                                @csrf
-                                                @method('DELETE')
-                                                <input name="_method" type="hidden" value="DELETE">
-                                                <button type="submit"
-                                                    class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"
-                                                    data-toggle="tooltip" title='Delete'>Delete</button>
-
-                                            </form>
+                                            <a href="{{ route('updatepaystatus', $package->id) }}"
+                                                class="badge rounded-pill bg-success"
+                                                style="font-size:1.1em">{{ $package->pay_status }}</a>
                                         </td>
-                                    </tr>
-                                @endif
+                                    @else
+                                        <td>
+                                            <a href="{{ route('updatepaystatus', $package->id) }}"
+                                                class="badge rounded-pill bg-danger"
+                                                style="font-size:1.1em">{{ $package->pay_status }}</a>
+                                        </td>
+                                    @endif
+                                    <td>
+                                        <form action="{{ route('packages.destroy', $package->id) }}" method="POST">
+
+                                            <a class="btn btn-info btn-sm-rounded btn-sm waves-effect waves-light"
+                                                href="{{ route('packages.show', $package->id) }}">Show</a>
+
+                                            <a class="btn btn-warning btn-sm-rounded btn-sm waves-effect waves-light"
+                                                href="{{ route('packages.edit', $package->id) }}">Edit</a>
+
+                                            @csrf
+                                            @method('DELETE')
+                                            <input name="_method" type="hidden" value="DELETE">
+                                            <button type="submit"
+                                                class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"
+                                                data-toggle="tooltip" title='Delete'>Delete</button>
+
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

@@ -30,11 +30,11 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <table id="myTable" class="table table-bordered dt-responsive nowrap"
+                    <table id="Tables" class="table table-bordered dt-responsive nowrap"
                     style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top:2%">
                         <thead >
                             <tr>
-                                <th>No</th>
+                                <th>NO</th>
                                 <th>Position</th>
                                 <th>Created</th>
                                 <th>Updated</th>
@@ -46,7 +46,7 @@
                             @foreach ($types as $key => $type)
                                 <tr>
 
-                                    <th scope="row">{{ ++$key }}</th>
+                                    <th scope="row">{{ -(++$key - ($type->count())) + 1 }}</th>
                                     {{-- <td>{{ $location->id }}</td> --}}
                                     <td>{{ $type->type }}</td>
                                     <td>{{ $type->created_at->toDateString() }}</td>

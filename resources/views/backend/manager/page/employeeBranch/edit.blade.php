@@ -19,7 +19,7 @@
                     <form class="custom-validation" action="{{ route('employeebranch.update', $employee->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        
+
                         <div class=" row mb-3">
                             <label class="col-sm-2 col-form-label">Branch</label>
                             <div class="col">

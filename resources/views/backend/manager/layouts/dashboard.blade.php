@@ -231,8 +231,19 @@
 
     <script>
         $(document).ready(function() {
-            $('#myTable').DataTable();
-        });
+            $('#Tables').DataTable();
+        })
+    </script>
+    <script>
+
+
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                order: [
+                    [0, 'desc']
+                ],
+            });
+        });;
     </script>
 
     {{-- <script>

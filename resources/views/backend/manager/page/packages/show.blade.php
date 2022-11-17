@@ -27,13 +27,13 @@
                         <div class="mt-3">Sender Phone Number: {{ $package->sender_phone }}</div>
                         <div class="mt-3">Sender Email: {{ $package->sender_email }}</div>
                         <div class="mt-3">Current Branch: {{ $package->branch_departure->b_name }}</div>
-                     
+
                     </div>
                     <div class="col shadow-lg md-3">
                         <h6 class="text-dark bg-light text-uppercase p-3 text-center">Receiver Information</h6>
                         <div class="mt-3">Receiver Phone Number: {{ $package->receiver_phone }}</div>
                         <div class="mt-3">Receiver Email: {{ $package->receiver_email }}</div>
-                        <div class="mt-3">Destination Branch: {{ $package->branch_departure->b_name }}</div>
+                        <div class="mt-3">Destination Branch: {{ $package->branch_destination->b_name }}</div>
                     </div>
                 </div>
 
@@ -50,13 +50,13 @@
                                 <div class="mt-3">Weight: {{ $package->weight }} (kg)</div>
                                 <div class="mt-3">Delivery Charges: {{ $package->delivery_charge }} $</div>
                                 <div class="mt-3">Payment Status: {{ $package->pay_status }}</div>
-                             
+
                             </div>
                             <div class="col shadow-lg md-3">
                                 <h6 class="text-dark bg-light text-uppercase p-3 text-center">Message</h6>
                                 <div class="mt-3">Product Description: {{ $package->product_description }}</div>
                                 <div class="mt-3">Special Instruction: {{ $package->special_instruction }}</div>
-                               
+
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -64,22 +64,22 @@
                                 <h6 class="text-dark bg-light text-uppercase p-3 text-center">
                                     Date </h6>
                                 <div class="mt-3 text-center"> {{ $package->created_at->toDateString() }}</div>
-                               
-                             
+
+
                             </div>
                             <div class="col shadow-lg md-3">
                                 <h6 class="text-dark bg-light text-uppercase p-3 text-center">Status</h6>
                                 <div class="mt-3 text-center"> {{ $package->status }}</div>
-                                
-                               
+
+
                             </div>
                         </div>
 
             </div>
         </div>
-       
+
     </div>
-    
+
 
     {{-- <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
         crossorigin="anonymous"></script>

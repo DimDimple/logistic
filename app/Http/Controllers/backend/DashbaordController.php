@@ -55,7 +55,7 @@ class DashbaordController extends Controller
         $packageNumber =  $countDeparture + $countDestination;
 
 
-        $packages = Package::latest()->paginate(5);
+        $packages = Package::latest()->paginate(100);
         //    @dd($packages);
         // if employee->branch_id==branch_id
 
